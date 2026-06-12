@@ -1,0 +1,171 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+provider: Particle
+providerId: particle
+created: '2026-06-12'
+modified: '2026-06-12'
+reconciled: true
+url: https://www.particle.io/pricing/
+plans:
+  - name: Free
+    description: >-
+      Prototyping and personal projects tier. No credit card required.
+      Includes up to 100 devices and 100,000 Data Operations per month.
+    type: free
+    quotas:
+      - name: Devices
+        metric: device_count
+        limit: 100
+        timeFrame: lifetime
+        type: quota
+      - name: Data Operations
+        metric: data_operations
+        limit: 100000
+        timeFrame: monthly
+        type: quota
+    boolean:
+      - name: Wi-Fi and Ethernet connectivity
+        enabled: true
+      - name: Cellular connectivity
+        enabled: true
+      - name: OTA firmware updates
+        enabled: true
+      - name: Edge computing
+        enabled: true
+      - name: Device Console
+        enabled: true
+      - name: Community support
+        enabled: true
+      - name: Premium support
+        enabled: false
+    price:
+      amount: 0
+      currency: USD
+      period: monthly
+
+  - name: Basic
+    description: >-
+      Simple IoT products with limited data automation. Sold in blocks of 100
+      devices / 720,000 Data Operations per month at $299/block/month.
+    type: paid
+    quotas:
+      - name: Devices per block
+        metric: device_count
+        limit: 100
+        timeFrame: per_block
+        type: quota
+      - name: Data Operations per block
+        metric: data_operations
+        limit: 720000
+        timeFrame: monthly_per_block
+        type: quota
+    metered:
+      - name: Blocks
+        metric: blocks
+        unitPrice: 299
+        currency: USD
+        period: monthly
+    boolean:
+      - name: Wi-Fi and Ethernet connectivity
+        enabled: true
+      - name: Cellular connectivity
+        enabled: true
+      - name: OTA firmware updates
+        enabled: true
+      - name: Edge computing
+        enabled: true
+      - name: Device Console
+        enabled: true
+      - name: Data automation
+        enabled: true
+      - name: Premium support
+        enabled: false
+    price:
+      amount: 299
+      currency: USD
+      period: monthly
+      note: per block (100 devices)
+
+  - name: Plus
+    description: >-
+      IoT products with powerful data automation. Sold in blocks of 100 devices
+      / 5,000,000 Data Operations per month at $599/block/month.
+    type: paid
+    quotas:
+      - name: Devices per block
+        metric: device_count
+        limit: 100
+        timeFrame: per_block
+        type: quota
+      - name: Data Operations per block
+        metric: data_operations
+        limit: 5000000
+        timeFrame: monthly_per_block
+        type: quota
+    metered:
+      - name: Blocks
+        metric: blocks
+        unitPrice: 599
+        currency: USD
+        period: monthly
+    boolean:
+      - name: Wi-Fi and Ethernet connectivity
+        enabled: true
+      - name: Cellular connectivity
+        enabled: true
+      - name: OTA firmware updates
+        enabled: true
+      - name: Edge computing
+        enabled: true
+      - name: Device Console
+        enabled: true
+      - name: Advanced data automation
+        enabled: true
+      - name: Premium support
+        enabled: false
+    price:
+      amount: 599
+      currency: USD
+      period: monthly
+      note: per block (100 devices)
+
+  - name: Professional
+    description: >-
+      Custom pricing for large-scale deployments. Includes Basic or Plus
+      packages at reduced block rates plus premium support and connectivity
+      options.
+    type: enterprise
+    boolean:
+      - name: Reduced block rates
+        enabled: true
+      - name: Premium support
+        enabled: true
+      - name: Advanced connectivity options
+        enabled: true
+      - name: Dedicated account management
+        enabled: true
+    price:
+      amount: 0
+      currency: USD
+      period: monthly
+      note: Custom pricing — contact sales
+
+  - name: Enterprise
+    description: >-
+      Fully customized Data Operations packages for large enterprises with
+      dedicated support, certification services, and advanced security features.
+    type: enterprise
+    boolean:
+      - name: Customized Data Operations
+        enabled: true
+      - name: Dedicated support team
+        enabled: true
+      - name: Certification services
+        enabled: true
+      - name: Advanced security features
+        enabled: true
+    price:
+      amount: 0
+      currency: USD
+      period: monthly
+      note: Custom pricing — contact sales

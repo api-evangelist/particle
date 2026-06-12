@@ -1,0 +1,100 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+provider: Particle
+providerId: particle
+created: '2026-06-12'
+modified: '2026-06-12'
+reconciled: true
+url: https://www.particle.io/pricing/
+billingModel: block_subscription_plus_metered
+description: >-
+  Particle billing is structured around two dimensions: a block-based
+  subscription (each block covers 100 devices and a monthly Data Operations
+  allotment) and cellular data consumption for EtherSIM-equipped devices.
+  The Free tier provides 100 devices and 100K Data Operations at no cost.
+  Paid tiers (Basic at $299/block, Plus at $599/block) scale by adding blocks.
+  Cellular data is bundled within the EtherSIM allotment; Wi-Fi and Ethernet
+  connectivity carry no additional network charge from Particle.
+focusColumns:
+  - ChargeCategory
+  - ChargeType
+  - ServiceName
+  - ResourceType
+  - UsageQuantity
+  - UsageUnit
+  - BilledCost
+  - EffectiveCost
+  - BillingPeriodStart
+  - BillingPeriodEnd
+meters:
+  - name: Data Operations
+    description: >-
+      A Data Operation is consumed each time a message is sent to or from a
+      device and when that data is processed within the Particle cloud. This
+      is the primary consumption unit driving Particle costs.
+    unit: data_operations
+    granularity: monthly
+    includedPerBlock:
+      free: 100000
+      basic: 720000
+      plus: 5000000
+    notes: Overages require purchasing additional blocks.
+
+  - name: Devices
+    description: >-
+      Number of claimed devices (hardware modules) registered to the account
+      or product fleet. Billing blocks are sized in increments of 100 devices.
+    unit: devices
+    granularity: monthly
+    includedPerBlock:
+      free: 100
+      basic: 100
+      plus: 100
+
+  - name: Cellular Data (EtherSIM)
+    description: >-
+      Cellular data consumed by EtherSIM-based devices. Particle caps cellular
+      data usage to ensure Data Operations budget is the effective constraint.
+      Wi-Fi and Ethernet devices incur no network charge from Particle.
+    unit: megabytes
+    granularity: monthly
+    notes: >-
+      Included within EtherSIM plan; capped to maximize Data Operations
+      utilization. Additional cellular data beyond the cap may require
+      plan upgrades.
+
+principles:
+  - name: Visibility
+    description: >-
+      Use the Particle Console to monitor per-device event activity and
+      track cumulative Data Operations consumption against monthly block
+      allotments. Review the changelog at changelog.particle.io for
+      platform changes that may affect operational volumes.
+    actions:
+      - Monitor Data Operations consumed vs. allotment in the Device Console
+      - Set up event stream monitoring to identify chatty devices
+      - Review fleet-level diagnostics for devices consuming excessive operations
+
+  - name: Optimization
+    description: >-
+      Reduce costs by batching device-to-cloud messages, minimizing
+      publish frequency where latency allows, and right-sizing the number
+      of blocks to actual device counts. Use Wi-Fi or Ethernet connectivity
+      where cellular is not required to avoid cellular data costs.
+    actions:
+      - Batch telemetry payloads to reduce Data Operations per reading
+      - Use sleep modes to reduce idle publish events
+      - Audit device count per product to avoid over-provisioned blocks
+      - Prefer Wi-Fi/Ethernet hardware when cellular is not needed
+      - Evaluate Basic vs. Plus blocks based on data automation requirements
+
+  - name: Accountability
+    description: >-
+      Assign product fleets to distinct Particle products (namespaces) to
+      attribute Data Operations costs to individual teams or business units.
+      Use API Users with scoped tokens for programmatic access to support
+      auditability.
+    actions:
+      - Create separate Particle products per team or cost center
+      - Use scoped API Users to attribute cloud interactions by service
+      - Export event logs for integration into internal FinOps dashboards

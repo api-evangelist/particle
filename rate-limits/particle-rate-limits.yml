@@ -1,0 +1,85 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+provider: Particle
+providerId: particle
+created: '2026-06-12'
+modified: '2026-06-12'
+reconciled: true
+url: https://docs.particle.io/reference/cloud-apis/api/
+headers:
+  retryAfter: Retry-After
+responseCodes:
+  throttled: 429
+limits:
+  - name: General API calls
+    description: >-
+      Maximum number of REST API requests allowed from a single source IP
+      address in any 5-minute window across general cloud API endpoints.
+    scope: ip
+    metric: requests
+    limit: 10000
+    timeFrame: 300
+    timeFrameUnit: seconds
+    type: sliding_window
+
+  - name: Token creation
+    description: >-
+      Maximum number of OAuth token creation requests per source IP in a
+      5-minute window. After 10 consecutive failed attempts, the IP is locked
+      out for 30 minutes.
+    scope: ip
+    metric: requests
+    limit: 100
+    timeFrame: 300
+    timeFrameUnit: seconds
+    type: sliding_window
+    notes: 30-minute lockout after 10 failed attempts
+
+  - name: Token management and user creation
+    description: >-
+      Maximum requests for token management operations and new user account
+      creation per source IP in a 5-minute window.
+    scope: ip
+    metric: requests
+    limit: 100
+    timeFrame: 300
+    timeFrameUnit: seconds
+    type: sliding_window
+
+  - name: Events retrieval
+    description: >-
+      Maximum number of event-retrieval API calls per source IP in a 5-minute
+      window.
+    scope: ip
+    metric: requests
+    limit: 100
+    timeFrame: 300
+    timeFrameUnit: seconds
+    type: sliding_window
+
+  - name: Device serial number lookup
+    description: >-
+      Maximum number of device lookup-by-serial-number requests per user
+      account per hour.
+    scope: user
+    metric: requests
+    limit: 50
+    timeFrame: 3600
+    timeFrameUnit: seconds
+    type: sliding_window
+
+  - name: Concurrent event streams
+    description: >-
+      Maximum number of simultaneous Server-Sent Event (SSE) stream connections
+      allowed from a single source IP address.
+    scope: ip
+    metric: concurrent_connections
+    limit: 100
+    timeFrame: 0
+    timeFrameUnit: concurrent
+    type: concurrency
+
+notes:
+  - Enterprise customers can request higher rate limits by contacting Particle support.
+  - All API requests require TLSv1.2 or later.
+  - Rate limit violations return HTTP 429. The Retry-After header indicates when requests may resume.
