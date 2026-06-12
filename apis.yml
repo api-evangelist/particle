@@ -52,6 +52,8 @@ apis:
         url: https://docs.particle.io/reference/cloud-apis/api/
       - type: GettingStarted
         url: https://docs.particle.io/getting-started/cloud/cloud-api/
+      - type: OpenAPI
+        url: https://raw.githubusercontent.com/api-evangelist/particle/refs/heads/main/openapi/particle-cloud-api-openapi.yml
 common:
   - type: Website
     url: https://www.particle.io/
@@ -81,6 +83,12 @@ common:
     url: https://raw.githubusercontent.com/api-evangelist/particle/refs/heads/main/rate-limits/particle-rate-limits.yml
   - type: FinOps
     url: https://raw.githubusercontent.com/api-evangelist/particle/refs/heads/main/finops/particle-finops.yml
+  - type: JSONLDContext
+    url: https://raw.githubusercontent.com/api-evangelist/particle/refs/heads/main/json-ld/particle-context.jsonld
+  - type: Vocabulary
+    url: https://raw.githubusercontent.com/api-evangelist/particle/refs/heads/main/vocabulary/particle-vocabulary.yml
+  - type: Blog
+    url: https://raw.githubusercontent.com/api-evangelist/particle/refs/heads/main/blogs/blogs.json
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

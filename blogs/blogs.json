@@ -1,0 +1,9 @@
+{
+  "name": "Particle Blog",
+  "description": "Official Particle blog covering IoT platform updates, product announcements, developer guides, and industry news.",
+  "url": "https://www.particle.io/blog/",
+  "rssUrl": null,
+  "note": "No RSS/Atom feed URL was discoverable for this blog as of 2026-06-12. Posts must be scraped from the HTML blog listing.",
+  "lastChecked": "2026-06-12",
+  "posts": []
+}

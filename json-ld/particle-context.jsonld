@@ -1,0 +1,106 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "particle": "https://api.particle.io/vocab#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "Device": "particle:Device",
+    "deviceId": {
+      "@id": "particle:deviceId",
+      "@type": "xsd:string"
+    },
+    "deviceName": {
+      "@id": "particle:deviceName",
+      "@type": "xsd:string"
+    },
+    "online": {
+      "@id": "particle:online",
+      "@type": "xsd:boolean"
+    },
+    "platformId": {
+      "@id": "particle:platformId",
+      "@type": "xsd:integer"
+    },
+    "productId": {
+      "@id": "particle:productId",
+      "@type": "xsd:integer"
+    },
+    "lastHeard": {
+      "@id": "particle:lastHeard",
+      "@type": "xsd:dateTime"
+    },
+    "lastHandshakeAt": {
+      "@id": "particle:lastHandshakeAt",
+      "@type": "xsd:dateTime"
+    },
+    "firmwareVersion": {
+      "@id": "particle:firmwareVersion",
+      "@type": "xsd:string"
+    },
+    "cellular": {
+      "@id": "particle:cellular",
+      "@type": "xsd:boolean"
+    },
+    "iccid": {
+      "@id": "particle:iccid",
+      "@type": "xsd:string"
+    },
+    "Event": "particle:Event",
+    "eventName": {
+      "@id": "particle:eventName",
+      "@type": "xsd:string"
+    },
+    "eventData": {
+      "@id": "particle:eventData",
+      "@type": "xsd:string"
+    },
+    "eventPrefix": {
+      "@id": "particle:eventPrefix",
+      "@type": "xsd:string"
+    },
+    "publishedAt": {
+      "@id": "particle:publishedAt",
+      "@type": "xsd:dateTime"
+    },
+    "Product": "particle:Product",
+    "productIdOrSlug": {
+      "@id": "particle:productIdOrSlug",
+      "@type": "xsd:string"
+    },
+    "Group": "particle:Group",
+    "groupName": {
+      "@id": "particle:groupName",
+      "@type": "xsd:string"
+    },
+    "Integration": "particle:Integration",
+    "integrationId": {
+      "@id": "particle:integrationId",
+      "@type": "xsd:string"
+    },
+    "Ledger": "particle:Ledger",
+    "ledgerName": {
+      "@id": "particle:ledgerName",
+      "@type": "xsd:string"
+    },
+    "LogicFunction": "particle:LogicFunction",
+    "logicFunctionId": {
+      "@id": "particle:logicFunctionId",
+      "@type": "xsd:string"
+    },
+    "AccessToken": "particle:AccessToken",
+    "OAuthClient": "particle:OAuthClient",
+    "clientId": {
+      "@id": "particle:clientId",
+      "@type": "xsd:string"
+    },
+    "Organization": "particle:Organization",
+    "orgIdOrSlug": {
+      "@id": "particle:orgIdOrSlug",
+      "@type": "xsd:string"
+    },
+    "name": "schema:name",
+    "description": "schema:description",
+    "url": "schema:url"
+  }
+}

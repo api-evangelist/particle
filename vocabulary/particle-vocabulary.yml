@@ -1,0 +1,204 @@
+vocabulary:
+  name: Particle Cloud API Vocabulary
+  description: >-
+    Domain vocabulary for the Particle IoT Platform — covering devices, events,
+    firmware, SIM cards, products, integrations, ledger, logic functions, and
+    organization management via the Particle Cloud REST API.
+  url: https://api.particle.io/vocab#
+  version: '1.0.0'
+
+terms:
+
+  # Core resources
+  - term: Device
+    type: Resource
+    description: >-
+      A Particle hardware module (e.g. Boron, Argon, Photon 2) connected to the
+      Particle Device Cloud over cellular, Wi-Fi, or Bluetooth.
+    properties:
+      - id
+      - name
+      - online
+      - platformId
+      - productId
+      - lastHeard
+      - lastHandshakeAt
+      - firmwareVersion
+      - cellular
+      - serialNumber
+
+  - term: Product
+    type: Resource
+    description: >-
+      A collection of devices sharing the same firmware and configuration managed
+      as a fleet within the Particle Console.
+    properties:
+      - id
+      - slug
+      - name
+      - platform_id
+      - groups
+
+  - term: Event
+    type: Resource
+    description: >-
+      A named, optionally data-carrying message published by a device or the
+      cloud and distributed to subscribers via server-sent events (SSE).
+    properties:
+      - name
+      - data
+      - published_at
+      - coreid
+
+  - term: Integration
+    type: Resource
+    description: >-
+      A webhook or server-sent event integration that forwards device events to
+      an external HTTP endpoint or cloud service.
+    properties:
+      - id
+      - name
+      - event
+      - url
+      - requestType
+      - enabled
+
+  - term: Ledger
+    type: Resource
+    description: >-
+      A cloud-managed key-value store that can be synchronised to devices or
+      used for cloud-side state persistence across a product fleet.
+    properties:
+      - name
+      - scope
+      - instances
+
+  - term: LogicFunction
+    type: Resource
+    description: >-
+      A JavaScript function hosted in the Particle Cloud that can be triggered
+      by device events, schedules, or API calls.
+    properties:
+      - id
+      - name
+      - source
+      - enabled
+      - triggers
+
+  - term: SIM
+    type: Resource
+    description: >-
+      A cellular SIM card associated with a Particle cellular device, identified
+      by ICCID.
+    properties:
+      - iccid
+      - status
+      - data_usage
+      - product_id
+
+  - term: Group
+    type: Resource
+    description: >-
+      A named label applied to a subset of devices within a product, used for
+      targeted firmware releases and bulk operations.
+    properties:
+      - name
+      - description
+      - color
+      - product_id
+
+  - term: AccessToken
+    type: Resource
+    description: >-
+      An OAuth 2.0 bearer token granting access to the Particle Cloud API on
+      behalf of a user or product.
+    properties:
+      - token
+      - expires_at
+      - client
+
+  - term: OAuthClient
+    type: Resource
+    description: >-
+      An OAuth 2.0 client application registered in the Particle Console used
+      to generate access tokens.
+    properties:
+      - id
+      - name
+      - secret
+      - type
+
+  - term: Organization
+    type: Resource
+    description: >-
+      A top-level administrative unit grouping multiple products, teams, and
+      service agreements under a single Particle account.
+    properties:
+      - id
+      - slug
+      - name
+
+  # Key operations / concepts
+  - term: FlashFirmware
+    type: Operation
+    description: >-
+      Over-the-air (OTA) update of device firmware triggered via the Cloud API
+      using a pre-compiled binary or product firmware version.
+
+  - term: DeviceFunction
+    type: Operation
+    description: >-
+      A named function exposed by firmware running on a device that can be
+      invoked remotely via the Cloud API.
+
+  - term: DeviceVariable
+    type: Operation
+    description: >-
+      A named value exposed by firmware running on a device that can be read
+      remotely via the Cloud API.
+
+  - term: DataOperation
+    type: Concept
+    description: >-
+      The unit of metered consumption in Particle's pricing model, counting
+      events published, functions called, and variables read.
+
+  - term: Diagnostics
+    type: Resource
+    description: >-
+      A snapshot of device health metrics (signal strength, memory, battery,
+      firmware version) collected by the Particle Device OS.
+    properties:
+      - deviceId
+      - updated_at
+      - payload
+
+  - term: Location
+    type: Resource
+    description: >-
+      Geolocation data reported by a device using assisted GPS, Wi-Fi
+      triangulation, or cell tower triangulation.
+    properties:
+      - device_id
+      - geometry
+      - last_heard
+
+  - term: Secret
+    type: Resource
+    description: >-
+      An encrypted key-value credential stored in the Particle Cloud and
+      injectable into Logic functions and integrations.
+    properties:
+      - name
+      - scope
+
+  - term: ServiceAgreement
+    type: Resource
+    description: >-
+      A subscription plan defining the data-operation quota, SIM allowance,
+      and billing terms for an organization or user.
+    properties:
+      - id
+      - plan
+      - current_billing_period_start
+      - current_billing_period_end
