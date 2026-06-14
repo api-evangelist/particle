@@ -1,94 +1,92 @@
 aid: particle
 name: Particle
-description: >-
-  Particle is an integrated IoT Platform-as-a-Service that provides cellular,
-  Wi-Fi, and Bluetooth hardware modules alongside a comprehensive cloud platform
-  for building and managing connected devices at scale. The Particle Device
-  Cloud exposes a REST API that enables developers to call device functions,
-  read variables, publish and subscribe to events, manage firmware OTA updates,
-  and administer product fleets. Authentication uses OAuth 2.0 bearer tokens,
-  and the platform supports JavaScript, iOS, Android, and Windows SDKs as well
-  as a command-line interface. Particle's pricing model is based on Data
-  Operations consumed per month, with plans ranging from a free prototyping
-  tier through paid block-based plans to enterprise contracts.
+description: Particle is an integrated IoT Platform-as-a-Service that provides cellular,
+  Wi-Fi, and Bluetooth hardware modules alongside a comprehensive cloud platform for
+  building and managing connected devices at scale. The Particle Device Cloud exposes
+  a REST API that enables developers to call device functions, read variables, publish
+  and subscribe to events, manage firmware OTA updates, and administer product fleets.
+  Authentication uses OAuth 2.0 bearer tokens, and the platform supports JavaScript,
+  iOS, Android, and Windows SDKs as well as a command-line interface. Particle's pricing
+  model is based on Data Operations consumed per month, with plans ranging from a
+  free prototyping tier through paid block-based plans to enterprise contracts.
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-  - IoT
-  - Internet of Things
-  - Cellular
-  - Wi-Fi
-  - Bluetooth
-  - Device Management
-  - Firmware
-  - OTA Updates
-  - Fleet Management
-  - Hardware
-  - Embedded
+- IoT
+- Internet of Things
+- Cellular
+- Wi-Fi
+- Bluetooth
+- Device Management
+- Firmware
+- OTA Updates
+- Fleet Management
+- Hardware
+- Embedded
 url: https://raw.githubusercontent.com/api-evangelist/particle/refs/heads/main/apis.yml
 created: '2026-06-12'
 modified: '2026-06-12'
 specificationVersion: '0.19'
 apis:
-  - aid: particle:particle-cloud-api
-    name: Particle Cloud API
-    description: >-
-      The Particle Cloud REST API enables developers to interact with
-      Particle-connected devices — calling device functions, reading variables,
-      publishing and subscribing to events, managing SIM cards, performing
-      OTA firmware updates, and administering product fleets. All requests
-      use OAuth 2.0 bearer tokens and target https://api.particle.io.
-    humanURL: https://docs.particle.io/reference/cloud-apis/api/
-    baseURL: https://api.particle.io
-    tags:
-      - Devices
-      - Events
-      - Firmware
-      - SIM Cards
-      - Fleet Management
-      - OAuth
-    properties:
-      - type: Documentation
-        url: https://docs.particle.io/reference/cloud-apis/api/
-      - type: GettingStarted
-        url: https://docs.particle.io/getting-started/cloud/cloud-api/
-      - type: OpenAPI
-        url: https://raw.githubusercontent.com/api-evangelist/particle/refs/heads/main/openapi/particle-cloud-api-openapi.yml
-common:
-  - type: Website
-    url: https://www.particle.io/
+- aid: particle:particle-cloud-api
+  name: Particle Cloud API
+  description: The Particle Cloud REST API enables developers to interact with Particle-connected
+    devices — calling device functions, reading variables, publishing and subscribing
+    to events, managing SIM cards, performing OTA firmware updates, and administering
+    product fleets. All requests use OAuth 2.0 bearer tokens and target https://api.particle.io.
+  humanURL: https://docs.particle.io/reference/cloud-apis/api/
+  baseURL: https://api.particle.io
+  tags:
+  - Devices
+  - Events
+  - Firmware
+  - SIM Cards
+  - Fleet Management
+  - OAuth
+  properties:
   - type: Documentation
-    url: https://docs.particle.io/
-  - type: DeveloperPortal
-    url: https://www.particle.io/developer-tools/
-  - type: GitHubOrganization
-    url: https://github.com/particle-iot
-  - type: Blog
-    url: https://www.particle.io/blog/
-  - type: Changelog
-    url: https://changelog.particle.io/
-  - type: StatusPage
-    url: https://status.particle.io/
-  - type: Pricing
-    url: https://www.particle.io/pricing/
-  - type: LinkedIn
-    url: https://www.linkedin.com/company/wwwparticleio
-  - type: X
-    url: https://x.com/particle
-  - type: Community
-    url: https://community.particle.io/
-  - type: Plans
-    url: https://raw.githubusercontent.com/api-evangelist/particle/refs/heads/main/plans/particle-plans-pricing.yml
-  - type: RateLimits
-    url: https://raw.githubusercontent.com/api-evangelist/particle/refs/heads/main/rate-limits/particle-rate-limits.yml
-  - type: FinOps
-    url: https://raw.githubusercontent.com/api-evangelist/particle/refs/heads/main/finops/particle-finops.yml
-  - type: JSONLDContext
-    url: https://raw.githubusercontent.com/api-evangelist/particle/refs/heads/main/json-ld/particle-context.jsonld
-  - type: Vocabulary
-    url: https://raw.githubusercontent.com/api-evangelist/particle/refs/heads/main/vocabulary/particle-vocabulary.yml
-  - type: Blog
-    url: https://raw.githubusercontent.com/api-evangelist/particle/refs/heads/main/blogs/blogs.json
+    url: https://docs.particle.io/reference/cloud-apis/api/
+  - type: GettingStarted
+    url: https://docs.particle.io/getting-started/cloud/cloud-api/
+  - type: OpenAPI
+    url: https://raw.githubusercontent.com/api-evangelist/particle/refs/heads/main/openapi/particle-cloud-api-openapi.yml
+  - url: graphql/particle-graphql.md
+    type: GraphQL
+common:
+- type: Website
+  url: https://www.particle.io/
+- type: Documentation
+  url: https://docs.particle.io/
+- type: DeveloperPortal
+  url: https://www.particle.io/developer-tools/
+- type: GitHubOrganization
+  url: https://github.com/particle-iot
+- type: Blog
+  url: https://www.particle.io/blog/
+- type: Changelog
+  url: https://changelog.particle.io/
+- type: StatusPage
+  url: https://status.particle.io/
+- type: Pricing
+  url: https://www.particle.io/pricing/
+- type: LinkedIn
+  url: https://www.linkedin.com/company/wwwparticleio
+- type: X
+  url: https://x.com/particle
+- type: Community
+  url: https://community.particle.io/
+- type: Plans
+  url: https://raw.githubusercontent.com/api-evangelist/particle/refs/heads/main/plans/particle-plans-pricing.yml
+- type: RateLimits
+  url: https://raw.githubusercontent.com/api-evangelist/particle/refs/heads/main/rate-limits/particle-rate-limits.yml
+- type: FinOps
+  url: https://raw.githubusercontent.com/api-evangelist/particle/refs/heads/main/finops/particle-finops.yml
+- type: JSONLDContext
+  url: https://raw.githubusercontent.com/api-evangelist/particle/refs/heads/main/json-ld/particle-context.jsonld
+- type: Vocabulary
+  url: https://raw.githubusercontent.com/api-evangelist/particle/refs/heads/main/vocabulary/particle-vocabulary.yml
+- type: Blog
+  url: https://raw.githubusercontent.com/api-evangelist/particle/refs/heads/main/blogs/blogs.json
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com

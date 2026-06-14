@@ -1,0 +1,1075 @@
+"""
+Particle IoT Platform - Conceptual GraphQL Schema
+
+Derived from the Particle Cloud REST API (https://docs.particle.io/reference/cloud-apis/api/)
+and the Particle GitHub organization (https://github.com/particle-iot).
+
+Particle does not currently publish an official GraphQL endpoint. This schema is a
+conceptual design artifact representing the Particle domain as a typed graph.
+
+Authentication: OAuth 2.0 bearer token via Authorization header.
+"""
+
+scalar DateTime
+scalar JSON
+
+# ---------------------------------------------------------------------------
+# ENUMS
+# ---------------------------------------------------------------------------
+
+enum DeviceStatus {
+  ONLINE
+  OFFLINE
+  UNKNOWN
+}
+
+enum DevicePlatform {
+  ARGON
+  BORON
+  BSOM
+  B_SOM
+  TRACKER
+  ELECTRON
+  PHOTON
+  P1
+  CORE
+  OTHER
+}
+
+enum FirmwareJobStatus {
+  PENDING
+  RUNNING
+  COMPLETED
+  FAILED
+  CANCELLED
+}
+
+enum OTAResultStatus {
+  SUCCESS
+  FAILED
+  SKIPPED
+  PENDING
+}
+
+enum EventVisibility {
+  PUBLIC
+  PRIVATE
+}
+
+enum IntegrationType {
+  WEBHOOK
+  AZURE_IOT_HUB
+  GOOGLE_CLOUD_PUBSUB
+  GOOGLE_MAPS
+  INFLUXDB
+}
+
+enum SIMStatus {
+  ACTIVE
+  INACTIVE
+  DEACTIVATED
+}
+
+enum TokenType {
+  ACCESS
+  REFRESH
+}
+
+enum TeamRole {
+  OWNER
+  ADMIN
+  DEVELOPER
+  VIEWER
+}
+
+enum VariableType {
+  INT
+  DOUBLE
+  STRING
+}
+
+enum WebhookMethod {
+  GET
+  POST
+  PUT
+  DELETE
+  PATCH
+}
+
+enum NetworkType {
+  MESH
+  CELLULAR_PRIVATE_APN
+  VLAN
+}
+
+enum NetworkStatus {
+  ACTIVE
+  INACTIVE
+  PROVISIONING
+}
+
+enum SubscriptionTier {
+  FREE
+  BASIC
+  GROWTH
+  ENTERPRISE
+}
+
+# ---------------------------------------------------------------------------
+# CORE DEVICE TYPES
+# ---------------------------------------------------------------------------
+
+"""A Particle hardware module connected to the Device Cloud."""
+type Device {
+  id: ID!
+  name: String!
+  status: DeviceStatus!
+  online: Boolean!
+  lastHeard: DateTime
+  lastIp: String
+  platform: DevicePlatform!
+  systemFirmwareVersion: String
+  productId: ID
+  product: Product
+  deviceGroup: DeviceGroup
+  firmwareVersion: FirmwareVersion
+  info: DeviceInfo
+  variables: [Variable!]!
+  functions: [Function!]!
+  logs(limit: Int, after: DateTime): [DeviceLog!]!
+  sim: SIM
+  network: Network
+  diagnosticEvents(limit: Int): [DiagnosticEvent!]!
+  reconnectionEvents(limit: Int): [ReconnectionEvent!]!
+  pinholeEvents(limit: Int): [PinholeEvent!]!
+  usageRecords(month: String): [UsageRecord!]!
+  ledgerInstances: [LedgerInstance!]!
+  serialNumber: String
+  iccid: String
+  imei: String
+  mobileSecret: String
+  pinned: Boolean
+  quarantined: Boolean
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""A named segment of devices within a product fleet."""
+type DeviceGroup {
+  id: ID!
+  name: String!
+  description: String
+  color: String
+  product: Product!
+  devices(page: Int, perPage: Int): [ProductDevice!]!
+  firmwareVersion: FirmwareVersion
+  deviceCount: Int
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""Extended diagnostic and connectivity metadata for a device."""
+type DeviceInfo {
+  deviceId: ID!
+  device: Device!
+  cellularNetwork: String
+  signalStrength: Float
+  signalQuality: Float
+  memoryTotal: Int
+  memoryUsed: Int
+  uptime: Int
+  powerSource: String
+  batteryLevel: Float
+  systemVersion: String
+  appHash: String
+  updatedAt: DateTime
+}
+
+# ---------------------------------------------------------------------------
+# FIRMWARE TYPES
+# ---------------------------------------------------------------------------
+
+"""A specific firmware binary with version and compatibility metadata."""
+type FirmwareVersion {
+  id: ID!
+  version: Int!
+  title: String
+  description: String
+  name: String
+  size: Int
+  crc: String
+  mandatory: Boolean
+  product: Product
+  deviceCount: Int
+  uploadedAt: DateTime
+  downloadUrl: String
+}
+
+"""A firmware binary uploaded to a specific product."""
+type ProductFirmware {
+  id: ID!
+  productId: ID!
+  product: Product!
+  version: Int!
+  title: String
+  description: String
+  name: String
+  size: Int
+  crc: String
+  mandatory: Boolean
+  current: Boolean
+  groups: [String!]!
+  deviceCount: Int
+  uploadedAt: DateTime
+  downloadUrl: String
+}
+
+"""An over-the-air firmware update job targeting devices or device groups."""
+type FirmwareOTAJob {
+  id: ID!
+  product: Product!
+  targetVersion: Int!
+  targetGroups: [String!]!
+  targetDevices: [ID!]!
+  status: FirmwareJobStatus!
+  forced: Boolean
+  startedAt: DateTime
+  completedAt: DateTime
+  results: [OTAResult!]!
+  successCount: Int
+  failureCount: Int
+  pendingCount: Int
+}
+
+"""The outcome of an OTA firmware update attempt on a single device."""
+type OTAResult {
+  id: ID!
+  job: FirmwareOTAJob!
+  deviceId: ID!
+  device: Device
+  previousVersion: Int
+  targetVersion: Int!
+  status: OTAResultStatus!
+  errorMessage: String
+  startedAt: DateTime
+  updatedAt: DateTime
+}
+
+# ---------------------------------------------------------------------------
+# FLEET AND PRODUCT TYPES
+# ---------------------------------------------------------------------------
+
+"""A logical grouping of products under a single management context."""
+type Fleet {
+  id: ID!
+  name: String!
+  description: String
+  ownership: FleetOwnership
+  products: [Product!]!
+  deviceCount: Int
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""Ownership and access record linking a fleet to an org or user."""
+type FleetOwnership {
+  id: ID!
+  fleet: Fleet!
+  ownerId: ID!
+  ownerType: String!
+  role: TeamRole!
+  createdAt: DateTime
+}
+
+"""A Particle product — a fleet of devices sharing firmware and configuration."""
+type Product {
+  id: ID!
+  slug: String!
+  name: String!
+  description: String
+  platform: DevicePlatform!
+  organization: Organization
+  fleet: Fleet
+  devices(page: Int, perPage: Int, groups: [String!], online: Boolean, quarantined: Boolean): [ProductDevice!]!
+  deviceGroups: [ProductGroup!]!
+  firmware: [ProductFirmware!]!
+  currentFirmware: ProductFirmware
+  firmwareOTAJobs(status: FirmwareJobStatus): [FirmwareOTAJob!]!
+  webhooks: [Webhook!]!
+  integrations: [Integration!]!
+  eventSubscriptions: [EventSubscription!]!
+  ledgers: [Ledger!]!
+  teamMembers: [TeamMember!]!
+  deviceCount: Int
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""The representation of a device within a specific product context."""
+type ProductDevice {
+  deviceId: ID!
+  device: Device!
+  product: Product!
+  name: String
+  online: Boolean!
+  lastHeard: DateTime
+  lastIp: String
+  firmwareVersion: Int
+  desiredFirmwareVersion: Int
+  groups: [String!]!
+  owner: Customer
+  development: Boolean
+  quarantined: Boolean
+  denied: Boolean
+  serialNumber: String
+  systemFirmwareVersion: String
+  updatedAt: DateTime
+}
+
+"""A device group scoped to a specific product."""
+type ProductGroup {
+  id: ID!
+  name: String!
+  description: String
+  color: String
+  product: Product!
+  firmwareVersion: Int
+  deviceCount: Int
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+# ---------------------------------------------------------------------------
+# EVENT TYPES
+# ---------------------------------------------------------------------------
+
+"""A publish/subscribe event emitted by a device or the cloud."""
+type Event {
+  id: ID
+  name: String!
+  data: String
+  deviceId: ID
+  device: Device
+  productId: ID
+  visibility: EventVisibility!
+  ttl: Int
+  publishedAt: DateTime!
+  coreid: String
+}
+
+"""A server-sent event stream subscription handle."""
+type EventStream {
+  id: ID!
+  filter: String
+  deviceId: ID
+  productId: ID
+  url: String!
+  active: Boolean!
+  createdAt: DateTime
+}
+
+"""A persistent subscription configuration for device or product events."""
+type EventSubscription {
+  id: ID!
+  name: String!
+  deviceId: ID
+  product: Product
+  eventName: String!
+  url: String
+  enabled: Boolean!
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""A backfilled historical event replayed into a subscription or stream."""
+type BackfillEvent {
+  id: ID!
+  event: Event!
+  replayedAt: DateTime!
+  subscriptionId: ID
+}
+
+# ---------------------------------------------------------------------------
+# FUNCTION AND VARIABLE TYPES
+# ---------------------------------------------------------------------------
+
+"""A function exposed by a device for remote invocation via the cloud."""
+type Function {
+  name: String!
+  deviceId: ID!
+  device: Device
+}
+
+"""A variable exposed by a device for remote reading via the cloud."""
+type Variable {
+  name: String!
+  type: VariableType!
+  deviceId: ID!
+  device: Device
+}
+
+"""The result of calling a remote device function."""
+type FunctionCall {
+  id: ID!
+  deviceId: ID!
+  functionName: String!
+  argument: String
+  returnValue: Int
+  connected: Boolean!
+  calledAt: DateTime!
+}
+
+"""The result of reading a remote device variable."""
+type VariableRequest {
+  id: ID!
+  deviceId: ID!
+  variableName: String!
+  result: JSON
+  coreInfo: CoreInfo
+  requestedAt: DateTime!
+}
+
+"""Connectivity metadata returned alongside a variable read or function call."""
+type CoreInfo {
+  lastApp: String
+  lastHeard: DateTime
+  connected: Boolean!
+  lastHandshakeAt: DateTime
+  deviceId: ID!
+  productId: ID
+}
+
+# ---------------------------------------------------------------------------
+# CLOUD CODE TYPES
+# ---------------------------------------------------------------------------
+
+"""A serverless function deployment on the Particle cloud compute layer."""
+type CloudCode {
+  id: ID!
+  name: String!
+  description: String
+  productId: ID
+  product: Product
+  functions: [CloudCodeFunction!]!
+  version: String
+  deployedAt: DateTime
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""An individual exported function within a cloud code deployment."""
+type CloudCodeFunction {
+  id: ID!
+  cloudCode: CloudCode!
+  name: String!
+  description: String
+  triggerEvent: String
+  enabled: Boolean!
+  lastInvokedAt: DateTime
+}
+
+# ---------------------------------------------------------------------------
+# LOGGING AND OBSERVABILITY TYPES
+# ---------------------------------------------------------------------------
+
+"""A log entry emitted by a device to the Particle cloud."""
+type DeviceLog {
+  id: ID!
+  deviceId: ID!
+  device: Device
+  level: String
+  message: String!
+  timestamp: DateTime!
+  attributes: JSON
+}
+
+"""A platform-emitted diagnostic event for a device."""
+type DiagnosticEvent {
+  id: ID!
+  deviceId: ID!
+  device: Device
+  eventType: String!
+  payload: JSON
+  occurredAt: DateTime!
+}
+
+"""A connectivity probe event used for latency and reachability monitoring."""
+type PinholeEvent {
+  id: ID!
+  deviceId: ID!
+  device: Device
+  latencyMs: Float
+  success: Boolean!
+  occurredAt: DateTime!
+}
+
+"""An event recording a device reconnection to the cloud."""
+type ReconnectionEvent {
+  id: ID!
+  deviceId: ID!
+  device: Device
+  reason: String
+  duration: Int
+  occurredAt: DateTime!
+}
+
+"""A data operations usage record for billing and quota tracking."""
+type UsageRecord {
+  id: ID!
+  deviceId: ID
+  productId: ID
+  product: Product
+  period: String!
+  dataOperations: Int!
+  cellular: Int
+  wifi: Int
+  updatedAt: DateTime!
+}
+
+# ---------------------------------------------------------------------------
+# WEBHOOK AND INTEGRATION TYPES
+# ---------------------------------------------------------------------------
+
+"""An outbound HTTP integration triggered by a device or product event."""
+type Webhook {
+  id: ID!
+  event: String!
+  url: String!
+  method: WebhookMethod!
+  deviceId: ID
+  productId: ID
+  product: Product
+  headers: JSON
+  body: String
+  query: JSON
+  form: JSON
+  auth: JSON
+  noDefaults: Boolean
+  rejectUnauthorized: Boolean
+  responseTemplate: String
+  responseTopic: String
+  enabled: Boolean!
+  logs(limit: Int): [WebhookLog!]!
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""A log entry for a single webhook delivery attempt."""
+type WebhookLog {
+  id: ID!
+  webhook: Webhook!
+  eventName: String
+  requestUrl: String
+  requestMethod: String
+  requestHeaders: JSON
+  requestBody: String
+  responseStatusCode: Int
+  responseHeaders: JSON
+  responseBody: String
+  success: Boolean!
+  occurredAt: DateTime!
+}
+
+"""A third-party integration (Webhook, Azure IoT Hub, Google Cloud, etc.)."""
+type Integration {
+  id: ID!
+  name: String!
+  type: IntegrationType!
+  event: String!
+  productId: ID
+  product: Product
+  enabled: Boolean!
+  configuration: JSON
+  logs(limit: Int): [WebhookLog!]!
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+# ---------------------------------------------------------------------------
+# SIM CARD TYPES
+# ---------------------------------------------------------------------------
+
+"""A SIM card associated with a cellular Particle device."""
+type SIM {
+  id: ID!
+  iccid: String!
+  status: SIMStatus!
+  lastDevice: Device
+  productId: ID
+  activation: SIMActivation
+  dataUsage: SimDataUsage
+  country: String
+  carrier: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""An activation record for a SIM card."""
+type SIMActivation {
+  id: ID!
+  sim: SIM!
+  activatedAt: DateTime!
+  activatedBy: User
+  country: String
+  carrier: String
+}
+
+"""Monthly data usage statistics for a SIM card."""
+type SimDataUsage {
+  id: ID!
+  sim: SIM!
+  iccid: String!
+  periodStart: DateTime!
+  periodEnd: DateTime!
+  mbUsed: Float!
+  mbAllowed: Float
+  overage: Float
+  updatedAt: DateTime!
+}
+
+# ---------------------------------------------------------------------------
+# NETWORK TYPES
+# ---------------------------------------------------------------------------
+
+"""A private device network (mesh, cellular private APN, or VLAN)."""
+type Network {
+  id: ID!
+  name: String!
+  type: NetworkType!
+  status: NetworkStatus!
+  productId: ID
+  product: Product
+  devices: [NetworkDevice!]!
+  configuration: NetworkConfiguration
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""A device that is a member of a private network."""
+type NetworkDevice {
+  id: ID!
+  network: Network!
+  device: Device!
+  role: String
+  joinedAt: DateTime
+}
+
+"""Configuration settings for a private network."""
+type NetworkConfiguration {
+  id: ID!
+  network: Network!
+  ssid: String
+  apn: String
+  band: String
+  keepAlive: Int
+  updatedAt: DateTime
+}
+
+# ---------------------------------------------------------------------------
+# ACCESS CONTROL TYPES
+# ---------------------------------------------------------------------------
+
+"""An OAuth 2.0 client application credential for the Particle platform."""
+type OAuth2Client {
+  id: ID!
+  name: String!
+  clientId: String!
+  redirectUri: String
+  scope: [String!]!
+  organization: Organization
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""An OAuth 2.0 access or refresh token."""
+type OAuth2Token {
+  id: ID!
+  token: String!
+  type: TokenType!
+  expiresIn: Int
+  expiresAt: DateTime
+  scopes: [String!]!
+  client: OAuth2Client
+  user: User
+  createdAt: DateTime
+}
+
+"""An end-user customer of a product (used in product-scoped auth flows)."""
+type Customer {
+  id: ID!
+  email: String
+  username: String
+  productId: ID!
+  product: Product!
+  devices: [CustomerDeviceMapping!]!
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""Association between a customer and a device they have claimed."""
+type CustomerDeviceMapping {
+  id: ID!
+  customer: Customer!
+  device: Device!
+  claimedAt: DateTime!
+}
+
+"""A Particle platform user account."""
+type User {
+  id: ID!
+  username: String!
+  email: String!
+  firstName: String
+  lastName: String
+  organizations: [Organization!]!
+  teams: [TeamMember!]!
+  apiTokens: [APIToken!]!
+  subscriptions: [Subscription!]!
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""A team within a Particle organization."""
+type Team {
+  id: ID!
+  name: String!
+  organization: Organization!
+  members: [TeamMember!]!
+  products: [Product!]!
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""A user's membership record in a team, including their assigned role."""
+type TeamMember {
+  id: ID!
+  team: Team!
+  user: User!
+  role: TeamRole!
+  joinedAt: DateTime
+}
+
+"""A Particle organization grouping multiple products, teams, and users."""
+type Organization {
+  id: ID!
+  slug: String!
+  name: String!
+  description: String
+  products: [Product!]!
+  teams: [Team!]!
+  members: [TeamMember!]!
+  oauthClients: [OAuth2Client!]!
+  subscription: Subscription
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""A billing subscription plan attached to a user or organization."""
+type Subscription {
+  id: ID!
+  tier: SubscriptionTier!
+  ownerId: ID!
+  ownerType: String!
+  dataOperationsIncluded: Int
+  dataOperationsUsed: Int
+  deviceLimit: Int
+  activeDevices: Int
+  periodStart: DateTime
+  periodEnd: DateTime
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""A programmatic API access token for authenticating with the Particle cloud."""
+type APIToken {
+  id: ID!
+  token: String
+  name: String
+  expiresAt: DateTime
+  scopes: [String!]!
+  user: User
+  createdAt: DateTime
+  lastUsedAt: DateTime
+}
+
+# ---------------------------------------------------------------------------
+# LEDGER TYPES
+# ---------------------------------------------------------------------------
+
+"""A named cloud-side key-value store for bidirectional device/cloud data sync."""
+type Ledger {
+  id: ID!
+  name: String!
+  description: String
+  product: Product
+  instances: [LedgerInstance!]!
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""A device-scoped instance of a ledger holding its current key-value data."""
+type LedgerInstance {
+  id: ID!
+  ledger: Ledger!
+  deviceId: ID!
+  device: Device
+  data: JSON!
+  version: Int!
+  updatedAt: DateTime!
+}
+
+# ---------------------------------------------------------------------------
+# ROOT TYPES
+# ---------------------------------------------------------------------------
+
+type Query {
+  """Fetch a single device by ID."""
+  device(id: ID!): Device
+
+  """List devices for the authenticated user."""
+  devices(page: Int, perPage: Int, productId: ID): [Device!]!
+
+  """Fetch a product by ID or slug."""
+  product(id: ID!): Product
+
+  """List all products accessible to the authenticated user."""
+  products(organizationId: ID): [Product!]!
+
+  """Fetch a device group by ID."""
+  deviceGroup(id: ID!): DeviceGroup
+
+  """List device groups for a product."""
+  deviceGroups(productId: ID!): [DeviceGroup!]!
+
+  """Fetch a fleet by ID."""
+  fleet(id: ID!): Fleet
+
+  """List all fleets."""
+  fleets: [Fleet!]!
+
+  """Fetch firmware versions for a product."""
+  productFirmware(productId: ID!): [ProductFirmware!]!
+
+  """Fetch a single firmware OTA job."""
+  firmwareOTAJob(id: ID!): FirmwareOTAJob
+
+  """Read a variable from a device."""
+  variable(deviceId: ID!, name: String!): VariableRequest
+
+  """Fetch recent events, optionally filtered by name prefix or device."""
+  events(eventName: String, deviceId: ID, productId: ID, limit: Int): [Event!]!
+
+  """Fetch a webhook by ID."""
+  webhook(id: ID!): Webhook
+
+  """List webhooks for a product or the authenticated user."""
+  webhooks(productId: ID): [Webhook!]!
+
+  """Fetch an integration by ID."""
+  integration(id: ID!): Integration
+
+  """List integrations for a product."""
+  integrations(productId: ID!): [Integration!]!
+
+  """Fetch a SIM card by ICCID."""
+  sim(iccid: String!): SIM
+
+  """List SIM cards for the authenticated user or a product."""
+  sims(productId: ID, page: Int, perPage: Int): [SIM!]!
+
+  """Fetch a network by ID."""
+  network(id: ID!): Network
+
+  """List networks for the authenticated user."""
+  networks(productId: ID): [Network!]!
+
+  """Fetch an OAuth2 client by ID."""
+  oauthClient(id: ID!): OAuth2Client
+
+  """List OAuth2 clients for the authenticated user."""
+  oauthClients(organizationId: ID): [OAuth2Client!]!
+
+  """Fetch a customer by ID."""
+  customer(id: ID!, productId: ID!): Customer
+
+  """List customers for a product."""
+  customers(productId: ID!, page: Int, perPage: Int): [Customer!]!
+
+  """Fetch the authenticated user's profile."""
+  me: User
+
+  """Fetch a user by ID."""
+  user(id: ID!): User
+
+  """Fetch an organization by ID or slug."""
+  organization(id: ID!): Organization
+
+  """List organizations for the authenticated user."""
+  organizations: [Organization!]!
+
+  """Fetch a team by ID."""
+  team(id: ID!): Team
+
+  """Fetch a ledger by ID."""
+  ledger(id: ID!): Ledger
+
+  """List ledgers for a product."""
+  ledgers(productId: ID!): [Ledger!]!
+
+  """Fetch a ledger instance for a specific device."""
+  ledgerInstance(ledgerId: ID!, deviceId: ID!): LedgerInstance
+
+  """Fetch a cloud code deployment by ID."""
+  cloudCode(id: ID!): CloudCode
+
+  """List cloud code deployments for a product."""
+  cloudCodes(productId: ID!): [CloudCode!]!
+
+  """Fetch usage records for a product or device."""
+  usageRecords(productId: ID, deviceId: ID, period: String): [UsageRecord!]!
+
+  """Fetch API tokens for the authenticated user."""
+  apiTokens: [APIToken!]!
+
+  """Fetch subscriptions for the authenticated user or org."""
+  subscriptions(organizationId: ID): [Subscription!]!
+}
+
+type Mutation {
+  """Call a function on a device."""
+  callFunction(deviceId: ID!, name: String!, argument: String): FunctionCall!
+
+  """Rename a device."""
+  renameDevice(id: ID!, name: String!): Device!
+
+  """Claim a device to the authenticated user's account."""
+  claimDevice(deviceId: ID!): Device!
+
+  """Unclaim a device from the authenticated user's account."""
+  unclaimDevice(deviceId: ID!): Boolean!
+
+  """Add a device to a product."""
+  addDeviceToProduct(deviceId: ID!, productId: ID!): ProductDevice!
+
+  """Remove a device from a product."""
+  removeDeviceFromProduct(deviceId: ID!, productId: ID!): Boolean!
+
+  """Move a device to a different device group."""
+  setDeviceGroup(deviceId: ID!, productId: ID!, groups: [String!]!): ProductDevice!
+
+  """Flash firmware to a device via OTA."""
+  flashDevice(deviceId: ID!, firmwareUrl: String, version: Int, productId: ID): FirmwareOTAJob!
+
+  """Create a new firmware OTA job for a product."""
+  createFirmwareOTAJob(productId: ID!, version: Int!, groups: [String!], deviceIds: [ID!], forced: Boolean): FirmwareOTAJob!
+
+  """Upload firmware to a product."""
+  uploadProductFirmware(productId: ID!, version: Int!, title: String, description: String, mandatory: Boolean): ProductFirmware!
+
+  """Release firmware to a product group or all devices."""
+  releaseProductFirmware(productId: ID!, version: Int!, groups: [String!]): Product!
+
+  """Create a webhook."""
+  createWebhook(event: String!, url: String!, method: WebhookMethod, productId: ID, deviceId: ID, headers: JSON, body: String): Webhook!
+
+  """Update a webhook."""
+  updateWebhook(id: ID!, event: String, url: String, method: WebhookMethod, headers: JSON, body: String, enabled: Boolean): Webhook!
+
+  """Delete a webhook."""
+  deleteWebhook(id: ID!): Boolean!
+
+  """Create an integration."""
+  createIntegration(productId: ID!, type: IntegrationType!, event: String!, configuration: JSON!): Integration!
+
+  """Update an integration."""
+  updateIntegration(id: ID!, configuration: JSON, enabled: Boolean): Integration!
+
+  """Delete an integration."""
+  deleteIntegration(id: ID!): Boolean!
+
+  """Activate a SIM card."""
+  activateSIM(iccid: String!, country: String): SIMActivation!
+
+  """Deactivate a SIM card."""
+  deactivateSIM(iccid: String!): SIM!
+
+  """Create an OAuth2 client."""
+  createOAuth2Client(name: String!, redirectUri: String, scope: [String!]): OAuth2Client!
+
+  """Delete an OAuth2 client."""
+  deleteOAuth2Client(id: ID!): Boolean!
+
+  """Create an API token."""
+  createAPIToken(name: String, expiresIn: Int, scopes: [String!]): APIToken!
+
+  """Delete an API token."""
+  deleteAPIToken(id: ID!): Boolean!
+
+  """Create a customer for a product."""
+  createCustomer(productId: ID!, email: String!, password: String): Customer!
+
+  """Delete a customer from a product."""
+  deleteCustomer(id: ID!, productId: ID!): Boolean!
+
+  """Create a ledger."""
+  createLedger(productId: ID!, name: String!, description: String): Ledger!
+
+  """Update a ledger instance for a device."""
+  updateLedgerInstance(ledgerId: ID!, deviceId: ID!, data: JSON!): LedgerInstance!
+
+  """Deploy cloud code to a product."""
+  deployCloudCode(productId: ID!, name: String!, description: String): CloudCode!
+
+  """Create a device group."""
+  createDeviceGroup(productId: ID!, name: String!, description: String, color: String): DeviceGroup!
+
+  """Update a device group."""
+  updateDeviceGroup(id: ID!, name: String, description: String, color: String, firmwareVersion: Int): DeviceGroup!
+
+  """Delete a device group."""
+  deleteDeviceGroup(id: ID!): Boolean!
+
+  """Create an event subscription."""
+  createEventSubscription(eventName: String!, productId: ID, deviceId: ID, url: String): EventSubscription!
+
+  """Delete an event subscription."""
+  deleteEventSubscription(id: ID!): Boolean!
+
+  """Publish an event from the cloud."""
+  publishEvent(name: String!, data: String, productId: ID, deviceId: ID, ttl: Int, visibility: EventVisibility): Event!
+
+  """Invite a user to a team."""
+  inviteTeamMember(teamId: ID!, email: String!, role: TeamRole!): TeamMember!
+
+  """Remove a member from a team."""
+  removeTeamMember(teamId: ID!, userId: ID!): Boolean!
+
+  """Update a team member's role."""
+  updateTeamMemberRole(teamId: ID!, userId: ID!, role: TeamRole!): TeamMember!
+
+  """Create a network."""
+  createNetwork(name: String!, type: NetworkType!, productId: ID): Network!
+
+  """Delete a network."""
+  deleteNetwork(id: ID!): Boolean!
+
+  """Add a device to a network."""
+  addDeviceToNetwork(networkId: ID!, deviceId: ID!, role: String): NetworkDevice!
+
+  """Remove a device from a network."""
+  removeDeviceFromNetwork(networkId: ID!, deviceId: ID!): Boolean!
+}
+
+type Subscription {
+  """Stream real-time events from a device or product."""
+  eventStream(deviceId: ID, productId: ID, eventName: String): Event!
+
+  """Stream device status changes (online/offline)."""
+  deviceStatus(deviceId: ID, productId: ID): Device!
+
+  """Stream OTA job progress updates."""
+  otaJobProgress(jobId: ID!): FirmwareOTAJob!
+
+  """Stream reconnection events for a device."""
+  deviceReconnections(deviceId: ID!): ReconnectionEvent!
+}
