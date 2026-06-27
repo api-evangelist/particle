@@ -63,7 +63,7 @@ common:
   url: https://github.com/particle-iot
 - type: Blog
   url: https://www.particle.io/blog/
-- type: Changelog
+- type: ChangeLog
   url: https://changelog.particle.io/
 - type: StatusPage
   url: https://status.particle.io/

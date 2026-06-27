@@ -1,28 +1,14 @@
 {
-  "name": "Particle Blog",
-  "description": "Official Particle blog covering IoT platform updates, product announcements, developer guides, and industry news.",
-  "url": "https://www.particle.io/blog/",
-  "rssUrl": null,
-  "note": "No RSS/Atom feed URL was discoverable for this blog as of 2026-06-12. Posts must be scraped from the HTML blog listing.",
-  "lastChecked": "2026-06-12",
-  "posts": [],
   "repo": "particle",
   "feeds": [
     {
-      "source": "https://github.com/particle-iot",
-      "feed_url": "https://github.com/particle-iot",
-      "title": "",
+      "source": "https://www.particle.io/blog/",
+      "feed_url": "",
       "saved": 0,
-      "method": "none"
-    },
-    {
-      "source": "https://raw.githubusercontent.com/api-evangelist/particle/refs/heads/main/vocabulary/particle-vocabulary.yml",
-      "feed_url": "https://raw.githubusercontent.com/api-evangelist/particle/refs/heads/main/vocabulary/particle-vocabulary.yml",
-      "title": "",
-      "saved": 0,
-      "method": "none"
+      "method": "agent-scrape"
     }
   ],
+  "fetched": "2026-06-27T13:00:06Z",
   "post_count": 0,
-  "fetched": "2026-06-14T20:42:17Z"
+  "agent_pulled": "2026-06-27"
 }
