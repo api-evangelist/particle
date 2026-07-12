@@ -1,0 +1,13 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/particle-cloud-api-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  description: OAuth 2.0 bearer token. Obtain via POST /oauth/token.
+  sources:
+  - openapi/particle-cloud-api-openapi.yml

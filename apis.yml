@@ -53,6 +53,12 @@ apis:
   - url: graphql/particle-graphql.md
     type: GraphQL
 common:
+- type: VulnerabilityDisclosure
+  url: security/particle-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/particle-domain-security.yml
+- type: Authentication
+  url: authentication/particle-authentication.yml
 - type: Website
   url: https://www.particle.io/
 - type: Documentation
