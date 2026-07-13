@@ -2,13 +2,21 @@
   "repo": "particle",
   "feeds": [
     {
-      "source": "https://www.particle.io/blog/",
-      "feed_url": "",
+      "source": "https://github.com/particle-iot",
+      "feed_url": "https://github.com/particle-iot",
+      "title": "",
       "saved": 0,
-      "method": "agent-scrape"
+      "method": "none"
+    },
+    {
+      "source": "https://raw.githubusercontent.com/api-evangelist/particle/refs/heads/main/vocabulary/particle-vocabulary.yml",
+      "feed_url": "https://raw.githubusercontent.com/api-evangelist/particle/refs/heads/main/vocabulary/particle-vocabulary.yml",
+      "title": "",
+      "saved": 0,
+      "method": "none"
     }
   ],
-  "fetched": "2026-06-27T13:00:06Z",
+  "fetched": "2026-07-11T11:50:51Z",
   "post_count": 0,
   "agent_pulled": "2026-06-27"
 }
