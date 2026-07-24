@@ -1,0 +1,73 @@
+openapi: 3.0.3
+info:
+  title: Particle Cloud Authentication Quarantine API
+  description: The Particle Cloud REST API enables developers to interact with Particle-connected devices — calling device functions, reading variables, publishing and subscribing to events, managing SIM cards, performing OTA firmware updates, and administering product fleets. All requests use OAuth 2.0 bearer tokens and target https://api.particle.io.
+  version: 1.0.0
+  contact:
+    name: Particle Developer Support
+    url: https://docs.particle.io/reference/cloud-apis/api/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://api.particle.io
+  description: Particle Cloud API
+security:
+- bearerAuth: []
+tags:
+- name: Quarantine
+paths:
+  /v1/products/{productIdOrSlug}/devices/{deviceId}:
+    delete:
+      summary: Deny a quarantined device
+      operationId: denyQuarantinedDevice
+      tags:
+      - Quarantine
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Deny a quarantined device
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: deviceId
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/products/{productIdOrSlug}/devices:
+    post:
+      summary: Approve a quarantined device
+      operationId: approveQuarantinedDevice
+      tags:
+      - Quarantine
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Approve a quarantined device. This will immediately release the device from quarantine and allow it to publish events, receive firmware updates, etc.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 bearer token. Obtain via POST /oauth/token.
+externalDocs:
+  description: Particle Cloud API Reference
+  url: https://docs.particle.io/reference/cloud-apis/api/

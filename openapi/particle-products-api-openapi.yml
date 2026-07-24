@@ -1,0 +1,175 @@
+openapi: 3.0.3
+info:
+  title: Particle Cloud Authentication Products API
+  description: The Particle Cloud REST API enables developers to interact with Particle-connected devices — calling device functions, reading variables, publishing and subscribing to events, managing SIM cards, performing OTA firmware updates, and administering product fleets. All requests use OAuth 2.0 bearer tokens and target https://api.particle.io.
+  version: 1.0.0
+  contact:
+    name: Particle Developer Support
+    url: https://docs.particle.io/reference/cloud-apis/api/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://api.particle.io
+  description: Particle Cloud API
+security:
+- bearerAuth: []
+tags:
+- name: Products
+paths:
+  /v1/user/products:
+    get:
+      summary: List products
+      operationId: listProducts
+      tags:
+      - Products
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: List products the currently authenticated user has access to
+  /v1/products/{productIdOrSlug}:
+    get:
+      summary: Retrieve a product
+      operationId: GetProduct
+      tags:
+      - Products
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Retrieve details for a product.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/products/{productIdOrSlug}/team:
+    get:
+      summary: List team members
+      operationId: listUsersForProductOrOrg
+      tags:
+      - Products
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: List all team members that are part of a given product. Also, will retrieve all API users for all the products inside the org
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+    post:
+      summary: Create an API user
+      operationId: createProgrammaticUser
+      tags:
+      - Products
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Create an API user with specified scopes. This API user will have a single non-expiring access token.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/products/{productIdOrSlug}/team/{username}:
+    post:
+      summary: Update team member
+      operationId: updateProductOrOrgTeamMember
+      tags:
+      - Products
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Update a current team member.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: username
+        in: path
+        required: true
+        schema:
+          type: string
+    delete:
+      summary: Remove team member
+      operationId: removeTeamMember
+      tags:
+      - Products
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Remove a current team member.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: username
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/products/{productIdOrSlug}/team/{username}/token:
+    put:
+      summary: Regenerate programmatic user's token
+      operationId: regenerateProductOrOrgProgrammaticUserToken
+      tags:
+      - Products
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Regenerate programmatic users token
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: username
+        in: path
+        required: true
+        schema:
+          type: string
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 bearer token. Obtain via POST /oauth/token.
+externalDocs:
+  description: Particle Cloud API Reference
+  url: https://docs.particle.io/reference/cloud-apis/api/

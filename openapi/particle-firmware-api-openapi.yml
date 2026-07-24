@@ -1,0 +1,76 @@
+openapi: 3.0.3
+info:
+  title: Particle Cloud Authentication Firmware API
+  description: The Particle Cloud REST API enables developers to interact with Particle-connected devices — calling device functions, reading variables, publishing and subscribing to events, managing SIM cards, performing OTA firmware updates, and administering product fleets. All requests use OAuth 2.0 bearer tokens and target https://api.particle.io.
+  version: 1.0.0
+  contact:
+    name: Particle Developer Support
+    url: https://docs.particle.io/reference/cloud-apis/api/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://api.particle.io
+  description: Particle Cloud API
+security:
+- bearerAuth: []
+tags:
+- name: Firmware
+paths:
+  /v1/devices/{deviceId}:
+    put:
+      summary: Flash a device with a bundle
+      operationId: UpdateDeviceFirmware
+      tags:
+      - Firmware
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Update the device firmware from a bundle
+      parameters:
+      - name: deviceId
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/binaries:
+    post:
+      summary: Compile source code
+      operationId: compileSource
+      tags:
+      - Firmware
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Compile source code into a binary for a device
+  /v1/build_targets:
+    get:
+      summary: List firmware build targets
+      operationId: listBuildTargets
+      tags:
+      - Firmware
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: 'Lists the firmware versions for all platforms that can be used as build targets during firmware compilation. Note: This endpoint does not require an access token.'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 bearer token. Obtain via POST /oauth/token.
+externalDocs:
+  description: Particle Cloud API Reference
+  url: https://docs.particle.io/reference/cloud-apis/api/

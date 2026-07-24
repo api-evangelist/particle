@@ -1,0 +1,108 @@
+openapi: 3.0.3
+info:
+  title: Particle Cloud Authentication Diagnostics API
+  description: The Particle Cloud REST API enables developers to interact with Particle-connected devices — calling device functions, reading variables, publishing and subscribing to events, managing SIM cards, performing OTA firmware updates, and administering product fleets. All requests use OAuth 2.0 bearer tokens and target https://api.particle.io.
+  version: 1.0.0
+  contact:
+    name: Particle Developer Support
+    url: https://docs.particle.io/reference/cloud-apis/api/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://api.particle.io
+  description: Particle Cloud API
+security:
+- bearerAuth: []
+tags:
+- name: Diagnostics
+paths:
+  /v1/diagnostics/{deviceId}/update:
+    post:
+      summary: Refresh device vitals
+      operationId: updateDeviceDiagnostics
+      tags:
+      - Diagnostics
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: 'Refresh diagnostic vitals for a single device. This will instruct the device to publish a new event to the Device Cloud containing a device vitals payload. This is an asynchronous request: the HTTP request returns immediately after the request to the device is sent. In order for the device to respond with a vitals payload, it must be online and connected to the Device Cloud. The device will respond by publishing an event named spark/device/diagnostics/update. See the description of the device vitals event.'
+      parameters:
+      - name: deviceId
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/diagnostics/{deviceId}/last:
+    get:
+      summary: Get last known device vitals
+      operationId: getLastDeviceDiagnostics
+      tags:
+      - Diagnostics
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Returns the last device vitals payload sent by the device to the Device Cloud.
+      parameters:
+      - name: deviceId
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/diagnostics/{deviceId}:
+    get:
+      summary: Get all historical device vitals
+      operationId: getAllDeviceDiagnostics
+      tags:
+      - Diagnostics
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Returns all stored device vital records sent by the device to the Device Cloud. Device vitals records will expire after 1 month.
+      parameters:
+      - name: deviceId
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/sims/{iccid}/status:
+    get:
+      summary: Get cellular network status
+      operationId: getCellularNetworkStatus
+      tags:
+      - Diagnostics
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Get cellular network status for a given device. Kicks off a long running task that checks if the device/SIM has an active data session with a cell tower. Values for keys in the sim_status object will be null until the task has finished. Poll the endpoint until meta.state is complete. At this point, the sim_status object will be populated. Note that responses are cached by the cellular network providers. This means that on occasion, the real-time status of the device/SIM may not align with the results of this test.
+      parameters:
+      - name: iccid
+        in: path
+        required: true
+        schema:
+          type: string
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 bearer token. Obtain via POST /oauth/token.
+externalDocs:
+  description: Particle Cloud API Reference
+  url: https://docs.particle.io/reference/cloud-apis/api/

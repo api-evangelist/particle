@@ -1,0 +1,93 @@
+openapi: 3.0.3
+info:
+  title: Particle Cloud Authentication Location API
+  description: The Particle Cloud REST API enables developers to interact with Particle-connected devices — calling device functions, reading variables, publishing and subscribing to events, managing SIM cards, performing OTA firmware updates, and administering product fleets. All requests use OAuth 2.0 bearer tokens and target https://api.particle.io.
+  version: 1.0.0
+  contact:
+    name: Particle Developer Support
+    url: https://docs.particle.io/reference/cloud-apis/api/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://api.particle.io
+  description: Particle Cloud API
+security:
+- bearerAuth: []
+tags:
+- name: Location
+paths:
+  /v1/products/{productIdOrSlug}/fleet_locations:
+    get:
+      summary: Query fleet-wide locations for devices within a product
+      operationId: GetFleetLocations
+      tags:
+      - Location
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Get the latest location data for all the devices in a product to get a fleet-wide summary of device location.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/products/{productIdOrSlug}/locations:
+    get:
+      summary: Query location for devices within a product
+      operationId: GetLocations
+      tags:
+      - Location
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Get latest or historical location data for devices. Date range and bounding box can be specified to narrow the query.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/products/{productIdOrSlug}/locations/{deviceId}:
+    get:
+      summary: Query location for one device within a product
+      operationId: getLocation
+      tags:
+      - Location
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Get last known or historical location data for one device. Date range and bounding box can be specified to narrow down the query. Properties and custom data will be returned by default.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: deviceId
+        in: path
+        required: true
+        schema:
+          type: string
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 bearer token. Obtain via POST /oauth/token.
+externalDocs:
+  description: Particle Cloud API Reference
+  url: https://docs.particle.io/reference/cloud-apis/api/

@@ -1,0 +1,172 @@
+openapi: 3.0.3
+info:
+  title: Particle Cloud Authentication ServiceAgreements API
+  description: The Particle Cloud REST API enables developers to interact with Particle-connected devices — calling device functions, reading variables, publishing and subscribing to events, managing SIM cards, performing OTA firmware updates, and administering product fleets. All requests use OAuth 2.0 bearer tokens and target https://api.particle.io.
+  version: 1.0.0
+  contact:
+    name: Particle Developer Support
+    url: https://docs.particle.io/reference/cloud-apis/api/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://api.particle.io
+  description: Particle Cloud API
+security:
+- bearerAuth: []
+tags:
+- name: ServiceAgreements
+paths:
+  /v1/user/service_agreements:
+    get:
+      summary: Get user service agreements
+      operationId: getServiceAgreements
+      tags:
+      - ServiceAgreements
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Get the service agreements related to a user
+  /v1/orgs/{orgIdOrSlug}/service_agreements:
+    get:
+      summary: Get organization service agreements
+      operationId: getServiceAgreementsForOrganization
+      tags:
+      - ServiceAgreements
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Get the service agreements related to an organization
+      parameters:
+      - name: orgIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/user/usage_reports/{usageReportId}:
+    get:
+      summary: Get a user usage report
+      operationId: getUserUsageReport
+      tags:
+      - ServiceAgreements
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Get a single usage report related to the user. Expect "download_url" to be present only when the usage report has an "available" state.
+      parameters:
+      - name: usageReportId
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/orgs/{orgSlugOrId}/usage_reports/{usageReportId}:
+    get:
+      summary: Get an org usage report
+      operationId: getOrgUsageReport
+      tags:
+      - ServiceAgreements
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Get a single usage report related to an organization. Expect "download_url" to be present only when the usage report has an "available" state. The user must be an active member of the organization.
+      parameters:
+      - name: orgSlugOrId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: usageReportId
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/user/service_agreements/{serviceAgreementId}/usage_reports:
+    post:
+      summary: Create a user usage report
+      operationId: createUserUsageReport
+      tags:
+      - ServiceAgreements
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Request a new usage report related to the user service agreement. The usage report will be processed asynchronously. The download_url is populated once the report's state becomes available. Required body parameters vary by report_type. Metered device reports can only query dates within the last 6 months.
+      parameters:
+      - name: serviceAgreementId
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/orgs/{orgSlugOrId}/service_agreements/{serviceAgreementId}/usage_reports:
+    post:
+      summary: Create an org usage report
+      operationId: createOrgUsageReport
+      tags:
+      - ServiceAgreements
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Request a new usage report related to the organization service agreement. The usage report will be processed asynchronously. The download_url is populated once the report's state becomes available. The user must be an active member of the organization. Required body parameters vary by report_type. Metered device reports can only query dates within the last 6 months.
+      parameters:
+      - name: orgSlugOrId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: serviceAgreementId
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/user/service_agreements/{serviceAgreementId}/notifications:
+    get:
+      summary: Get notifications for current usage period
+      operationId: GetServiceAgreementNotifications
+      tags:
+      - ServiceAgreements
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Get user notifications related to a specific service agreement Usage reached a certain threshold (70%, 90%, 100%) Service was paused Service was unpaused
+      parameters:
+      - name: serviceAgreementId
+        in: path
+        required: true
+        schema:
+          type: string
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 bearer token. Obtain via POST /oauth/token.
+externalDocs:
+  description: Particle Cloud API Reference
+  url: https://docs.particle.io/reference/cloud-apis/api/

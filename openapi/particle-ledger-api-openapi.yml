@@ -1,0 +1,261 @@
+openapi: 3.0.3
+info:
+  title: Particle Cloud Authentication Ledger API
+  description: The Particle Cloud REST API enables developers to interact with Particle-connected devices — calling device functions, reading variables, publishing and subscribing to events, managing SIM cards, performing OTA firmware updates, and administering product fleets. All requests use OAuth 2.0 bearer tokens and target https://api.particle.io.
+  version: 1.0.0
+  contact:
+    name: Particle Developer Support
+    url: https://docs.particle.io/reference/cloud-apis/api/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://api.particle.io
+  description: Particle Cloud API
+security:
+- bearerAuth: []
+tags:
+- name: Ledger
+paths:
+  /v1/ledgers/{ledgerName}/instances/{scopeValue}/versions:
+    get:
+      summary: List ledger instance versions
+      operationId: GetV1LedgersLedgernameInstancesScopevalueVersions
+      tags:
+      - Ledger
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Lists all ledger instance versions.
+      parameters:
+      - name: ledgerName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: scopeValue
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/ledgers:
+    get:
+      summary: List ledger definitions
+      operationId: GetV1Ledgers
+      tags:
+      - Ledger
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Lists all ledger definitions belonging to the Sandbox or organization.
+    post:
+      summary: Create a new ledger definition
+      operationId: PostV1Ledgers
+      tags:
+      - Ledger
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Creates a ledger definition.
+  /v1/ledgers/{ledgerName}:
+    get:
+      summary: Get ledger definition
+      operationId: GetV1LedgersLedgername
+      tags:
+      - Ledger
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Returns the specified ledger definition.
+      parameters:
+      - name: ledgerName
+        in: path
+        required: true
+        schema:
+          type: string
+    put:
+      summary: Update ledger definition
+      operationId: PutV1LedgersLedgername
+      tags:
+      - Ledger
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Updates the ledger definition.
+      parameters:
+      - name: ledgerName
+        in: path
+        required: true
+        schema:
+          type: string
+    delete:
+      summary: Archive a ledger definition
+      operationId: DeleteV1LedgersLedgername
+      tags:
+      - Ledger
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Archives a ledger definition.
+      parameters:
+      - name: ledgerName
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/ledgers/{ledgerName}/instances:
+    get:
+      summary: List ledger instances
+      operationId: GetV1LedgersLedgernameInstances
+      tags:
+      - Ledger
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Lists all ledger instances.
+      parameters:
+      - name: ledgerName
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/ledgers/{ledgerName}/instances/{scopeValue}:
+    get:
+      summary: Get ledger instance
+      operationId: GetV1LedgersLedgernameInstancesScopevalue
+      tags:
+      - Ledger
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Returns the specified ledger instance.
+      parameters:
+      - name: ledgerName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: scopeValue
+        in: path
+        required: true
+        schema:
+          type: string
+    put:
+      summary: Set the ledger instance data
+      operationId: PutV1LedgersLedgernameInstancesScopevalue
+      tags:
+      - Ledger
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Sets the data of the specified ledger instance.
+      parameters:
+      - name: ledgerName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: scopeValue
+        in: path
+        required: true
+        schema:
+          type: string
+    delete:
+      summary: Delete ledger instance
+      operationId: DeleteV1LedgersLedgernameInstancesScopevalue
+      tags:
+      - Ledger
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Deletes the specified ledger instance.
+      parameters:
+      - name: ledgerName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: scopeValue
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/ledgers/{ledgerName}/instances/{scopeValue}/versions/{version}:
+    get:
+      summary: Get ledger instance version
+      operationId: GetV1LedgersLedgernameInstancesScopevalueVersionsVersion
+      tags:
+      - Ledger
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Returns the specified version of a ledger instance.
+      parameters:
+      - name: ledgerName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: scopeValue
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: version
+        in: path
+        required: true
+        schema:
+          type: string
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 bearer token. Obtain via POST /oauth/token.
+externalDocs:
+  description: Particle Cloud API Reference
+  url: https://docs.particle.io/reference/cloud-apis/api/

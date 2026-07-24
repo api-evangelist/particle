@@ -1,0 +1,133 @@
+openapi: 3.0.3
+info:
+  title: Particle Cloud Authentication Integrations API
+  description: The Particle Cloud REST API enables developers to interact with Particle-connected devices — calling device functions, reading variables, publishing and subscribing to events, managing SIM cards, performing OTA firmware updates, and administering product fleets. All requests use OAuth 2.0 bearer tokens and target https://api.particle.io.
+  version: 1.0.0
+  contact:
+    name: Particle Developer Support
+    url: https://docs.particle.io/reference/cloud-apis/api/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://api.particle.io
+  description: Particle Cloud API
+security:
+- bearerAuth: []
+tags:
+- name: Integrations
+paths:
+  /v1/integrations:
+    get:
+      summary: List integrations
+      operationId: listIntegrations
+      tags:
+      - Integrations
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: 'List all integrations. Pay special attention to the integration_type attribute of each integration, which will let you know whether the integration is a Webhook, an Azure IoT Hub integration, or a Google Cloud Platform integration. If you would like to only list webhooks (integrations with type: ''Webhook''), you can use a slightly different endpoint: GET /v1/webhooks'
+    post:
+      summary: Enable Google Maps integration
+      operationId: enableGoogleCloudMapsIntegration
+      tags:
+      - Integrations
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Enable an integration with Google Maps. For more details, check out the tutorial.
+  /v1/integrations/{integrationId}/test:
+    post:
+      summary: Test an integration
+      operationId: PostV1IntegrationsIntegrationidTest
+      tags:
+      - Integrations
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Send a test event that triggers the integration. Helps build confidence that an integration is configured properly.
+      parameters:
+      - name: integrationId
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/integrations/{integrationId}:
+    delete:
+      summary: Delete an integration
+      operationId: Delete_Integration
+      tags:
+      - Integrations
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Delete an integration and immediate stop it from triggering. The integration can belong to a user or to a product.
+      parameters:
+      - name: integrationId
+        in: path
+        required: true
+        schema:
+          type: string
+    put:
+      summary: Edit Google Maps Integration
+      operationId: PutV1IntegrationsIntegrationid
+      tags:
+      - Integrations
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Edit a Google Maps integration. Subsequent triggering of this integration will be sent with the new attributes. The configuration replaces the entire previous webhook configuration. It does not merge in changes.
+      parameters:
+      - name: integrationId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      summary: Get integration
+      operationId: Get_Integration
+      tags:
+      - Integrations
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Get a single integration. Pay special attention to the integration_type attribute of each integration, which will let you know whether the integration is a Webhook, an Azure IoT Hub integration, a Google Cloud Platform integration, or a Google Maps integration.
+      parameters:
+      - name: integrationId
+        in: path
+        required: true
+        schema:
+          type: string
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 bearer token. Obtain via POST /oauth/token.
+externalDocs:
+  description: Particle Cloud API Reference
+  url: https://docs.particle.io/reference/cloud-apis/api/

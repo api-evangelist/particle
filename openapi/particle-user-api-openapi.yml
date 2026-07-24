@@ -1,0 +1,69 @@
+openapi: 3.0.3
+info:
+  title: Particle Cloud Authentication User API
+  description: The Particle Cloud REST API enables developers to interact with Particle-connected devices — calling device functions, reading variables, publishing and subscribing to events, managing SIM cards, performing OTA firmware updates, and administering product fleets. All requests use OAuth 2.0 bearer tokens and target https://api.particle.io.
+  version: 1.0.0
+  contact:
+    name: Particle Developer Support
+    url: https://docs.particle.io/reference/cloud-apis/api/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://api.particle.io
+  description: Particle Cloud API
+security:
+- bearerAuth: []
+tags:
+- name: User
+paths:
+  /v1/user:
+    get:
+      summary: Get user
+      operationId: GetUser
+      tags:
+      - User
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Return the user resource for the currently authenticated user.
+    put:
+      summary: Delete user
+      operationId: deleteUser
+      tags:
+      - User
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Delete the logged-in user. Allows removing user account and artifacts from Particle system
+  /v1/user/password-reset:
+    post:
+      summary: Forgot password
+      operationId: UserPasswordForgot
+      tags:
+      - User
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: 'Create a new password reset token and send the user an email with the token. This endpoint is rate-limited to prevent abuse. Note: This endpoint does not require an access token.'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 bearer token. Obtain via POST /oauth/token.
+externalDocs:
+  description: Particle Cloud API Reference
+  url: https://docs.particle.io/reference/cloud-apis/api/

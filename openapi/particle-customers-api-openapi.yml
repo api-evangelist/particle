@@ -1,0 +1,130 @@
+openapi: 3.0.3
+info:
+  title: Particle Cloud Authentication Customers API
+  description: The Particle Cloud REST API enables developers to interact with Particle-connected devices — calling device functions, reading variables, publishing and subscribing to events, managing SIM cards, performing OTA firmware updates, and administering product fleets. All requests use OAuth 2.0 bearer tokens and target https://api.particle.io.
+  version: 1.0.0
+  contact:
+    name: Particle Developer Support
+    url: https://docs.particle.io/reference/cloud-apis/api/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://api.particle.io
+  description: Particle Cloud API
+security:
+- bearerAuth: []
+tags:
+- name: Customers
+paths:
+  /oauth/token:
+    post:
+      summary: Generate a customer scoped access token
+      operationId: PostOauthToken
+      tags:
+      - Customers
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Creates a token scoped to a customer for your organization. You must give a valid product OAuth client ID and secret in HTTP Basic Auth or in the client_id and client_secret parameters.
+  /v1/products/{productIdOrSlug}/customers/{customerEmail}:
+    delete:
+      summary: Delete a customer
+      operationId: deleteCustomer
+      tags:
+      - Customers
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Delete a customer in a product. Will also revoke all of this customer's access tokens, pending device claim codes and activation codes.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: customerEmail
+        in: path
+        required: true
+        schema:
+          type: string
+    put:
+      summary: Update customer password
+      operationId: updateCustomerPassword
+      tags:
+      - Customers
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Update the account password for a customer. Only relevant for non-shadow customers that have a password saved in Particle's system. Must be called with an access token that has access to the product, not a customer access token.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: customerEmail
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/products/{productIdOrSlug}/customers:
+    post:
+      summary: Create a customer - Implicit
+      operationId: CreateCustomer
+      tags:
+      - Customers
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: 'Create a customer for a product using OAuth implicit grant type. This is the way you should hit the POST customers endpoint if you are creating customers from a web browser. After a successful POST, the customer access token will be appended as a hash to the redirect URI associated with the client credentials provided. For this grant type, you must also pass response_type: token. You must give a valid product OAuth client ID in HTTP Basic Auth or in the client_id parameter. Do not pass the OAuth client secret when creating customers from a web browser.'
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      summary: List customers for a product
+      operationId: ListProductCustomers
+      tags:
+      - Customers
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: List Customers for a product.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 bearer token. Obtain via POST /oauth/token.
+externalDocs:
+  description: Particle Cloud API Reference
+  url: https://docs.particle.io/reference/cloud-apis/api/

@@ -1,0 +1,185 @@
+openapi: 3.0.3
+info:
+  title: Particle Cloud Authentication ProductFirmware API
+  description: The Particle Cloud REST API enables developers to interact with Particle-connected devices — calling device functions, reading variables, publishing and subscribing to events, managing SIM cards, performing OTA firmware updates, and administering product fleets. All requests use OAuth 2.0 bearer tokens and target https://api.particle.io.
+  version: 1.0.0
+  contact:
+    name: Particle Developer Support
+    url: https://docs.particle.io/reference/cloud-apis/api/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://api.particle.io
+  description: Particle Cloud API
+security:
+- bearerAuth: []
+tags:
+- name: ProductFirmware
+paths:
+  /v1/products/{productIdOrSlug}/firmware/{version}:
+    get:
+      summary: Get product firmware
+      operationId: getProductFirmwareVersion
+      tags:
+      - ProductFirmware
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Get a specific version of product firmware
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: version
+        in: path
+        required: true
+        schema:
+          type: string
+    put:
+      summary: Edit product firmware
+      operationId: editProductFirmware
+      tags:
+      - ProductFirmware
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Edit a specific product firmware version
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: version
+        in: path
+        required: true
+        schema:
+          type: string
+    delete:
+      summary: Delete unreleased firmware binary
+      operationId: deleteProductFirmware
+      tags:
+      - ProductFirmware
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Delete a version of product firmware that has never been released.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: version
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/products/{productIdOrSlug}/firmware:
+    get:
+      summary: List all product firmwares
+      operationId: listAllProductFirmwares
+      tags:
+      - ProductFirmware
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: List all versions of product firmware
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+    post:
+      summary: Upload product firmware
+      operationId: uploadProductFirmware
+      tags:
+      - ProductFirmware
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Upload a new firmware version to a product
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/products/{productIdOrSlug}/firmware/{version}/binary:
+    get:
+      summary: Download firmware binary
+      operationId: downloadProductFirmwareBinary
+      tags:
+      - ProductFirmware
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Retrieve and download the original binary of a version of product firmware.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: version
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/products/{productIdOrSlug}/firmware/release:
+    put:
+      summary: Release product firmware
+      operationId: releaseProductFirmware
+      tags:
+      - ProductFirmware
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: 'Release a version of firmware to the fleet of product devices. When releasing as the product default, all non-development devices that are not individually locked to a version of product firmware will automatically download and run this version of firmware the next time they handshake with the cloud. You can also release firmware to specific groups for more fine-grained firmware management. Note: Before releasing firmware for the first time, the firmware must be running on at least one device in your product fleet that has successfully re-connected to the Particle cloud.'
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 bearer token. Obtain via POST /oauth/token.
+externalDocs:
+  description: Particle Cloud API Reference
+  url: https://docs.particle.io/reference/cloud-apis/api/

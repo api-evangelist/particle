@@ -1,0 +1,205 @@
+openapi: 3.0.3
+info:
+  title: Particle Cloud Authentication Groups API
+  description: The Particle Cloud REST API enables developers to interact with Particle-connected devices — calling device functions, reading variables, publishing and subscribing to events, managing SIM cards, performing OTA firmware updates, and administering product fleets. All requests use OAuth 2.0 bearer tokens and target https://api.particle.io.
+  version: 1.0.0
+  contact:
+    name: Particle Developer Support
+    url: https://docs.particle.io/reference/cloud-apis/api/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://api.particle.io
+  description: Particle Cloud API
+security:
+- bearerAuth: []
+tags:
+- name: Groups
+paths:
+  /v1/products/{productIdOrSlug}/devices/{deviceId}:
+    put:
+      summary: Assign groups to a device
+      operationId: updateDeviceGroups
+      tags:
+      - Groups
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Update group memberships for an individual device. This is an absolute endpoint, meaning that regardless of previous group memberships, the group names passed to this endpoint will be the ones assigned to the device. If you pass a group name that does not yet exist, it will be created and assigned to the device.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: deviceId
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/products/{productIdOrSlug}/devices:
+    put:
+      summary: Batch assign groups to devices
+      operationId: batchAssignDeviceGroups
+      tags:
+      - Groups
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Assign groups to devices in a product as a batch action. Groups can either be added or removed from all devices passed to the endpoint.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/products/{productIdOrSlug}/groups/{groupName}:
+    get:
+      summary: Get device group
+      operationId: getDeviceGroup
+      tags:
+      - Groups
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Retrieve full info on a specific product group, including its device count.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: groupName
+        in: path
+        required: true
+        schema:
+          type: string
+    put:
+      summary: Edit device group
+      operationId: updateDeviceGroup
+      tags:
+      - Groups
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Edit attributes of a specific device group. You must pass one of name, color, or description.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: groupName
+        in: path
+        required: true
+        schema:
+          type: string
+    delete:
+      summary: Delete device group
+      operationId: deleteDeviceGroup
+      tags:
+      - Groups
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Delete device group. All devices that belong to this group will be removed from the deleted group.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: groupName
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/products/{productIdOrSlug}/groups:
+    get:
+      summary: List device groups
+      operationId: getDeviceGroups
+      tags:
+      - Groups
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: List the group objects that exist in the product. Optionally, filter by group name (partial match).
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+    post:
+      summary: Create device group
+      operationId: createDeviceGroup
+      tags:
+      - Groups
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Create a new device group withinin a product
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/products/{productIdOrSlug}/impact:
+    get:
+      summary: Impact of taking action
+      operationId: getDeviceGroupsImpact
+      tags:
+      - Groups
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Understand the number of devices that would receive an over-the-air update as a result of taking an action related to device groups. Currently, this endpoint supports understanding the impact of releasing/unreleasing firmware to one or more device groups. Pass edit_groups_for_firmware as the action parameter when calling the endpoint.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 bearer token. Obtain via POST /oauth/token.
+externalDocs:
+  description: Particle Cloud API Reference
+  url: https://docs.particle.io/reference/cloud-apis/api/

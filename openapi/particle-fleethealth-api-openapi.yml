@@ -1,0 +1,128 @@
+openapi: 3.0.3
+info:
+  title: Particle Cloud Authentication FleetHealth API
+  description: The Particle Cloud REST API enables developers to interact with Particle-connected devices — calling device functions, reading variables, publishing and subscribing to events, managing SIM cards, performing OTA firmware updates, and administering product fleets. All requests use OAuth 2.0 bearer tokens and target https://api.particle.io.
+  version: 1.0.0
+  contact:
+    name: Particle Developer Support
+    url: https://docs.particle.io/reference/cloud-apis/api/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://api.particle.io
+  description: Particle Cloud API
+security:
+- bearerAuth: []
+tags:
+- name: FleetHealth
+paths:
+  /v1/products/{productIdOrSlug}/metrics/online:
+    get:
+      summary: Get online devices metrics
+      operationId: getOnlineMetrics
+      tags:
+      - FleetHealth
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: 'Reports the number of devices online in this product. Each time bucket contains: count: the number of devices with an active cloud connection. Devices that recently went offline (due to being powered off or losing network connectivity) will be counted as online until the device misses sending a keep-alive message to the cloud. This is typically 25 seconds for Wi-Fi networks and 23 minutes for cellular networks. Can be filtered to include only devices with a certain firmware version, Device OS version or in a certain group.'
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/products/{productIdOrSlug}/metrics/events:
+    get:
+      summary: Get event traffic health metrics
+      operationId: getEventsMetrics
+      tags:
+      - FleetHealth
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: 'Reports each time a device publishes an event in this product. Each time bucket contains counts of: received: the cloud received an event from a device. Can be filtered to include only events from devices with a certain firmware version, Device OS version or in a certain group.'
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/products/{productIdOrSlug}/metrics/integration:
+    get:
+      summary: Get integration traffic health metrics
+      operationId: getIntegrationMetrics
+      tags:
+      - FleetHealth
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: 'Reports outbound integration requests that are sent on behalf of this product fleet and the outcome. Each time bucket contains counts of (keys with a value of 0 will be omitted): success: the integration request was accepted by the destination service (2xx response code). failure: the integration request was rejected by the destination service (network error, 4xx or 5xx response code) after 3 attempts. sleep (skipped): the integration request was not attempted because there have been too many previous failures in rapid succession. Can be filtered to include only integrations triggered by devic'
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/products/{productIdOrSlug}/metrics/functions:
+    get:
+      summary: Get cloud function call health metrics
+      operationId: getFunctionsMetrics
+      tags:
+      - FleetHealth
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: 'Reports each time a Particle.function() in firmware is called on a device in this product and the outcome. Each time bucket contains counts of (keys with a value of 0 will be omitted): success: the target device successfully received and responded to the function call. failure: the target device was unable to process the function call, or was unreachable by the cloud. offline: the function call attempt was skipped because the device was not connected to the cloud at the time the call was made. Can be filtered to include only function calls for devices with a certain firmware version, Device OS'
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/products/{productIdOrSlug}/metrics/variables:
+    get:
+      summary: Get cloud variable request health metrics
+      operationId: getVariablesMetrics
+      tags:
+      - FleetHealth
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: 'Reports each time a Particle.variable() in firmware is read on a device in this product and the outcome. Each time bucket contains counts of (keys with a value of 0 will be omitted): success: the target device successfully received and responded to the variable request. failure: the target device was unable to process the variable request, or was unreachable by the cloud. offline: the variable request was skipped because the device was not connected to the cloud at the time the call was made. Can be filtered to include only variable requests for devices with a certain firmware version, Device '
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 bearer token. Obtain via POST /oauth/token.
+externalDocs:
+  description: Particle Cloud API Reference
+  url: https://docs.particle.io/reference/cloud-apis/api/

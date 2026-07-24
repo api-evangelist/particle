@@ -1,0 +1,152 @@
+openapi: 3.0.3
+info:
+  title: Particle Cloud Authentication Events API
+  description: The Particle Cloud REST API enables developers to interact with Particle-connected devices — calling device functions, reading variables, publishing and subscribing to events, managing SIM cards, performing OTA firmware updates, and administering product fleets. All requests use OAuth 2.0 bearer tokens and target https://api.particle.io.
+  version: 1.0.0
+  contact:
+    name: Particle Developer Support
+    url: https://docs.particle.io/reference/cloud-apis/api/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://api.particle.io
+  description: Particle Cloud API
+security:
+- bearerAuth: []
+tags:
+- name: Events
+paths:
+  /v1/events/{eventPrefix}:
+    get:
+      summary: Get a stream of events
+      operationId: GetEvents
+      tags:
+      - Events
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Open a stream of Server Sent Events for all events. for your devices matching the filter. Note that as of April 2018, the event prefix filter is required. It was optional before.
+      parameters:
+      - name: eventPrefix
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/devices/events/{eventPrefix}:
+    get:
+      summary: Get a stream of your events
+      operationId: GetDeviceEvents
+      tags:
+      - Events
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Open a stream of Server Sent Events for all events for your devices.
+      parameters:
+      - name: eventPrefix
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/devices/{deviceId}/events/{eventPrefix}:
+    get:
+      summary: Get a stream of events for a device
+      operationId: GetDeviceEvents
+      tags:
+      - Events
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Open a stream of Server Sent Events for all events for the specified device.
+      parameters:
+      - name: deviceId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: eventPrefix
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/products/{productIdOrSlug}/events/{eventPrefix}:
+    get:
+      summary: Product event stream
+      operationId: GetProductEvents
+      tags:
+      - Events
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Open a stream of Server Sent Events for all events for a product.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: eventPrefix
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/devices/events:
+    post:
+      summary: Publish an event
+      operationId: CreateEvent
+      tags:
+      - Events
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Publish an event
+  /v1/products/{productIdOrSlug}/events:
+    post:
+      summary: Publish a product event
+      operationId: PublishProductEvent
+      tags:
+      - Events
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Publish an event that is sent to the product's event stream
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 bearer token. Obtain via POST /oauth/token.
+externalDocs:
+  description: Particle Cloud API Reference
+  url: https://docs.particle.io/reference/cloud-apis/api/

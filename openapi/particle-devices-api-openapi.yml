@@ -1,0 +1,249 @@
+openapi: 3.0.3
+info:
+  title: Particle Cloud Authentication Devices API
+  description: The Particle Cloud REST API enables developers to interact with Particle-connected devices — calling device functions, reading variables, publishing and subscribing to events, managing SIM cards, performing OTA firmware updates, and administering product fleets. All requests use OAuth 2.0 bearer tokens and target https://api.particle.io.
+  version: 1.0.0
+  contact:
+    name: Particle Developer Support
+    url: https://docs.particle.io/reference/cloud-apis/api/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://api.particle.io
+  description: Particle Cloud API
+security:
+- bearerAuth: []
+tags:
+- name: Devices
+paths:
+  /v1/devices:
+    post:
+      summary: Claim a device
+      operationId: ClaimDevice
+      tags:
+      - Devices
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Claim a new or unclaimed device to your account.
+    get:
+      summary: List devices
+      operationId: ListDevices
+      tags:
+      - Devices
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: List devices the currently authenticated user has access to. By default, devices will be sorted by last_handshake_at in descending order.
+  /v1/products/{productIdOrSlug}/devices/{deviceId}:
+    get:
+      summary: Get product device information
+      operationId: GetProductDevice
+      tags:
+      - Devices
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Get basic information about a given device that is part of a product See Get device information for the response attributes
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: deviceId
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/devices/{deviceId}:
+    delete:
+      summary: Unclaim device
+      operationId: unclaimDevice
+      tags:
+      - Devices
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: 'Remove ownership of a device. This will unclaim regardless if the device is owned by a user or a customer, in the case of a product. When using this endpoint to unclaim a product device, the route looks slightly different: DELETE /v1/products/:productIdOrSlug/devices/:deviceId/owner Note the /owner at the end of the route.'
+      parameters:
+      - name: deviceId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      summary: Get device information
+      operationId: GetDevice
+      tags:
+      - Devices
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Get basic information about the given device, including the custom variables and functions it has exposed. This can be called for sandbox devices claimed to your account and for product devices you have access to, regardless of claiming.
+      parameters:
+      - name: deviceId
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/serial_numbers/{serial_number}:
+    get:
+      summary: Look up device identification from a serial number
+      operationId: GetV1Serial_numbersSerial_number
+      tags:
+      - Devices
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Return the device ID and SIM card ICCD (if applicable) for a device by serial number. This API can look up devices that you have not yet added to your product and is rate limited to 50 requests per hour. Once you've imported your devices to your product you should instead use the list devices in a product API and filter on serial number. No special rate limits apply to that API.
+      parameters:
+      - name: serial_number
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/products/{productIdOrSlug}/devices:
+    get:
+      summary: List devices in a product
+      operationId: listDevicesForProduct
+      tags:
+      - Devices
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: List all devices that are part of a product. Results are paginated, by default returns 25 device records per page.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/products/{productIdOrSlug}/device_orders:
+    get:
+      summary: List device orders for a product
+      operationId: listDeviceOrdersForProduct
+      tags:
+      - Devices
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: List device orders associated with the product's organization. Each element represents a single shiment from a wholesale device order. Returns the full list — not paginated. Sorted by latest_fulfilled_at desc (most recently fulfilled first).
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/devices/{deviceId}/{varName}:
+    get:
+      summary: Get a variable value
+      operationId: GetDeviceVariable
+      tags:
+      - Devices
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Request the current value of a variable exposed by the device. Variables can be read on a device you own, or for any device that is part of a product you are a team member of.
+      parameters:
+      - name: deviceId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: varName
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/devices/{deviceId}/{functionName}:
+    post:
+      summary: Call a function
+      operationId: PostV1DevicesDeviceidFunctionname
+      tags:
+      - Devices
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Call a function exposed by the device, with arguments passed in the request body. Functions can be called on a device you own, or for any device that is part of a product you are a team member of.
+      parameters:
+      - name: deviceId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: functionName
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/devices/{deviceId}/ping:
+    put:
+      summary: Ping a device
+      operationId: PutV1DevicesDeviceidPing
+      tags:
+      - Devices
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: This will ping a device, enabling you to see if your device is online or offline
+      parameters:
+      - name: deviceId
+        in: path
+        required: true
+        schema:
+          type: string
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 bearer token. Obtain via POST /oauth/token.
+externalDocs:
+  description: Particle Cloud API Reference
+  url: https://docs.particle.io/reference/cloud-apis/api/

@@ -1,0 +1,217 @@
+openapi: 3.0.3
+info:
+  title: Particle Cloud Authentication Logic API
+  description: The Particle Cloud REST API enables developers to interact with Particle-connected devices — calling device functions, reading variables, publishing and subscribing to events, managing SIM cards, performing OTA firmware updates, and administering product fleets. All requests use OAuth 2.0 bearer tokens and target https://api.particle.io.
+  version: 1.0.0
+  contact:
+    name: Particle Developer Support
+    url: https://docs.particle.io/reference/cloud-apis/api/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://api.particle.io
+  description: Particle Cloud API
+security:
+- bearerAuth: []
+tags:
+- name: Logic
+paths:
+  /v1/logic/functions/{logicFunctionId}/stats:
+    get:
+      summary: Get logic function stats
+      operationId: GetV1LogicFunctionsLogicfunctionidStats
+      tags:
+      - Logic
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Returns the specified logic function stats.
+      parameters:
+      - name: logicFunctionId
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/logic/execute:
+    post:
+      summary: Execute logic function
+      operationId: PostV1LogicExecute
+      tags:
+      - Logic
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Executes the provided logic function.
+  /v1/logic/functions:
+    get:
+      summary: List logic functions
+      operationId: GetV1LogicFunctions
+      tags:
+      - Logic
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Lists all logic functions belonging to the specified Sandbox or organization.
+    post:
+      summary: Create a new logic function
+      operationId: PostV1LogicFunctions
+      tags:
+      - Logic
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Creates a logic function.
+  /v1/logic/functions/{logicFunctionId}:
+    get:
+      summary: Get logic function
+      operationId: GetV1LogicFunctionsLogicfunctionid
+      tags:
+      - Logic
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Returns the specified logic function.
+      parameters:
+      - name: logicFunctionId
+        in: path
+        required: true
+        schema:
+          type: string
+    put:
+      summary: Update logic function
+      operationId: PutV1LogicFunctionsLogicfunctionid
+      tags:
+      - Logic
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Updates the logic function.
+      parameters:
+      - name: logicFunctionId
+        in: path
+        required: true
+        schema:
+          type: string
+    delete:
+      summary: Delete logic function
+      operationId: DeleteV1LogicFunctionsLogicfunctionid
+      tags:
+      - Logic
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Deletes the specified logic function.
+      parameters:
+      - name: logicFunctionId
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/logic/functions/{logicFunctionId}/runs:
+    get:
+      summary: List logic functions runs
+      operationId: GetV1LogicFunctionsLogicfunctionidRuns
+      tags:
+      - Logic
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Lists all runs for the specified logic function.
+      parameters:
+      - name: logicFunctionId
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/logic/functions/{logicFunctionId}/runs/{logicRunId}:
+    get:
+      summary: Get logic function run
+      operationId: GetV1LogicFunctionsLogicfunctionidRunsLogicrunid
+      tags:
+      - Logic
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Returns the specified logic function run.
+      parameters:
+      - name: logicFunctionId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: logicRunId
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/logic/functions/{logicFunctionId}/runs/{logicRunId}/logs:
+    get:
+      summary: Get logic function run logs
+      operationId: GetV1LogicFunctionsLogicfunctionidRunsLogicrunidLogs
+      tags:
+      - Logic
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Returns the specified logic function run logs.
+      parameters:
+      - name: logicFunctionId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: logicRunId
+        in: path
+        required: true
+        schema:
+          type: string
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 bearer token. Obtain via POST /oauth/token.
+externalDocs:
+  description: Particle Cloud API Reference
+  url: https://docs.particle.io/reference/cloud-apis/api/

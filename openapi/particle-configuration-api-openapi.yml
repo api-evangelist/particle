@@ -1,0 +1,159 @@
+openapi: 3.0.3
+info:
+  title: Particle Cloud Authentication Configuration API
+  description: The Particle Cloud REST API enables developers to interact with Particle-connected devices — calling device functions, reading variables, publishing and subscribing to events, managing SIM cards, performing OTA firmware updates, and administering product fleets. All requests use OAuth 2.0 bearer tokens and target https://api.particle.io.
+  version: 1.0.0
+  contact:
+    name: Particle Developer Support
+    url: https://docs.particle.io/reference/cloud-apis/api/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://api.particle.io
+  description: Particle Cloud API
+security:
+- bearerAuth: []
+tags:
+- name: Configuration
+paths:
+  /v1/products/{productIdOrSlug}/config:
+    get:
+      summary: Get product schema
+      operationId: GetProductConfigSchema
+      tags:
+      - Configuration
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Get the possible values that can be configured for this product, in JSON Schema format
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+    delete:
+      summary: Delete product configuration schema
+      operationId: DeleteProductConfigSchema
+      tags:
+      - Configuration
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Delete configuration schema, use Tracker Edge defaults.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+    put:
+      summary: Set product configuration schema
+      operationId: SetProductConfigSchema
+      tags:
+      - Configuration
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Set configuration schema that will become the default for the product. This must be the entire schema, including the standard Particle parts; there is no merging of changes.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/products/{productIdOrSlug}/config/{deviceId}:
+    get:
+      summary: Get device schema
+      operationId: GetDeviceConfigSchema
+      tags:
+      - Configuration
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Get the possible values that can be configured for one device in this product, in JSON Schema format
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: deviceId
+        in: path
+        required: true
+        schema:
+          type: string
+    delete:
+      summary: Delete device configuration schema
+      operationId: DeleteDeviceConfigSchema
+      tags:
+      - Configuration
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Delete device's configuration schema, use product's.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: deviceId
+        in: path
+        required: true
+        schema:
+          type: string
+    put:
+      summary: Set device configuration schema
+      operationId: SetDeviceSchema
+      tags:
+      - Configuration
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Set configuration schema for the device. This must be the entire schema, including the standard Particle parts; there is no merging of changes.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: deviceId
+        in: path
+        required: true
+        schema:
+          type: string
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 bearer token. Obtain via POST /oauth/token.
+externalDocs:
+  description: Particle Cloud API Reference
+  url: https://docs.particle.io/reference/cloud-apis/api/

@@ -1,0 +1,135 @@
+openapi: 3.0.3
+info:
+  title: Particle Cloud Authentication Env API
+  description: The Particle Cloud REST API enables developers to interact with Particle-connected devices — calling device functions, reading variables, publishing and subscribing to events, managing SIM cards, performing OTA firmware updates, and administering product fleets. All requests use OAuth 2.0 bearer tokens and target https://api.particle.io.
+  version: 1.0.0
+  contact:
+    name: Particle Developer Support
+    url: https://docs.particle.io/reference/cloud-apis/api/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://api.particle.io
+  description: Particle Cloud API
+security:
+- bearerAuth: []
+tags:
+- name: Env
+paths:
+  /v1/env:
+    get:
+      summary: List environment variables
+      operationId: listEnv
+      tags:
+      - Env
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: List environment variables for an organization, Sandbox, product, or device.
+    patch:
+      summary: Bulk update environment variables
+      operationId: patchEnv
+      tags:
+      - Env
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Apply multiple changes to environment variables for an organization, Sandbox, product, or device in a single request.
+  /v1/env/{key}:
+    put:
+      summary: Set environment variable
+      operationId: setEnv
+      tags:
+      - Env
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Create or update a single environment variable for an organization, Sandbox, product, or device.
+      parameters:
+      - name: key
+        in: path
+        required: true
+        schema:
+          type: string
+    delete:
+      summary: Delete environment variable
+      operationId: deleteEnv
+      tags:
+      - Env
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Delete a single environment variable for an organization, Sandbox, product, or device.
+      parameters:
+      - name: key
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/env/render:
+    get:
+      summary: Render environment variables
+      operationId: renderEnv
+      tags:
+      - Env
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Render environment variables for an organization, Sandbox, product, or device. The response is a flat key/value map of the effective variables after inheritance and overrides are applied.
+  /v1/env/rollout:
+    get:
+      summary: Review environment variables rollout
+      operationId: reviewEnvRollout
+      tags:
+      - Env
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Review changes that can be rolled out
+    post:
+      summary: Start environment variables rollout
+      operationId: startEnvRollout
+      tags:
+      - Env
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Apply updated environment variable values and make them available to devices. When rolling out immediately, devices that are currently available to receive OTA updates will receive updated environment variables. Devices that are busy or offline will apply the update when they become ready. When rolling out on next connection, as devices handshake (begin new secure sessions) with the Device Cloud, they will receive updated environment variables.
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 bearer token. Obtain via POST /oauth/token.
+externalDocs:
+  description: Particle Cloud API Reference
+  url: https://docs.particle.io/reference/cloud-apis/api/

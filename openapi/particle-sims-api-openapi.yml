@@ -1,0 +1,160 @@
+openapi: 3.0.3
+info:
+  title: Particle Cloud Authentication Sims API
+  description: The Particle Cloud REST API enables developers to interact with Particle-connected devices — calling device functions, reading variables, publishing and subscribing to events, managing SIM cards, performing OTA firmware updates, and administering product fleets. All requests use OAuth 2.0 bearer tokens and target https://api.particle.io.
+  version: 1.0.0
+  contact:
+    name: Particle Developer Support
+    url: https://docs.particle.io/reference/cloud-apis/api/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://api.particle.io
+  description: Particle Cloud API
+security:
+- bearerAuth: []
+tags:
+- name: Sims
+paths:
+  /v1/sims/{iccid}:
+    delete:
+      summary: Release SIM from account
+      operationId: releaseSimFromAccount
+      tags:
+      - Sims
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Remove a SIM card from an account, disassociating the SIM card from a user or a product. The SIM will also be deactivated. Once the SIM card has been released, it can be claimed by a different user, or imported into a different product.
+      parameters:
+      - name: iccid
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      summary: Get SIM information
+      operationId: listSim
+      tags:
+      - Sims
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Retrieve a SIM card owned by an individual or a product.
+      parameters:
+      - name: iccid
+        in: path
+        required: true
+        schema:
+          type: string
+    put:
+      summary: Reactivate SIM
+      operationId: PutV1SimsIccid
+      tags:
+      - Sims
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Re-enables a SIM card to connect to a cell tower. Do this if you'd like to reactivate a SIM that you have deactivated.
+      parameters:
+      - name: iccid
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/sims:
+    get:
+      summary: List SIM cards
+      operationId: listSims
+      tags:
+      - Sims
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Get a list of the SIM cards owned by an individual or a product. The product endpoint is paginated, by default returns 25 SIM card records per page.
+  /v1/sims/{iccid}/data_usage:
+    get:
+      summary: Get data usage
+      operationId: simDataUsage
+      tags:
+      - Sims
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Get SIM card data usage for the current billing period, broken out by day. Note that date usage reports can be delayed by up to 1 hour.
+      parameters:
+      - name: iccid
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/products/{productIdOrSlug}/sims/data_usage:
+    get:
+      summary: Get data usage for product fleet
+      operationId: simFleetDataUsage
+      tags:
+      - Sims
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Get fleet-wide SIM card data usage for a product in the current billing period, broken out by day. Daily usage totals represent an aggregate of all SIM cards that make up the product. Data usage reports can be delayed until the next day, and occasionally by several days.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/products/{productIdOrSlug}/sims:
+    post:
+      summary: Import and activate product SIMs
+      operationId: listProductSims
+      tags:
+      - Sims
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Import a group of SIM cards into a product. SIM cards will be activated upon import. Either pass an array of ICCIDs or include a file containing a list of SIM cards. Import and activation will be queued for processing. You will receive an email with the import results when all SIM cards have been processed. Importing a SIM card associated with a device will also import the device into the product.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 bearer token. Obtain via POST /oauth/token.
+externalDocs:
+  description: Particle Cloud API Reference
+  url: https://docs.particle.io/reference/cloud-apis/api/

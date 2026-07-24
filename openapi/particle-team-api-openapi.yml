@@ -1,0 +1,75 @@
+openapi: 3.0.3
+info:
+  title: Particle Cloud Authentication Team API
+  description: The Particle Cloud REST API enables developers to interact with Particle-connected devices — calling device functions, reading variables, publishing and subscribing to events, managing SIM cards, performing OTA firmware updates, and administering product fleets. All requests use OAuth 2.0 bearer tokens and target https://api.particle.io.
+  version: 1.0.0
+  contact:
+    name: Particle Developer Support
+    url: https://docs.particle.io/reference/cloud-apis/api/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://api.particle.io
+  description: Particle Cloud API
+security:
+- bearerAuth: []
+tags:
+- name: Team
+paths:
+  /v1/orgs/{orgIdOrSlug}/team/provision/Users/{user_id}:
+    get:
+      summary: Read SCIM user
+      operationId: GetV1OrgsOrgidorslugTeamProvisionUsersUser_id
+      tags:
+      - Team
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      parameters:
+      - name: orgIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+    patch:
+      summary: Modify SCIM user
+      operationId: PatchV1OrgsOrgidorslugTeamProvisionUsersUser_id
+      tags:
+      - Team
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      parameters:
+      - name: orgIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 bearer token. Obtain via POST /oauth/token.
+externalDocs:
+  description: Particle Cloud API Reference
+  url: https://docs.particle.io/reference/cloud-apis/api/
