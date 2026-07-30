@@ -10,7 +10,20 @@ description: Particle is an integrated IoT Platform-as-a-Service that provides c
   model is based on Data Operations consumed per month, with plans ranging from a
   free prototyping tier through paid block-based plans to enterprise contracts.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/particle.png
 tags:
 - IoT
 - Internet of Things
@@ -28,30 +41,406 @@ created: '2026-06-12'
 modified: '2026-06-12'
 specificationVersion: '0.19'
 apis:
-- aid: particle:particle-cloud-api
-  name: Particle Cloud API
-  description: The Particle Cloud REST API enables developers to interact with Particle-connected
-    devices — calling device functions, reading variables, publishing and subscribing
-    to events, managing SIM cards, performing OTA firmware updates, and administering
-    product fleets. All requests use OAuth 2.0 bearer tokens and target https://api.particle.io.
+- aid: particle:particle-authentication-api
+  name: Particle Authentication API
+  description: The Authentication API from Particle — 3 operation(s) for authentication.
   humanURL: https://docs.particle.io/reference/cloud-apis/api/
   baseURL: https://api.particle.io
   tags:
-  - Devices
-  - Events
-  - Firmware
-  - SIM Cards
-  - Fleet Management
-  - OAuth
+  - Authentication
   properties:
+  - type: OpenAPI
+    url: openapi/particle-authentication-api-openapi.yml
   - type: Documentation
     url: https://docs.particle.io/reference/cloud-apis/api/
   - type: GettingStarted
     url: https://docs.particle.io/getting-started/cloud/cloud-api/
+  - type: GraphQL
+    url: graphql/particle-graphql.md
+- aid: particle:particle-configuration-api
+  name: Particle Configuration API
+  description: The Configuration API from Particle — 2 operation(s) for configuration.
+  humanURL: https://docs.particle.io/reference/cloud-apis/api/
+  baseURL: https://api.particle.io
+  tags:
+  - Configuration
+  properties:
   - type: OpenAPI
-    url: https://raw.githubusercontent.com/api-evangelist/particle/refs/heads/main/openapi/particle-cloud-api-openapi.yml
-  - url: graphql/particle-graphql.md
-    type: GraphQL
+    url: openapi/particle-configuration-api-openapi.yml
+  - type: Documentation
+    url: https://docs.particle.io/reference/cloud-apis/api/
+  - type: GettingStarted
+    url: https://docs.particle.io/getting-started/cloud/cloud-api/
+  - type: GraphQL
+    url: graphql/particle-graphql.md
+- aid: particle:particle-customers-api
+  name: Particle Customers API
+  description: The Customers API from Particle — 3 operation(s) for customers.
+  humanURL: https://docs.particle.io/reference/cloud-apis/api/
+  baseURL: https://api.particle.io
+  tags:
+  - Customers
+  properties:
+  - type: OpenAPI
+    url: openapi/particle-customers-api-openapi.yml
+  - type: Documentation
+    url: https://docs.particle.io/reference/cloud-apis/api/
+  - type: GettingStarted
+    url: https://docs.particle.io/getting-started/cloud/cloud-api/
+  - type: GraphQL
+    url: graphql/particle-graphql.md
+- aid: particle:particle-devices-api
+  name: Particle Devices API
+  description: The Devices API from Particle — 9 operation(s) for devices.
+  humanURL: https://docs.particle.io/reference/cloud-apis/api/
+  baseURL: https://api.particle.io
+  tags:
+  - Devices
+  properties:
+  - type: OpenAPI
+    url: openapi/particle-devices-api-openapi.yml
+  - type: Documentation
+    url: https://docs.particle.io/reference/cloud-apis/api/
+  - type: GettingStarted
+    url: https://docs.particle.io/getting-started/cloud/cloud-api/
+  - type: GraphQL
+    url: graphql/particle-graphql.md
+- aid: particle:particle-diagnostics-api
+  name: Particle Diagnostics API
+  description: The Diagnostics API from Particle — 4 operation(s) for diagnostics.
+  humanURL: https://docs.particle.io/reference/cloud-apis/api/
+  baseURL: https://api.particle.io
+  tags:
+  - Diagnostics
+  properties:
+  - type: OpenAPI
+    url: openapi/particle-diagnostics-api-openapi.yml
+  - type: Documentation
+    url: https://docs.particle.io/reference/cloud-apis/api/
+  - type: GettingStarted
+    url: https://docs.particle.io/getting-started/cloud/cloud-api/
+  - type: GraphQL
+    url: graphql/particle-graphql.md
+- aid: particle:particle-env-api
+  name: Particle Env API
+  description: The Env API from Particle — 4 operation(s) for env.
+  humanURL: https://docs.particle.io/reference/cloud-apis/api/
+  baseURL: https://api.particle.io
+  tags:
+  - Env
+  properties:
+  - type: OpenAPI
+    url: openapi/particle-env-api-openapi.yml
+  - type: Documentation
+    url: https://docs.particle.io/reference/cloud-apis/api/
+  - type: GettingStarted
+    url: https://docs.particle.io/getting-started/cloud/cloud-api/
+  - type: GraphQL
+    url: graphql/particle-graphql.md
+- aid: particle:particle-events-api
+  name: Particle Events API
+  description: The Events API from Particle — 6 operation(s) for events.
+  humanURL: https://docs.particle.io/reference/cloud-apis/api/
+  baseURL: https://api.particle.io
+  tags:
+  - Events
+  properties:
+  - type: OpenAPI
+    url: openapi/particle-events-api-openapi.yml
+  - type: Documentation
+    url: https://docs.particle.io/reference/cloud-apis/api/
+  - type: GettingStarted
+    url: https://docs.particle.io/getting-started/cloud/cloud-api/
+  - type: GraphQL
+    url: graphql/particle-graphql.md
+- aid: particle:particle-firmware-api
+  name: Particle Firmware API
+  description: The Firmware API from Particle — 3 operation(s) for firmware.
+  humanURL: https://docs.particle.io/reference/cloud-apis/api/
+  baseURL: https://api.particle.io
+  tags:
+  - Firmware
+  properties:
+  - type: OpenAPI
+    url: openapi/particle-firmware-api-openapi.yml
+  - type: Documentation
+    url: https://docs.particle.io/reference/cloud-apis/api/
+  - type: GettingStarted
+    url: https://docs.particle.io/getting-started/cloud/cloud-api/
+  - type: GraphQL
+    url: graphql/particle-graphql.md
+- aid: particle:particle-fleethealth-api
+  name: Particle FleetHealth API
+  description: The FleetHealth API from Particle — 5 operation(s) for fleethealth.
+  humanURL: https://docs.particle.io/reference/cloud-apis/api/
+  baseURL: https://api.particle.io
+  tags:
+  - FleetHealth
+  properties:
+  - type: OpenAPI
+    url: openapi/particle-fleethealth-api-openapi.yml
+  - type: Documentation
+    url: https://docs.particle.io/reference/cloud-apis/api/
+  - type: GettingStarted
+    url: https://docs.particle.io/getting-started/cloud/cloud-api/
+  - type: GraphQL
+    url: graphql/particle-graphql.md
+- aid: particle:particle-groups-api
+  name: Particle Groups API
+  description: The Groups API from Particle — 5 operation(s) for groups.
+  humanURL: https://docs.particle.io/reference/cloud-apis/api/
+  baseURL: https://api.particle.io
+  tags:
+  - Groups
+  properties:
+  - type: OpenAPI
+    url: openapi/particle-groups-api-openapi.yml
+  - type: Documentation
+    url: https://docs.particle.io/reference/cloud-apis/api/
+  - type: GettingStarted
+    url: https://docs.particle.io/getting-started/cloud/cloud-api/
+  - type: GraphQL
+    url: graphql/particle-graphql.md
+- aid: particle:particle-integrations-api
+  name: Particle Integrations API
+  description: The Integrations API from Particle — 3 operation(s) for integrations.
+  humanURL: https://docs.particle.io/reference/cloud-apis/api/
+  baseURL: https://api.particle.io
+  tags:
+  - Integrations
+  properties:
+  - type: OpenAPI
+    url: openapi/particle-integrations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.particle.io/reference/cloud-apis/api/
+  - type: GettingStarted
+    url: https://docs.particle.io/getting-started/cloud/cloud-api/
+  - type: GraphQL
+    url: graphql/particle-graphql.md
+- aid: particle:particle-ledger-api
+  name: Particle Ledger API
+  description: The Ledger API from Particle — 6 operation(s) for ledger.
+  humanURL: https://docs.particle.io/reference/cloud-apis/api/
+  baseURL: https://api.particle.io
+  tags:
+  - Ledger
+  properties:
+  - type: OpenAPI
+    url: openapi/particle-ledger-api-openapi.yml
+  - type: Documentation
+    url: https://docs.particle.io/reference/cloud-apis/api/
+  - type: GettingStarted
+    url: https://docs.particle.io/getting-started/cloud/cloud-api/
+  - type: GraphQL
+    url: graphql/particle-graphql.md
+- aid: particle:particle-location-api
+  name: Particle Location API
+  description: The Location API from Particle — 3 operation(s) for location.
+  humanURL: https://docs.particle.io/reference/cloud-apis/api/
+  baseURL: https://api.particle.io
+  tags:
+  - Location
+  properties:
+  - type: OpenAPI
+    url: openapi/particle-location-api-openapi.yml
+  - type: Documentation
+    url: https://docs.particle.io/reference/cloud-apis/api/
+  - type: GettingStarted
+    url: https://docs.particle.io/getting-started/cloud/cloud-api/
+  - type: GraphQL
+    url: graphql/particle-graphql.md
+- aid: particle:particle-logic-api
+  name: Particle Logic API
+  description: The Logic API from Particle — 7 operation(s) for logic.
+  humanURL: https://docs.particle.io/reference/cloud-apis/api/
+  baseURL: https://api.particle.io
+  tags:
+  - Logic
+  properties:
+  - type: OpenAPI
+    url: openapi/particle-logic-api-openapi.yml
+  - type: Documentation
+    url: https://docs.particle.io/reference/cloud-apis/api/
+  - type: GettingStarted
+    url: https://docs.particle.io/getting-started/cloud/cloud-api/
+  - type: GraphQL
+    url: graphql/particle-graphql.md
+- aid: particle:particle-oauth-api
+  name: Particle OAuth API
+  description: The OAuth API from Particle — 2 operation(s) for oauth.
+  humanURL: https://docs.particle.io/reference/cloud-apis/api/
+  baseURL: https://api.particle.io
+  tags:
+  - OAuth
+  properties:
+  - type: OpenAPI
+    url: openapi/particle-oauth-api-openapi.yml
+  - type: Documentation
+    url: https://docs.particle.io/reference/cloud-apis/api/
+  - type: GettingStarted
+    url: https://docs.particle.io/getting-started/cloud/cloud-api/
+  - type: GraphQL
+    url: graphql/particle-graphql.md
+- aid: particle:particle-organizations-api
+  name: Particle Organizations API
+  description: The Organizations API from Particle — 3 operation(s) for organizations.
+  humanURL: https://docs.particle.io/reference/cloud-apis/api/
+  baseURL: https://api.particle.io
+  tags:
+  - Organizations
+  properties:
+  - type: OpenAPI
+    url: openapi/particle-organizations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.particle.io/reference/cloud-apis/api/
+  - type: GettingStarted
+    url: https://docs.particle.io/getting-started/cloud/cloud-api/
+  - type: GraphQL
+    url: graphql/particle-graphql.md
+- aid: particle:particle-productfirmware-api
+  name: Particle ProductFirmware API
+  description: The ProductFirmware API from Particle — 4 operation(s) for productfirmware.
+  humanURL: https://docs.particle.io/reference/cloud-apis/api/
+  baseURL: https://api.particle.io
+  tags:
+  - ProductFirmware
+  properties:
+  - type: OpenAPI
+    url: openapi/particle-productfirmware-api-openapi.yml
+  - type: Documentation
+    url: https://docs.particle.io/reference/cloud-apis/api/
+  - type: GettingStarted
+    url: https://docs.particle.io/getting-started/cloud/cloud-api/
+  - type: GraphQL
+    url: graphql/particle-graphql.md
+- aid: particle:particle-products-api
+  name: Particle Products API
+  description: The Products API from Particle — 5 operation(s) for products.
+  humanURL: https://docs.particle.io/reference/cloud-apis/api/
+  baseURL: https://api.particle.io
+  tags:
+  - Products
+  properties:
+  - type: OpenAPI
+    url: openapi/particle-products-api-openapi.yml
+  - type: Documentation
+    url: https://docs.particle.io/reference/cloud-apis/api/
+  - type: GettingStarted
+    url: https://docs.particle.io/getting-started/cloud/cloud-api/
+  - type: GraphQL
+    url: graphql/particle-graphql.md
+- aid: particle:particle-quarantine-api
+  name: Particle Quarantine API
+  description: The Quarantine API from Particle — 2 operation(s) for quarantine.
+  humanURL: https://docs.particle.io/reference/cloud-apis/api/
+  baseURL: https://api.particle.io
+  tags:
+  - Quarantine
+  properties:
+  - type: OpenAPI
+    url: openapi/particle-quarantine-api-openapi.yml
+  - type: Documentation
+    url: https://docs.particle.io/reference/cloud-apis/api/
+  - type: GettingStarted
+    url: https://docs.particle.io/getting-started/cloud/cloud-api/
+  - type: GraphQL
+    url: graphql/particle-graphql.md
+- aid: particle:particle-search-api
+  name: Particle Search API
+  description: The Search API from Particle — 2 operation(s) for search.
+  humanURL: https://docs.particle.io/reference/cloud-apis/api/
+  baseURL: https://api.particle.io
+  tags:
+  - Search
+  properties:
+  - type: OpenAPI
+    url: openapi/particle-search-api-openapi.yml
+  - type: Documentation
+    url: https://docs.particle.io/reference/cloud-apis/api/
+  - type: GettingStarted
+    url: https://docs.particle.io/getting-started/cloud/cloud-api/
+  - type: GraphQL
+    url: graphql/particle-graphql.md
+- aid: particle:particle-secrets-api
+  name: Particle Secrets API
+  description: The Secrets API from Particle — 2 operation(s) for secrets.
+  humanURL: https://docs.particle.io/reference/cloud-apis/api/
+  baseURL: https://api.particle.io
+  tags:
+  - Secrets
+  properties:
+  - type: OpenAPI
+    url: openapi/particle-secrets-api-openapi.yml
+  - type: Documentation
+    url: https://docs.particle.io/reference/cloud-apis/api/
+  - type: GettingStarted
+    url: https://docs.particle.io/getting-started/cloud/cloud-api/
+  - type: GraphQL
+    url: graphql/particle-graphql.md
+- aid: particle:particle-serviceagreements-api
+  name: Particle ServiceAgreements API
+  description: The ServiceAgreements API from Particle — 7 operation(s) for serviceagreements.
+  humanURL: https://docs.particle.io/reference/cloud-apis/api/
+  baseURL: https://api.particle.io
+  tags:
+  - ServiceAgreements
+  properties:
+  - type: OpenAPI
+    url: openapi/particle-serviceagreements-api-openapi.yml
+  - type: Documentation
+    url: https://docs.particle.io/reference/cloud-apis/api/
+  - type: GettingStarted
+    url: https://docs.particle.io/getting-started/cloud/cloud-api/
+  - type: GraphQL
+    url: graphql/particle-graphql.md
+- aid: particle:particle-sims-api
+  name: Particle Sims API
+  description: The Sims API from Particle — 5 operation(s) for sims.
+  humanURL: https://docs.particle.io/reference/cloud-apis/api/
+  baseURL: https://api.particle.io
+  tags:
+  - Sims
+  properties:
+  - type: OpenAPI
+    url: openapi/particle-sims-api-openapi.yml
+  - type: Documentation
+    url: https://docs.particle.io/reference/cloud-apis/api/
+  - type: GettingStarted
+    url: https://docs.particle.io/getting-started/cloud/cloud-api/
+  - type: GraphQL
+    url: graphql/particle-graphql.md
+- aid: particle:particle-team-api
+  name: Particle Team API
+  description: The Team API from Particle — 1 operation(s) for team.
+  humanURL: https://docs.particle.io/reference/cloud-apis/api/
+  baseURL: https://api.particle.io
+  tags:
+  - Team
+  properties:
+  - type: OpenAPI
+    url: openapi/particle-team-api-openapi.yml
+  - type: Documentation
+    url: https://docs.particle.io/reference/cloud-apis/api/
+  - type: GettingStarted
+    url: https://docs.particle.io/getting-started/cloud/cloud-api/
+  - type: GraphQL
+    url: graphql/particle-graphql.md
+- aid: particle:particle-user-api
+  name: Particle User API
+  description: The User API from Particle — 2 operation(s) for user.
+  humanURL: https://docs.particle.io/reference/cloud-apis/api/
+  baseURL: https://api.particle.io
+  tags:
+  - User
+  properties:
+  - type: OpenAPI
+    url: openapi/particle-user-api-openapi.yml
+  - type: Documentation
+    url: https://docs.particle.io/reference/cloud-apis/api/
+  - type: GettingStarted
+    url: https://docs.particle.io/getting-started/cloud/cloud-api/
+  - type: GraphQL
+    url: graphql/particle-graphql.md
 common:
 - type: AgenticAccess
   url: agentic-access/particle-agentic-access.yml
