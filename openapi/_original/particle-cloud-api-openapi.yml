@@ -1,0 +1,2889 @@
+openapi: 3.0.3
+info:
+  title: Particle Cloud API
+  description: The Particle Cloud REST API enables developers to interact with Particle-connected devices — calling device
+    functions, reading variables, publishing and subscribing to events, managing SIM cards, performing OTA firmware updates,
+    and administering product fleets. All requests use OAuth 2.0 bearer tokens and target https://api.particle.io.
+  version: 1.0.0
+  contact:
+    name: Particle Developer Support
+    url: https://docs.particle.io/reference/cloud-apis/api/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+externalDocs:
+  description: Particle Cloud API Reference
+  url: https://docs.particle.io/reference/cloud-apis/api/
+servers:
+- url: https://api.particle.io
+  description: Particle Cloud API
+security:
+- bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 bearer token. Obtain via POST /oauth/token.
+  schemas:
+    Error:
+      type: object
+      properties:
+        ok:
+          type: boolean
+        error:
+          type: string
+        error_description:
+          type: string
+    Device:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Device ID (24-char hex)
+        name:
+          type: string
+        last_ip_address:
+          type: string
+        last_heard:
+          type: string
+          format: date-time
+        last_handshake_at:
+          type: string
+          format: date-time
+        product_id:
+          type: integer
+        online:
+          type: boolean
+        platform_id:
+          type: integer
+        cellular:
+          type: boolean
+        firmware_version:
+          type: string
+tags:
+- name: Authentication
+- name: Configuration
+- name: Customers
+- name: Devices
+- name: Diagnostics
+- name: Env
+- name: Events
+- name: Firmware
+- name: FleetHealth
+- name: Groups
+- name: Integrations
+- name: Ledger
+- name: Location
+- name: Logic
+- name: OAuth
+- name: Organizations
+- name: ProductFirmware
+- name: Products
+- name: Quarantine
+- name: Search
+- name: Secrets
+- name: ServiceAgreements
+- name: Sims
+- name: Team
+- name: User
+paths:
+  /oauth/token:
+    post:
+      summary: Generate a customer scoped access token
+      operationId: PostOauthToken
+      tags:
+      - Customers
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Creates a token scoped to a customer for your organization. You must give a valid product OAuth client
+        ID and secret in HTTP Basic Auth or in the client_id and client_secret parameters.
+  /v1/access_tokens/{token}:
+    delete:
+      summary: Delete an access token
+      operationId: DeleteAccessToken
+      tags:
+      - Authentication
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Delete your unused or lost tokens.
+      parameters:
+      - name: token
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/access_tokens:
+    delete:
+      summary: Delete all active access tokens
+      operationId: DeleteActiveAccessTokens
+      tags:
+      - Authentication
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Delete all your active access tokens.
+  /v1/access_tokens/current:
+    delete:
+      summary: Delete current access token
+      operationId: DeleteCurrentAccessToken
+      tags:
+      - Authentication
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Delete your currently used token.
+    get:
+      summary: Get the current access token information
+      operationId: GetCurrentAccessToken
+      tags:
+      - Authentication
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Get your currently used token.
+  /v1/products/{productIdOrSlug}/config:
+    get:
+      summary: Get product schema
+      operationId: GetProductConfigSchema
+      tags:
+      - Configuration
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Get the possible values that can be configured for this product, in JSON Schema format
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+    delete:
+      summary: Delete product configuration schema
+      operationId: DeleteProductConfigSchema
+      tags:
+      - Configuration
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Delete configuration schema, use Tracker Edge defaults.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+    put:
+      summary: Set product configuration schema
+      operationId: SetProductConfigSchema
+      tags:
+      - Configuration
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Set configuration schema that will become the default for the product. This must be the entire schema,
+        including the standard Particle parts; there is no merging of changes.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/products/{productIdOrSlug}/config/{deviceId}:
+    get:
+      summary: Get device schema
+      operationId: GetDeviceConfigSchema
+      tags:
+      - Configuration
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Get the possible values that can be configured for one device in this product, in JSON Schema format
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: deviceId
+        in: path
+        required: true
+        schema:
+          type: string
+    delete:
+      summary: Delete device configuration schema
+      operationId: DeleteDeviceConfigSchema
+      tags:
+      - Configuration
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Delete device's configuration schema, use product's.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: deviceId
+        in: path
+        required: true
+        schema:
+          type: string
+    put:
+      summary: Set device configuration schema
+      operationId: SetDeviceSchema
+      tags:
+      - Configuration
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Set configuration schema for the device. This must be the entire schema, including the standard Particle
+        parts; there is no merging of changes.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: deviceId
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/products/{productIdOrSlug}/customers/{customerEmail}:
+    delete:
+      summary: Delete a customer
+      operationId: deleteCustomer
+      tags:
+      - Customers
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Delete a customer in a product. Will also revoke all of this customer's access tokens, pending device claim
+        codes and activation codes.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: customerEmail
+        in: path
+        required: true
+        schema:
+          type: string
+    put:
+      summary: Update customer password
+      operationId: updateCustomerPassword
+      tags:
+      - Customers
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Update the account password for a customer. Only relevant for non-shadow customers that have a password
+        saved in Particle's system. Must be called with an access token that has access to the product, not a customer access
+        token.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: customerEmail
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/products/{productIdOrSlug}/customers:
+    post:
+      summary: Create a customer - Implicit
+      operationId: CreateCustomer
+      tags:
+      - Customers
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: 'Create a customer for a product using OAuth implicit grant type. This is the way you should hit the POST
+        customers endpoint if you are creating customers from a web browser. After a successful POST, the customer access
+        token will be appended as a hash to the redirect URI associated with the client credentials provided. For this grant
+        type, you must also pass response_type: token. You must give a valid product OAuth client ID in HTTP Basic Auth or
+        in the client_id parameter. Do not pass the OAuth client secret when creating customers from a web browser.'
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      summary: List customers for a product
+      operationId: ListProductCustomers
+      tags:
+      - Customers
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: List Customers for a product.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/devices:
+    post:
+      summary: Claim a device
+      operationId: ClaimDevice
+      tags:
+      - Devices
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Claim a new or unclaimed device to your account.
+    get:
+      summary: List devices
+      operationId: ListDevices
+      tags:
+      - Devices
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: List devices the currently authenticated user has access to. By default, devices will be sorted by last_handshake_at
+        in descending order.
+  /v1/products/{productIdOrSlug}/devices/{deviceId}:
+    delete:
+      summary: Deny a quarantined device
+      operationId: denyQuarantinedDevice
+      tags:
+      - Quarantine
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Deny a quarantined device
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: deviceId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      summary: Get product device information
+      operationId: GetProductDevice
+      tags:
+      - Devices
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Get basic information about a given device that is part of a product See Get device information for the
+        response attributes
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: deviceId
+        in: path
+        required: true
+        schema:
+          type: string
+    put:
+      summary: Assign groups to a device
+      operationId: updateDeviceGroups
+      tags:
+      - Groups
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Update group memberships for an individual device. This is an absolute endpoint, meaning that regardless
+        of previous group memberships, the group names passed to this endpoint will be the ones assigned to the device. If
+        you pass a group name that does not yet exist, it will be created and assigned to the device.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: deviceId
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/devices/{deviceId}:
+    delete:
+      summary: Unclaim device
+      operationId: unclaimDevice
+      tags:
+      - Devices
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: 'Remove ownership of a device. This will unclaim regardless if the device is owned by a user or a customer,
+        in the case of a product. When using this endpoint to unclaim a product device, the route looks slightly different:
+        DELETE /v1/products/:productIdOrSlug/devices/:deviceId/owner Note the /owner at the end of the route.'
+      parameters:
+      - name: deviceId
+        in: path
+        required: true
+        schema:
+          type: string
+    put:
+      summary: Flash a device with a bundle
+      operationId: UpdateDeviceFirmware
+      tags:
+      - Firmware
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Update the device firmware from a bundle
+      parameters:
+      - name: deviceId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      summary: Get device information
+      operationId: GetDevice
+      tags:
+      - Devices
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Get basic information about the given device, including the custom variables and functions it has exposed.
+        This can be called for sandbox devices claimed to your account and for product devices you have access to, regardless
+        of claiming.
+      parameters:
+      - name: deviceId
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/serial_numbers/{serial_number}:
+    get:
+      summary: Look up device identification from a serial number
+      operationId: GetV1Serial_numbersSerial_number
+      tags:
+      - Devices
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Return the device ID and SIM card ICCD (if applicable) for a device by serial number. This API can look
+        up devices that you have not yet added to your product and is rate limited to 50 requests per hour. Once you've imported
+        your devices to your product you should instead use the list devices in a product API and filter on serial number.
+        No special rate limits apply to that API.
+      parameters:
+      - name: serial_number
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/products/{productIdOrSlug}/devices:
+    get:
+      summary: List devices in a product
+      operationId: listDevicesForProduct
+      tags:
+      - Devices
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: List all devices that are part of a product. Results are paginated, by default returns 25 device records
+        per page.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+    post:
+      summary: Approve a quarantined device
+      operationId: approveQuarantinedDevice
+      tags:
+      - Quarantine
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Approve a quarantined device. This will immediately release the device from quarantine and allow it to
+        publish events, receive firmware updates, etc.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+    put:
+      summary: Batch assign groups to devices
+      operationId: batchAssignDeviceGroups
+      tags:
+      - Groups
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Assign groups to devices in a product as a batch action. Groups can either be added or removed from all
+        devices passed to the endpoint.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/products/{productIdOrSlug}/device_orders:
+    get:
+      summary: List device orders for a product
+      operationId: listDeviceOrdersForProduct
+      tags:
+      - Devices
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: List device orders associated with the product's organization. Each element represents a single shiment
+        from a wholesale device order. Returns the full list — not paginated. Sorted by latest_fulfilled_at desc (most recently
+        fulfilled first).
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/devices/{deviceId}/{varName}:
+    get:
+      summary: Get a variable value
+      operationId: GetDeviceVariable
+      tags:
+      - Devices
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Request the current value of a variable exposed by the device. Variables can be read on a device you own,
+        or for any device that is part of a product you are a team member of.
+      parameters:
+      - name: deviceId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: varName
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/devices/{deviceId}/{functionName}:
+    post:
+      summary: Call a function
+      operationId: PostV1DevicesDeviceidFunctionname
+      tags:
+      - Devices
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Call a function exposed by the device, with arguments passed in the request body. Functions can be called
+        on a device you own, or for any device that is part of a product you are a team member of.
+      parameters:
+      - name: deviceId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: functionName
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/devices/{deviceId}/ping:
+    put:
+      summary: Ping a device
+      operationId: PutV1DevicesDeviceidPing
+      tags:
+      - Devices
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: This will ping a device, enabling you to see if your device is online or offline
+      parameters:
+      - name: deviceId
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/diagnostics/{deviceId}/update:
+    post:
+      summary: Refresh device vitals
+      operationId: updateDeviceDiagnostics
+      tags:
+      - Diagnostics
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: 'Refresh diagnostic vitals for a single device. This will instruct the device to publish a new event to
+        the Device Cloud containing a device vitals payload. This is an asynchronous request: the HTTP request returns immediately
+        after the request to the device is sent. In order for the device to respond with a vitals payload, it must be online
+        and connected to the Device Cloud. The device will respond by publishing an event named spark/device/diagnostics/update.
+        See the description of the device vitals event.'
+      parameters:
+      - name: deviceId
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/diagnostics/{deviceId}/last:
+    get:
+      summary: Get last known device vitals
+      operationId: getLastDeviceDiagnostics
+      tags:
+      - Diagnostics
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Returns the last device vitals payload sent by the device to the Device Cloud.
+      parameters:
+      - name: deviceId
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/diagnostics/{deviceId}:
+    get:
+      summary: Get all historical device vitals
+      operationId: getAllDeviceDiagnostics
+      tags:
+      - Diagnostics
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Returns all stored device vital records sent by the device to the Device Cloud. Device vitals records will
+        expire after 1 month.
+      parameters:
+      - name: deviceId
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/sims/{iccid}/status:
+    get:
+      summary: Get cellular network status
+      operationId: getCellularNetworkStatus
+      tags:
+      - Diagnostics
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Get cellular network status for a given device. Kicks off a long running task that checks if the device/SIM
+        has an active data session with a cell tower. Values for keys in the sim_status object will be null until the task
+        has finished. Poll the endpoint until meta.state is complete. At this point, the sim_status object will be populated.
+        Note that responses are cached by the cellular network providers. This means that on occasion, the real-time status
+        of the device/SIM may not align with the results of this test.
+      parameters:
+      - name: iccid
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/env:
+    get:
+      summary: List environment variables
+      operationId: listEnv
+      tags:
+      - Env
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: List environment variables for an organization, Sandbox, product, or device.
+    patch:
+      summary: Bulk update environment variables
+      operationId: patchEnv
+      tags:
+      - Env
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Apply multiple changes to environment variables for an organization, Sandbox, product, or device in a single
+        request.
+  /v1/env/{key}:
+    put:
+      summary: Set environment variable
+      operationId: setEnv
+      tags:
+      - Env
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Create or update a single environment variable for an organization, Sandbox, product, or device.
+      parameters:
+      - name: key
+        in: path
+        required: true
+        schema:
+          type: string
+    delete:
+      summary: Delete environment variable
+      operationId: deleteEnv
+      tags:
+      - Env
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Delete a single environment variable for an organization, Sandbox, product, or device.
+      parameters:
+      - name: key
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/env/render:
+    get:
+      summary: Render environment variables
+      operationId: renderEnv
+      tags:
+      - Env
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Render environment variables for an organization, Sandbox, product, or device. The response is a flat key/value
+        map of the effective variables after inheritance and overrides are applied.
+  /v1/env/rollout:
+    get:
+      summary: Review environment variables rollout
+      operationId: reviewEnvRollout
+      tags:
+      - Env
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Review changes that can be rolled out
+    post:
+      summary: Start environment variables rollout
+      operationId: startEnvRollout
+      tags:
+      - Env
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Apply updated environment variable values and make them available to devices. When rolling out immediately,
+        devices that are currently available to receive OTA updates will receive updated environment variables. Devices that
+        are busy or offline will apply the update when they become ready. When rolling out on next connection, as devices
+        handshake (begin new secure sessions) with the Device Cloud, they will receive updated environment variables.
+  /v1/events/{eventPrefix}:
+    get:
+      summary: Get a stream of events
+      operationId: GetEvents
+      tags:
+      - Events
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Open a stream of Server Sent Events for all events. for your devices matching the filter. Note that as
+        of April 2018, the event prefix filter is required. It was optional before.
+      parameters:
+      - name: eventPrefix
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/devices/events/{eventPrefix}:
+    get:
+      summary: Get a stream of your events
+      operationId: GetDeviceEvents
+      tags:
+      - Events
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Open a stream of Server Sent Events for all events for your devices.
+      parameters:
+      - name: eventPrefix
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/devices/{deviceId}/events/{eventPrefix}:
+    get:
+      summary: Get a stream of events for a device
+      operationId: GetDeviceEvents
+      tags:
+      - Events
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Open a stream of Server Sent Events for all events for the specified device.
+      parameters:
+      - name: deviceId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: eventPrefix
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/products/{productIdOrSlug}/events/{eventPrefix}:
+    get:
+      summary: Product event stream
+      operationId: GetProductEvents
+      tags:
+      - Events
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Open a stream of Server Sent Events for all events for a product.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: eventPrefix
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/devices/events:
+    post:
+      summary: Publish an event
+      operationId: CreateEvent
+      tags:
+      - Events
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Publish an event
+  /v1/products/{productIdOrSlug}/events:
+    post:
+      summary: Publish a product event
+      operationId: PublishProductEvent
+      tags:
+      - Events
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Publish an event that is sent to the product's event stream
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/binaries:
+    post:
+      summary: Compile source code
+      operationId: compileSource
+      tags:
+      - Firmware
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Compile source code into a binary for a device
+  /v1/build_targets:
+    get:
+      summary: List firmware build targets
+      operationId: listBuildTargets
+      tags:
+      - Firmware
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: 'Lists the firmware versions for all platforms that can be used as build targets during firmware compilation.
+        Note: This endpoint does not require an access token.'
+  /v1/products/{productIdOrSlug}/metrics/online:
+    get:
+      summary: Get online devices metrics
+      operationId: getOnlineMetrics
+      tags:
+      - FleetHealth
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: 'Reports the number of devices online in this product. Each time bucket contains: count: the number of
+        devices with an active cloud connection. Devices that recently went offline (due to being powered off or losing network
+        connectivity) will be counted as online until the device misses sending a keep-alive message to the cloud. This is
+        typically 25 seconds for Wi-Fi networks and 23 minutes for cellular networks. Can be filtered to include only devices
+        with a certain firmware version, Device OS version or in a certain group.'
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/products/{productIdOrSlug}/metrics/events:
+    get:
+      summary: Get event traffic health metrics
+      operationId: getEventsMetrics
+      tags:
+      - FleetHealth
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: 'Reports each time a device publishes an event in this product. Each time bucket contains counts of: received:
+        the cloud received an event from a device. Can be filtered to include only events from devices with a certain firmware
+        version, Device OS version or in a certain group.'
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/products/{productIdOrSlug}/metrics/integration:
+    get:
+      summary: Get integration traffic health metrics
+      operationId: getIntegrationMetrics
+      tags:
+      - FleetHealth
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: 'Reports outbound integration requests that are sent on behalf of this product fleet and the outcome. Each
+        time bucket contains counts of (keys with a value of 0 will be omitted): success: the integration request was accepted
+        by the destination service (2xx response code). failure: the integration request was rejected by the destination service
+        (network error, 4xx or 5xx response code) after 3 attempts. sleep (skipped): the integration request was not attempted
+        because there have been too many previous failures in rapid succession. Can be filtered to include only integrations
+        triggered by devic'
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/products/{productIdOrSlug}/metrics/functions:
+    get:
+      summary: Get cloud function call health metrics
+      operationId: getFunctionsMetrics
+      tags:
+      - FleetHealth
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: 'Reports each time a Particle.function() in firmware is called on a device in this product and the outcome.
+        Each time bucket contains counts of (keys with a value of 0 will be omitted): success: the target device successfully
+        received and responded to the function call. failure: the target device was unable to process the function call, or
+        was unreachable by the cloud. offline: the function call attempt was skipped because the device was not connected
+        to the cloud at the time the call was made. Can be filtered to include only function calls for devices with a certain
+        firmware version, Device OS'
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/products/{productIdOrSlug}/metrics/variables:
+    get:
+      summary: Get cloud variable request health metrics
+      operationId: getVariablesMetrics
+      tags:
+      - FleetHealth
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: 'Reports each time a Particle.variable() in firmware is read on a device in this product and the outcome.
+        Each time bucket contains counts of (keys with a value of 0 will be omitted): success: the target device successfully
+        received and responded to the variable request. failure: the target device was unable to process the variable request,
+        or was unreachable by the cloud. offline: the variable request was skipped because the device was not connected to
+        the cloud at the time the call was made. Can be filtered to include only variable requests for devices with a certain
+        firmware version, Device '
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/products/{productIdOrSlug}/groups/{groupName}:
+    get:
+      summary: Get device group
+      operationId: getDeviceGroup
+      tags:
+      - Groups
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Retrieve full info on a specific product group, including its device count.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: groupName
+        in: path
+        required: true
+        schema:
+          type: string
+    put:
+      summary: Edit device group
+      operationId: updateDeviceGroup
+      tags:
+      - Groups
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Edit attributes of a specific device group. You must pass one of name, color, or description.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: groupName
+        in: path
+        required: true
+        schema:
+          type: string
+    delete:
+      summary: Delete device group
+      operationId: deleteDeviceGroup
+      tags:
+      - Groups
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Delete device group. All devices that belong to this group will be removed from the deleted group.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: groupName
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/products/{productIdOrSlug}/groups:
+    get:
+      summary: List device groups
+      operationId: getDeviceGroups
+      tags:
+      - Groups
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: List the group objects that exist in the product. Optionally, filter by group name (partial match).
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+    post:
+      summary: Create device group
+      operationId: createDeviceGroup
+      tags:
+      - Groups
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Create a new device group withinin a product
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/products/{productIdOrSlug}/impact:
+    get:
+      summary: Impact of taking action
+      operationId: getDeviceGroupsImpact
+      tags:
+      - Groups
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Understand the number of devices that would receive an over-the-air update as a result of taking an action
+        related to device groups. Currently, this endpoint supports understanding the impact of releasing/unreleasing firmware
+        to one or more device groups. Pass edit_groups_for_firmware as the action parameter when calling the endpoint.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/integrations:
+    get:
+      summary: List integrations
+      operationId: listIntegrations
+      tags:
+      - Integrations
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: 'List all integrations. Pay special attention to the integration_type attribute of each integration, which
+        will let you know whether the integration is a Webhook, an Azure IoT Hub integration, or a Google Cloud Platform integration.
+        If you would like to only list webhooks (integrations with type: ''Webhook''), you can use a slightly different endpoint:
+        GET /v1/webhooks'
+    post:
+      summary: Enable Google Maps integration
+      operationId: enableGoogleCloudMapsIntegration
+      tags:
+      - Integrations
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Enable an integration with Google Maps. For more details, check out the tutorial.
+  /v1/integrations/{integrationId}/test:
+    post:
+      summary: Test an integration
+      operationId: PostV1IntegrationsIntegrationidTest
+      tags:
+      - Integrations
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Send a test event that triggers the integration. Helps build confidence that an integration is configured
+        properly.
+      parameters:
+      - name: integrationId
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/integrations/{integrationId}:
+    delete:
+      summary: Delete an integration
+      operationId: Delete_Integration
+      tags:
+      - Integrations
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Delete an integration and immediate stop it from triggering. The integration can belong to a user or to
+        a product.
+      parameters:
+      - name: integrationId
+        in: path
+        required: true
+        schema:
+          type: string
+    put:
+      summary: Edit Google Maps Integration
+      operationId: PutV1IntegrationsIntegrationid
+      tags:
+      - Integrations
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Edit a Google Maps integration. Subsequent triggering of this integration will be sent with the new attributes.
+        The configuration replaces the entire previous webhook configuration. It does not merge in changes.
+      parameters:
+      - name: integrationId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      summary: Get integration
+      operationId: Get_Integration
+      tags:
+      - Integrations
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Get a single integration. Pay special attention to the integration_type attribute of each integration,
+        which will let you know whether the integration is a Webhook, an Azure IoT Hub integration, a Google Cloud Platform
+        integration, or a Google Maps integration.
+      parameters:
+      - name: integrationId
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/ledgers/{ledgerName}/instances/{scopeValue}/versions:
+    get:
+      summary: List ledger instance versions
+      operationId: GetV1LedgersLedgernameInstancesScopevalueVersions
+      tags:
+      - Ledger
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Lists all ledger instance versions.
+      parameters:
+      - name: ledgerName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: scopeValue
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/ledgers:
+    get:
+      summary: List ledger definitions
+      operationId: GetV1Ledgers
+      tags:
+      - Ledger
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Lists all ledger definitions belonging to the Sandbox or organization.
+    post:
+      summary: Create a new ledger definition
+      operationId: PostV1Ledgers
+      tags:
+      - Ledger
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Creates a ledger definition.
+  /v1/ledgers/{ledgerName}:
+    get:
+      summary: Get ledger definition
+      operationId: GetV1LedgersLedgername
+      tags:
+      - Ledger
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Returns the specified ledger definition.
+      parameters:
+      - name: ledgerName
+        in: path
+        required: true
+        schema:
+          type: string
+    put:
+      summary: Update ledger definition
+      operationId: PutV1LedgersLedgername
+      tags:
+      - Ledger
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Updates the ledger definition.
+      parameters:
+      - name: ledgerName
+        in: path
+        required: true
+        schema:
+          type: string
+    delete:
+      summary: Archive a ledger definition
+      operationId: DeleteV1LedgersLedgername
+      tags:
+      - Ledger
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Archives a ledger definition.
+      parameters:
+      - name: ledgerName
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/ledgers/{ledgerName}/instances:
+    get:
+      summary: List ledger instances
+      operationId: GetV1LedgersLedgernameInstances
+      tags:
+      - Ledger
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Lists all ledger instances.
+      parameters:
+      - name: ledgerName
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/ledgers/{ledgerName}/instances/{scopeValue}:
+    get:
+      summary: Get ledger instance
+      operationId: GetV1LedgersLedgernameInstancesScopevalue
+      tags:
+      - Ledger
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Returns the specified ledger instance.
+      parameters:
+      - name: ledgerName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: scopeValue
+        in: path
+        required: true
+        schema:
+          type: string
+    put:
+      summary: Set the ledger instance data
+      operationId: PutV1LedgersLedgernameInstancesScopevalue
+      tags:
+      - Ledger
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Sets the data of the specified ledger instance.
+      parameters:
+      - name: ledgerName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: scopeValue
+        in: path
+        required: true
+        schema:
+          type: string
+    delete:
+      summary: Delete ledger instance
+      operationId: DeleteV1LedgersLedgernameInstancesScopevalue
+      tags:
+      - Ledger
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Deletes the specified ledger instance.
+      parameters:
+      - name: ledgerName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: scopeValue
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/ledgers/{ledgerName}/instances/{scopeValue}/versions/{version}:
+    get:
+      summary: Get ledger instance version
+      operationId: GetV1LedgersLedgernameInstancesScopevalueVersionsVersion
+      tags:
+      - Ledger
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Returns the specified version of a ledger instance.
+      parameters:
+      - name: ledgerName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: scopeValue
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: version
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/products/{productIdOrSlug}/fleet_locations:
+    get:
+      summary: Query fleet-wide locations for devices within a product
+      operationId: GetFleetLocations
+      tags:
+      - Location
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Get the latest location data for all the devices in a product to get a fleet-wide summary of device location.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/products/{productIdOrSlug}/locations:
+    get:
+      summary: Query location for devices within a product
+      operationId: GetLocations
+      tags:
+      - Location
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Get latest or historical location data for devices. Date range and bounding box can be specified to narrow
+        the query.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/products/{productIdOrSlug}/locations/{deviceId}:
+    get:
+      summary: Query location for one device within a product
+      operationId: getLocation
+      tags:
+      - Location
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Get last known or historical location data for one device. Date range and bounding box can be specified
+        to narrow down the query. Properties and custom data will be returned by default.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: deviceId
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/logic/functions/{logicFunctionId}/stats:
+    get:
+      summary: Get logic function stats
+      operationId: GetV1LogicFunctionsLogicfunctionidStats
+      tags:
+      - Logic
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Returns the specified logic function stats.
+      parameters:
+      - name: logicFunctionId
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/logic/execute:
+    post:
+      summary: Execute logic function
+      operationId: PostV1LogicExecute
+      tags:
+      - Logic
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Executes the provided logic function.
+  /v1/logic/functions:
+    get:
+      summary: List logic functions
+      operationId: GetV1LogicFunctions
+      tags:
+      - Logic
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Lists all logic functions belonging to the specified Sandbox or organization.
+    post:
+      summary: Create a new logic function
+      operationId: PostV1LogicFunctions
+      tags:
+      - Logic
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Creates a logic function.
+  /v1/logic/functions/{logicFunctionId}:
+    get:
+      summary: Get logic function
+      operationId: GetV1LogicFunctionsLogicfunctionid
+      tags:
+      - Logic
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Returns the specified logic function.
+      parameters:
+      - name: logicFunctionId
+        in: path
+        required: true
+        schema:
+          type: string
+    put:
+      summary: Update logic function
+      operationId: PutV1LogicFunctionsLogicfunctionid
+      tags:
+      - Logic
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Updates the logic function.
+      parameters:
+      - name: logicFunctionId
+        in: path
+        required: true
+        schema:
+          type: string
+    delete:
+      summary: Delete logic function
+      operationId: DeleteV1LogicFunctionsLogicfunctionid
+      tags:
+      - Logic
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Deletes the specified logic function.
+      parameters:
+      - name: logicFunctionId
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/logic/functions/{logicFunctionId}/runs:
+    get:
+      summary: List logic functions runs
+      operationId: GetV1LogicFunctionsLogicfunctionidRuns
+      tags:
+      - Logic
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Lists all runs for the specified logic function.
+      parameters:
+      - name: logicFunctionId
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/logic/functions/{logicFunctionId}/runs/{logicRunId}:
+    get:
+      summary: Get logic function run
+      operationId: GetV1LogicFunctionsLogicfunctionidRunsLogicrunid
+      tags:
+      - Logic
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Returns the specified logic function run.
+      parameters:
+      - name: logicFunctionId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: logicRunId
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/logic/functions/{logicFunctionId}/runs/{logicRunId}/logs:
+    get:
+      summary: Get logic function run logs
+      operationId: GetV1LogicFunctionsLogicfunctionidRunsLogicrunidLogs
+      tags:
+      - Logic
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Returns the specified logic function run logs.
+      parameters:
+      - name: logicFunctionId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: logicRunId
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/clients:
+    get:
+      summary: List clients
+      operationId: GetV1Clients
+      tags:
+      - OAuth
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Get a list of all existing OAuth clients, either owned by the authenticated user or clients associated
+        with a product.
+    post:
+      summary: Create a client
+      operationId: CreateOAuthClient
+      tags:
+      - OAuth
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Create an OAuth client that represents an app. Use type=installed for most web and mobile apps. If you
+        want to have Particle users login to their account on Particle in order to give your app access to their devices,
+        then you can go through the full OAuth authorization code grant flow using type=web. This is the same way you authorize
+        it is similar to the way you give any app access to your Facebook or Twitter account. Your client secret will never
+        be displayed again! Save it in a safe place. If you use type=web then you will also need to pass a redirect_uri parameter
+        in the POST body. This is
+  /v1/clients/{clientId}:
+    put:
+      summary: Update a client
+      operationId: UpdateOAuthClient
+      tags:
+      - OAuth
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Update the name or scope of an existing OAuth client.
+      parameters:
+      - name: clientId
+        in: path
+        required: true
+        schema:
+          type: string
+    delete:
+      summary: Delete a client
+      operationId: DeleteV1ClientsClientid
+      tags:
+      - OAuth
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Remove an OAuth client
+      parameters:
+      - name: clientId
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/orgs:
+    get:
+      summary: List organizations
+      operationId: listOrganizationsForUser
+      tags:
+      - Organizations
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: List organizations the currently authenticated user has access to
+  /v1/orgs/{orgIdOrSlug}:
+    get:
+      summary: Retrieve an organization
+      operationId: getOrganization
+      tags:
+      - Organizations
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Retrieve details for an organization.
+      parameters:
+      - name: orgIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/orgs/{orgIdOrSlug}/products:
+    get:
+      summary: List organization products
+      operationId: listOrgProducts
+      tags:
+      - Organizations
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: List products which belong the the organization
+      parameters:
+      - name: orgIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/products/{productIdOrSlug}/firmware/{version}:
+    get:
+      summary: Get product firmware
+      operationId: getProductFirmwareVersion
+      tags:
+      - ProductFirmware
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Get a specific version of product firmware
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: version
+        in: path
+        required: true
+        schema:
+          type: string
+    put:
+      summary: Edit product firmware
+      operationId: editProductFirmware
+      tags:
+      - ProductFirmware
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Edit a specific product firmware version
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: version
+        in: path
+        required: true
+        schema:
+          type: string
+    delete:
+      summary: Delete unreleased firmware binary
+      operationId: deleteProductFirmware
+      tags:
+      - ProductFirmware
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Delete a version of product firmware that has never been released.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: version
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/products/{productIdOrSlug}/firmware:
+    get:
+      summary: List all product firmwares
+      operationId: listAllProductFirmwares
+      tags:
+      - ProductFirmware
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: List all versions of product firmware
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+    post:
+      summary: Upload product firmware
+      operationId: uploadProductFirmware
+      tags:
+      - ProductFirmware
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Upload a new firmware version to a product
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/products/{productIdOrSlug}/firmware/{version}/binary:
+    get:
+      summary: Download firmware binary
+      operationId: downloadProductFirmwareBinary
+      tags:
+      - ProductFirmware
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Retrieve and download the original binary of a version of product firmware.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: version
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/products/{productIdOrSlug}/firmware/release:
+    put:
+      summary: Release product firmware
+      operationId: releaseProductFirmware
+      tags:
+      - ProductFirmware
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: 'Release a version of firmware to the fleet of product devices. When releasing as the product default,
+        all non-development devices that are not individually locked to a version of product firmware will automatically download
+        and run this version of firmware the next time they handshake with the cloud. You can also release firmware to specific
+        groups for more fine-grained firmware management. Note: Before releasing firmware for the first time, the firmware
+        must be running on at least one device in your product fleet that has successfully re-connected to the Particle cloud.'
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/user/products:
+    get:
+      summary: List products
+      operationId: listProducts
+      tags:
+      - Products
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: List products the currently authenticated user has access to
+  /v1/products/{productIdOrSlug}:
+    get:
+      summary: Retrieve a product
+      operationId: GetProduct
+      tags:
+      - Products
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Retrieve details for a product.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/products/{productIdOrSlug}/team:
+    get:
+      summary: List team members
+      operationId: listUsersForProductOrOrg
+      tags:
+      - Products
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: List all team members that are part of a given product. Also, will retrieve all API users for all the products
+        inside the org
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+    post:
+      summary: Create an API user
+      operationId: createProgrammaticUser
+      tags:
+      - Products
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Create an API user with specified scopes. This API user will have a single non-expiring access token.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/products/{productIdOrSlug}/team/{username}:
+    post:
+      summary: Update team member
+      operationId: updateProductOrOrgTeamMember
+      tags:
+      - Products
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Update a current team member.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: username
+        in: path
+        required: true
+        schema:
+          type: string
+    delete:
+      summary: Remove team member
+      operationId: removeTeamMember
+      tags:
+      - Products
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Remove a current team member.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: username
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/products/{productIdOrSlug}/team/{username}/token:
+    put:
+      summary: Regenerate programmatic user's token
+      operationId: regenerateProductOrOrgProgrammaticUserToken
+      tags:
+      - Products
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Regenerate programmatic users token
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: username
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/orgs/{orgIdOrSlug}/search:
+    get:
+      summary: Search your organization
+      operationId: searchOrg
+      tags:
+      - Search
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Search your organization for devices, products, and SIMs. Returns at most 10 results per type.
+      parameters:
+      - name: orgIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/user/search:
+    get:
+      summary: Search your Sandbox
+      operationId: searchSandbox
+      tags:
+      - Search
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Search your Sandbox for devices, products, and SIMs. Returns at most 10 results per type.
+  /v1/secrets:
+    get:
+      summary: List cloud secrets
+      operationId: listSecrets
+      tags:
+      - Secrets
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: List cloud secrets in the Sandbox or organization
+    post:
+      summary: Create a cloud secret
+      operationId: createSecret
+      tags:
+      - Secrets
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Create a cloud secret in the Sandbox or organization. The name of the secret must be unique within the
+        Sandbox or organization.
+  /v1/secrets/{secretName}:
+    get:
+      summary: Get cloud secret by name
+      operationId: getSecrets
+      tags:
+      - Secrets
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Get details of a cloud secret in the Sandbox or organization
+      parameters:
+      - name: secretName
+        in: path
+        required: true
+        schema:
+          type: string
+    put:
+      summary: Create or Update the value of a cloud secret
+      operationId: putSecret
+      tags:
+      - Secrets
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Creates or Updates the value of a cloud secret in the Sandbox or organization.
+      parameters:
+      - name: secretName
+        in: path
+        required: true
+        schema:
+          type: string
+    delete:
+      summary: Delete a cloud secret
+      operationId: deleteSecret
+      tags:
+      - Secrets
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Delete a cloud secret in the Sandbox or organization. The secret must not be used by any integrations or
+        Logic Functions. Remove the secret from all integrations and Logic Functions before deleting it.
+      parameters:
+      - name: secretName
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/user/service_agreements:
+    get:
+      summary: Get user service agreements
+      operationId: getServiceAgreements
+      tags:
+      - ServiceAgreements
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Get the service agreements related to a user
+  /v1/orgs/{orgIdOrSlug}/service_agreements:
+    get:
+      summary: Get organization service agreements
+      operationId: getServiceAgreementsForOrganization
+      tags:
+      - ServiceAgreements
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Get the service agreements related to an organization
+      parameters:
+      - name: orgIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/user/usage_reports/{usageReportId}:
+    get:
+      summary: Get a user usage report
+      operationId: getUserUsageReport
+      tags:
+      - ServiceAgreements
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Get a single usage report related to the user. Expect "download_url" to be present only when the usage
+        report has an "available" state.
+      parameters:
+      - name: usageReportId
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/orgs/{orgSlugOrId}/usage_reports/{usageReportId}:
+    get:
+      summary: Get an org usage report
+      operationId: getOrgUsageReport
+      tags:
+      - ServiceAgreements
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Get a single usage report related to an organization. Expect "download_url" to be present only when the
+        usage report has an "available" state. The user must be an active member of the organization.
+      parameters:
+      - name: orgSlugOrId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: usageReportId
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/user/service_agreements/{serviceAgreementId}/usage_reports:
+    post:
+      summary: Create a user usage report
+      operationId: createUserUsageReport
+      tags:
+      - ServiceAgreements
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Request a new usage report related to the user service agreement. The usage report will be processed asynchronously.
+        The download_url is populated once the report's state becomes available. Required body parameters vary by report_type.
+        Metered device reports can only query dates within the last 6 months.
+      parameters:
+      - name: serviceAgreementId
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/orgs/{orgSlugOrId}/service_agreements/{serviceAgreementId}/usage_reports:
+    post:
+      summary: Create an org usage report
+      operationId: createOrgUsageReport
+      tags:
+      - ServiceAgreements
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Request a new usage report related to the organization service agreement. The usage report will be processed
+        asynchronously. The download_url is populated once the report's state becomes available. The user must be an active
+        member of the organization. Required body parameters vary by report_type. Metered device reports can only query dates
+        within the last 6 months.
+      parameters:
+      - name: orgSlugOrId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: serviceAgreementId
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/user/service_agreements/{serviceAgreementId}/notifications:
+    get:
+      summary: Get notifications for current usage period
+      operationId: GetServiceAgreementNotifications
+      tags:
+      - ServiceAgreements
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Get user notifications related to a specific service agreement Usage reached a certain threshold (70%,
+        90%, 100%) Service was paused Service was unpaused
+      parameters:
+      - name: serviceAgreementId
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/sims/{iccid}:
+    delete:
+      summary: Release SIM from account
+      operationId: releaseSimFromAccount
+      tags:
+      - Sims
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Remove a SIM card from an account, disassociating the SIM card from a user or a product. The SIM will also
+        be deactivated. Once the SIM card has been released, it can be claimed by a different user, or imported into a different
+        product.
+      parameters:
+      - name: iccid
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      summary: Get SIM information
+      operationId: listSim
+      tags:
+      - Sims
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Retrieve a SIM card owned by an individual or a product.
+      parameters:
+      - name: iccid
+        in: path
+        required: true
+        schema:
+          type: string
+    put:
+      summary: Reactivate SIM
+      operationId: PutV1SimsIccid
+      tags:
+      - Sims
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Re-enables a SIM card to connect to a cell tower. Do this if you'd like to reactivate a SIM that you have
+        deactivated.
+      parameters:
+      - name: iccid
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/sims:
+    get:
+      summary: List SIM cards
+      operationId: listSims
+      tags:
+      - Sims
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Get a list of the SIM cards owned by an individual or a product. The product endpoint is paginated, by
+        default returns 25 SIM card records per page.
+  /v1/sims/{iccid}/data_usage:
+    get:
+      summary: Get data usage
+      operationId: simDataUsage
+      tags:
+      - Sims
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Get SIM card data usage for the current billing period, broken out by day. Note that date usage reports
+        can be delayed by up to 1 hour.
+      parameters:
+      - name: iccid
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/products/{productIdOrSlug}/sims/data_usage:
+    get:
+      summary: Get data usage for product fleet
+      operationId: simFleetDataUsage
+      tags:
+      - Sims
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Get fleet-wide SIM card data usage for a product in the current billing period, broken out by day. Daily
+        usage totals represent an aggregate of all SIM cards that make up the product. Data usage reports can be delayed until
+        the next day, and occasionally by several days.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/products/{productIdOrSlug}/sims:
+    post:
+      summary: Import and activate product SIMs
+      operationId: listProductSims
+      tags:
+      - Sims
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Import a group of SIM cards into a product. SIM cards will be activated upon import. Either pass an array
+        of ICCIDs or include a file containing a list of SIM cards. Import and activation will be queued for processing. You
+        will receive an email with the import results when all SIM cards have been processed. Importing a SIM card associated
+        with a device will also import the device into the product.
+      parameters:
+      - name: productIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/orgs/{orgIdOrSlug}/team/provision/Users/{user_id}:
+    get:
+      summary: Read SCIM user
+      operationId: GetV1OrgsOrgidorslugTeamProvisionUsersUser_id
+      tags:
+      - Team
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      parameters:
+      - name: orgIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+    patch:
+      summary: Modify SCIM user
+      operationId: PatchV1OrgsOrgidorslugTeamProvisionUsersUser_id
+      tags:
+      - Team
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      parameters:
+      - name: orgIdOrSlug
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+  /v1/user:
+    get:
+      summary: Get user
+      operationId: GetUser
+      tags:
+      - User
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Return the user resource for the currently authenticated user.
+    put:
+      summary: Delete user
+      operationId: deleteUser
+      tags:
+      - User
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: Delete the logged-in user. Allows removing user account and artifacts from Particle system
+  /v1/user/password-reset:
+    post:
+      summary: Forgot password
+      operationId: UserPasswordForgot
+      tags:
+      - User
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      description: 'Create a new password reset token and send the user an email with the token. This endpoint is rate-limited
+        to prevent abuse. Note: This endpoint does not require an access token.'
