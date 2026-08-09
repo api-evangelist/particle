@@ -1,14 +1,13 @@
 aid: particle
 name: Particle
-description: Particle is an integrated IoT Platform-as-a-Service that provides cellular,
-  Wi-Fi, and Bluetooth hardware modules alongside a comprehensive cloud platform for
-  building and managing connected devices at scale. The Particle Device Cloud exposes
-  a REST API that enables developers to call device functions, read variables, publish
-  and subscribe to events, manage firmware OTA updates, and administer product fleets.
-  Authentication uses OAuth 2.0 bearer tokens, and the platform supports JavaScript,
-  iOS, Android, and Windows SDKs as well as a command-line interface. Particle's pricing
-  model is based on Data Operations consumed per month, with plans ranging from a
-  free prototyping tier through paid block-based plans to enterprise contracts.
+description: Particle is an integrated IoT Platform-as-a-Service that provides cellular, Wi-Fi, and Bluetooth
+  hardware modules alongside a comprehensive cloud platform for building and managing connected devices
+  at scale. The Particle Device Cloud exposes a REST API that enables developers to call device functions,
+  read variables, publish and subscribe to events, manage firmware OTA updates, and administer product
+  fleets. Authentication uses OAuth 2.0 bearer tokens, and the platform supports JavaScript, iOS, Android,
+  and Windows SDKs as well as a command-line interface. Particle's pricing model is based on Data Operations
+  consumed per month, with plans ranging from a free prototyping tier through paid block-based plans to
+  enterprise contracts.
 type: Index
 accessModel:
   pricing: freemium
@@ -38,7 +37,7 @@ tags:
 - Embedded
 url: https://raw.githubusercontent.com/api-evangelist/particle/refs/heads/main/apis.yml
 created: '2026-06-12'
-modified: '2026-06-12'
+modified: '2026-08-08'
 specificationVersion: '0.19'
 apis:
 - aid: particle:particle-authentication-api
@@ -484,6 +483,24 @@ common:
   url: https://raw.githubusercontent.com/api-evangelist/particle/refs/heads/main/vocabulary/particle-vocabulary.yml
 - type: Blog
   url: https://raw.githubusercontent.com/api-evangelist/particle/refs/heads/main/blogs/blogs.json
+- type: Developer
+  url: https://docs.particle.io/
+- type: SDKs
+  url: https://github.com/particle-iot/particle-api-js
+- type: CLI
+  url: https://docs.particle.io/reference/developer-tools/cli/
+- type: GitHub
+  url: https://github.com/particle-iot
+- type: Support
+  url: https://support.particle.io/
+- type: PrivacyPolicy
+  url: https://www.particle.io/legal/
+- type: TermsOfService
+  url: https://www.particle.io/legal/
+- type: Integrations
+  url: https://docs.particle.io/reference/cloud-apis/api/#integrations-webhooks
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
+x-merged-from:
+- particle-io

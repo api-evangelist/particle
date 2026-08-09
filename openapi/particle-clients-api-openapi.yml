@@ -1,0 +1,86 @@
+openapi: 3.1.0
+info:
+  title: Particle Cloud Access Tokens Clients API
+  description: 'The Particle Cloud API exposes IoT device management, product fleet
+
+    management, OAuth client and token administration, diagnostics, SIM
+
+    management and user account endpoints.
+
+    '
+  version: 1.0.0
+  contact:
+    name: Particle
+    url: https://docs.particle.io/reference/cloud-apis/api/
+servers:
+- url: https://api.particle.io
+  description: Particle Cloud production
+security:
+- BearerAuth: []
+tags:
+- name: Clients
+paths:
+  /v1/clients:
+    get:
+      summary: List OAuth clients
+      responses:
+        '200':
+          description: A list of OAuth clients.
+      tags:
+      - Clients
+    post:
+      summary: Create an OAuth client
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: OAuth client created.
+      tags:
+      - Clients
+  /v1/clients/{clientId}:
+    put:
+      summary: Update an OAuth client
+      parameters:
+      - in: path
+        name: clientId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: OAuth client updated.
+      tags:
+      - Clients
+    delete:
+      summary: Delete an OAuth client
+      parameters:
+      - in: path
+        name: clientId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OAuth client deleted.
+      tags:
+      - Clients
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: OAuth2 access token
+      description: 'Pass `Authorization: Bearer {access_token}`. Tokens are issued via
+
+        `POST /oauth/token`.
+
+        '

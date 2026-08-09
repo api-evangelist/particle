@@ -1,0 +1,70 @@
+openapi: 3.1.0
+info:
+  title: Particle Cloud Access Tokens API
+  description: 'The Particle Cloud API exposes IoT device management, product fleet
+
+    management, OAuth client and token administration, diagnostics, SIM
+
+    management and user account endpoints.
+
+    '
+  version: 1.0.0
+  contact:
+    name: Particle
+    url: https://docs.particle.io/reference/cloud-apis/api/
+servers:
+- url: https://api.particle.io
+  description: Particle Cloud production
+security:
+- BearerAuth: []
+tags:
+- name: Access Tokens
+paths:
+  /v1/access_tokens:
+    delete:
+      summary: Delete all active tokens for the user
+      responses:
+        '200':
+          description: All tokens deleted.
+      tags:
+      - Access Tokens
+  /v1/access_tokens/current:
+    get:
+      summary: Get information about the current access token
+      responses:
+        '200':
+          description: Current token info.
+      tags:
+      - Access Tokens
+    delete:
+      summary: Delete the current access token
+      responses:
+        '200':
+          description: Current token deleted.
+      tags:
+      - Access Tokens
+  /v1/access_tokens/{token}:
+    delete:
+      summary: Delete a specific token
+      parameters:
+      - in: path
+        name: token
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Token deleted.
+      tags:
+      - Access Tokens
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: OAuth2 access token
+      description: 'Pass `Authorization: Bearer {access_token}`. Tokens are issued via
+
+        `POST /oauth/token`.
+
+        '

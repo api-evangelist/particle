@@ -1,0 +1,601 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Particle Cloud API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Generate an access token",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.particle.io/oauth/token",
+        "body": {
+          "type": "form-urlencoded",
+          "data": [
+            {
+              "name": "grant_type",
+              "value": ""
+            },
+            {
+              "name": "username",
+              "value": ""
+            },
+            {
+              "name": "password",
+              "value": ""
+            },
+            {
+              "name": "client_id",
+              "value": ""
+            },
+            {
+              "name": "client_secret",
+              "value": ""
+            }
+          ]
+        }
+      },
+      "docs": "Generate an access token"
+    },
+    {
+      "info": {
+        "name": "Delete all active tokens for the user",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "https://api.particle.io/v1/access_tokens"
+      },
+      "docs": "Delete all active tokens for the user"
+    },
+    {
+      "info": {
+        "name": "Get information about the current access token",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.particle.io/v1/access_tokens/current"
+      },
+      "docs": "Get information about the current access token"
+    },
+    {
+      "info": {
+        "name": "Delete the current access token",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "https://api.particle.io/v1/access_tokens/current"
+      },
+      "docs": "Delete the current access token"
+    },
+    {
+      "info": {
+        "name": "Delete a specific token",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "https://api.particle.io/v1/access_tokens/:token",
+        "params": [
+          {
+            "name": "token",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Delete a specific token"
+    },
+    {
+      "info": {
+        "name": "List the user's devices",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.particle.io/v1/devices"
+      },
+      "docs": "List the user's devices"
+    },
+    {
+      "info": {
+        "name": "Claim a device",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.particle.io/v1/devices",
+        "body": {
+          "type": "form-urlencoded",
+          "data": [
+            {
+              "name": "id",
+              "value": ""
+            }
+          ]
+        }
+      },
+      "docs": "Claim a device"
+    },
+    {
+      "info": {
+        "name": "Get device information",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.particle.io/v1/devices/:deviceId",
+        "params": [
+          {
+            "name": "deviceId",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Get device information"
+    },
+    {
+      "info": {
+        "name": "Update device (rename, notes, signal, OTA settings)",
+        "type": "http"
+      },
+      "http": {
+        "method": "PUT",
+        "url": "https://api.particle.io/v1/devices/:deviceId",
+        "params": [
+          {
+            "name": "deviceId",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "body": {
+          "type": "form-urlencoded",
+          "data": [
+            {
+              "name": "name",
+              "value": ""
+            },
+            {
+              "name": "notes",
+              "value": ""
+            },
+            {
+              "name": "signal",
+              "value": ""
+            }
+          ]
+        }
+      },
+      "docs": "Update device (rename, notes, signal, OTA settings)"
+    },
+    {
+      "info": {
+        "name": "Unclaim a device",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "https://api.particle.io/v1/devices/:deviceId",
+        "params": [
+          {
+            "name": "deviceId",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Unclaim a device"
+    },
+    {
+      "info": {
+        "name": "Get the value of a device variable",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.particle.io/v1/devices/:deviceId/:varName",
+        "params": [
+          {
+            "name": "deviceId",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "varName",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Get the value of a device variable"
+    },
+    {
+      "info": {
+        "name": "Call a function on a device",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.particle.io/v1/devices/:deviceId/:functionName",
+        "params": [
+          {
+            "name": "deviceId",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "functionName",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "body": {
+          "type": "form-urlencoded",
+          "data": [
+            {
+              "name": "arg",
+              "value": ""
+            }
+          ]
+        }
+      },
+      "docs": "Call a function on a device"
+    },
+    {
+      "info": {
+        "name": "Ping a device",
+        "type": "http"
+      },
+      "http": {
+        "method": "PUT",
+        "url": "https://api.particle.io/v1/devices/:deviceId/ping",
+        "params": [
+          {
+            "name": "deviceId",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Ping a device"
+    },
+    {
+      "info": {
+        "name": "List devices in a product fleet",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.particle.io/v1/products/:productIdOrSlug/devices",
+        "params": [
+          {
+            "name": "productIdOrSlug",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "List devices in a product fleet"
+    },
+    {
+      "info": {
+        "name": "Import devices into a product",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.particle.io/v1/products/:productIdOrSlug/devices",
+        "params": [
+          {
+            "name": "productIdOrSlug",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Import devices into a product"
+    },
+    {
+      "info": {
+        "name": "Get a product device",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.particle.io/v1/products/:productIdOrSlug/devices/:deviceId",
+        "params": [
+          {
+            "name": "productIdOrSlug",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "deviceId",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Get a product device"
+    },
+    {
+      "info": {
+        "name": "Remove a device from a product",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "https://api.particle.io/v1/products/:productIdOrSlug/devices/:deviceId",
+        "params": [
+          {
+            "name": "productIdOrSlug",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "deviceId",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Remove a device from a product"
+    },
+    {
+      "info": {
+        "name": "Refresh device vitals",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.particle.io/v1/diagnostics/:deviceId/update",
+        "params": [
+          {
+            "name": "deviceId",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Refresh device vitals"
+    },
+    {
+      "info": {
+        "name": "Get last-known device vitals",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.particle.io/v1/diagnostics/:deviceId/last",
+        "params": [
+          {
+            "name": "deviceId",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Get last-known device vitals"
+    },
+    {
+      "info": {
+        "name": "Get historical device vitals",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.particle.io/v1/diagnostics/:deviceId",
+        "params": [
+          {
+            "name": "deviceId",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Get historical device vitals"
+    },
+    {
+      "info": {
+        "name": "List SIM cards",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.particle.io/v1/sims"
+      },
+      "docs": "List SIM cards"
+    },
+    {
+      "info": {
+        "name": "Get SIM information",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.particle.io/v1/sims/:iccid",
+        "params": [
+          {
+            "name": "iccid",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Get SIM information"
+    },
+    {
+      "info": {
+        "name": "Get SIM cellular network status",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.particle.io/v1/sims/:iccid/status",
+        "params": [
+          {
+            "name": "iccid",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Get SIM cellular network status"
+    },
+    {
+      "info": {
+        "name": "List OAuth clients",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.particle.io/v1/clients"
+      },
+      "docs": "List OAuth clients"
+    },
+    {
+      "info": {
+        "name": "Create an OAuth client",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.particle.io/v1/clients",
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Create an OAuth client"
+    },
+    {
+      "info": {
+        "name": "Update an OAuth client",
+        "type": "http"
+      },
+      "http": {
+        "method": "PUT",
+        "url": "https://api.particle.io/v1/clients/:clientId",
+        "params": [
+          {
+            "name": "clientId",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Update an OAuth client"
+    },
+    {
+      "info": {
+        "name": "Delete an OAuth client",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "https://api.particle.io/v1/clients/:clientId",
+        "params": [
+          {
+            "name": "clientId",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Delete an OAuth client"
+    },
+    {
+      "info": {
+        "name": "Get the current user",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.particle.io/v1/user"
+      },
+      "docs": "Get the current user"
+    },
+    {
+      "info": {
+        "name": "Update the current user",
+        "type": "http"
+      },
+      "http": {
+        "method": "PUT",
+        "url": "https://api.particle.io/v1/user",
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Update the current user"
+    },
+    {
+      "info": {
+        "name": "Delete the current user account",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "https://api.particle.io/v1/user"
+      },
+      "docs": "Delete the current user account"
+    },
+    {
+      "info": {
+        "name": "Request a password reset email",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.particle.io/v1/user/password-reset",
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Request a password reset email"
+    },
+    {
+      "info": {
+        "name": "Look up a device by serial number",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.particle.io/v1/serial_numbers/:serialNumber",
+        "params": [
+          {
+            "name": "serialNumber",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Look up a device by serial number"
+    }
+  ],
+  "bundled": true
+}

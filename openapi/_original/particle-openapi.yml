@@ -1,0 +1,418 @@
+openapi: 3.1.0
+info:
+  title: Particle Cloud API
+  description: |
+    The Particle Cloud API exposes IoT device management, product fleet
+    management, OAuth client and token administration, diagnostics, SIM
+    management and user account endpoints.
+  version: "1.0.0"
+  contact:
+    name: Particle
+    url: https://docs.particle.io/reference/cloud-apis/api/
+servers:
+  - url: https://api.particle.io
+    description: Particle Cloud production
+security:
+  - BearerAuth: []
+paths:
+  /oauth/token:
+    post:
+      summary: Generate an access token
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                grant_type:
+                  type: string
+                  example: password
+                username:
+                  type: string
+                password:
+                  type: string
+                client_id:
+                  type: string
+                client_secret:
+                  type: string
+      responses:
+        '200':
+          description: Access token issued.
+  /v1/access_tokens:
+    delete:
+      summary: Delete all active tokens for the user
+      responses:
+        '200':
+          description: All tokens deleted.
+  /v1/access_tokens/current:
+    get:
+      summary: Get information about the current access token
+      responses:
+        '200':
+          description: Current token info.
+    delete:
+      summary: Delete the current access token
+      responses:
+        '200':
+          description: Current token deleted.
+  /v1/access_tokens/{token}:
+    delete:
+      summary: Delete a specific token
+      parameters:
+        - in: path
+          name: token
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Token deleted.
+  /v1/devices:
+    get:
+      summary: List the user's devices
+      responses:
+        '200':
+          description: A list of devices.
+    post:
+      summary: Claim a device
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+      responses:
+        '200':
+          description: Device claimed.
+  /v1/devices/{deviceId}:
+    get:
+      summary: Get device information
+      parameters:
+        - in: path
+          name: deviceId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Device details.
+    put:
+      summary: Update device (rename, notes, signal, OTA settings)
+      parameters:
+        - in: path
+          name: deviceId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                notes:
+                  type: string
+                signal:
+                  type: integer
+      responses:
+        '200':
+          description: Device updated.
+    delete:
+      summary: Unclaim a device
+      parameters:
+        - in: path
+          name: deviceId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Device unclaimed.
+  /v1/devices/{deviceId}/{varName}:
+    get:
+      summary: Get the value of a device variable
+      parameters:
+        - in: path
+          name: deviceId
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: varName
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Variable value.
+  /v1/devices/{deviceId}/{functionName}:
+    post:
+      summary: Call a function on a device
+      parameters:
+        - in: path
+          name: deviceId
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: functionName
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                arg:
+                  type: string
+      responses:
+        '200':
+          description: Function called.
+  /v1/devices/{deviceId}/ping:
+    put:
+      summary: Ping a device
+      parameters:
+        - in: path
+          name: deviceId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Ping result.
+  /v1/products/{productIdOrSlug}/devices:
+    get:
+      summary: List devices in a product fleet
+      parameters:
+        - in: path
+          name: productIdOrSlug
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of product devices.
+    post:
+      summary: Import devices into a product
+      parameters:
+        - in: path
+          name: productIdOrSlug
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Devices imported.
+  /v1/products/{productIdOrSlug}/devices/{deviceId}:
+    get:
+      summary: Get a product device
+      parameters:
+        - in: path
+          name: productIdOrSlug
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: deviceId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Product device details.
+    delete:
+      summary: Remove a device from a product
+      parameters:
+        - in: path
+          name: productIdOrSlug
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: deviceId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Device removed.
+  /v1/diagnostics/{deviceId}/update:
+    post:
+      summary: Refresh device vitals
+      parameters:
+        - in: path
+          name: deviceId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Vitals refreshed.
+  /v1/diagnostics/{deviceId}/last:
+    get:
+      summary: Get last-known device vitals
+      parameters:
+        - in: path
+          name: deviceId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Last vitals.
+  /v1/diagnostics/{deviceId}:
+    get:
+      summary: Get historical device vitals
+      parameters:
+        - in: path
+          name: deviceId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Historical vitals.
+  /v1/sims:
+    get:
+      summary: List SIM cards
+      responses:
+        '200':
+          description: A list of SIMs.
+  /v1/sims/{iccid}:
+    get:
+      summary: Get SIM information
+      parameters:
+        - in: path
+          name: iccid
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: SIM details.
+  /v1/sims/{iccid}/status:
+    get:
+      summary: Get SIM cellular network status
+      parameters:
+        - in: path
+          name: iccid
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: SIM status.
+  /v1/clients:
+    get:
+      summary: List OAuth clients
+      responses:
+        '200':
+          description: A list of OAuth clients.
+    post:
+      summary: Create an OAuth client
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: OAuth client created.
+  /v1/clients/{clientId}:
+    put:
+      summary: Update an OAuth client
+      parameters:
+        - in: path
+          name: clientId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: OAuth client updated.
+    delete:
+      summary: Delete an OAuth client
+      parameters:
+        - in: path
+          name: clientId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OAuth client deleted.
+  /v1/user:
+    get:
+      summary: Get the current user
+      responses:
+        '200':
+          description: User profile.
+    put:
+      summary: Update the current user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: User updated.
+    delete:
+      summary: Delete the current user account
+      responses:
+        '200':
+          description: User deleted.
+  /v1/user/password-reset:
+    post:
+      summary: Request a password reset email
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+      responses:
+        '200':
+          description: Reset email sent.
+  /v1/serial_numbers/{serialNumber}:
+    get:
+      summary: Look up a device by serial number
+      parameters:
+        - in: path
+          name: serialNumber
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Device lookup result.
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: OAuth2 access token
+      description: |
+        Pass `Authorization: Bearer {access_token}`. Tokens are issued via
+        `POST /oauth/token`.

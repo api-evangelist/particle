@@ -1,0 +1,47 @@
+openapi: 3.1.0
+info:
+  title: Particle Cloud Access Tokens Serial Numbers API
+  description: 'The Particle Cloud API exposes IoT device management, product fleet
+
+    management, OAuth client and token administration, diagnostics, SIM
+
+    management and user account endpoints.
+
+    '
+  version: 1.0.0
+  contact:
+    name: Particle
+    url: https://docs.particle.io/reference/cloud-apis/api/
+servers:
+- url: https://api.particle.io
+  description: Particle Cloud production
+security:
+- BearerAuth: []
+tags:
+- name: Serial Numbers
+paths:
+  /v1/serial_numbers/{serialNumber}:
+    get:
+      summary: Look up a device by serial number
+      parameters:
+      - in: path
+        name: serialNumber
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Device lookup result.
+      tags:
+      - Serial Numbers
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: OAuth2 access token
+      description: 'Pass `Authorization: Bearer {access_token}`. Tokens are issued via
+
+        `POST /oauth/token`.
+
+        '
