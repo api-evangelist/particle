@@ -1,0 +1,188 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Particle Cloud Authentication Groups API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Groups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Assign groups to a device",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.particle.io/v1/products/:productIdOrSlug/devices/:deviceId",
+            "params": [
+              {
+                "name": "productIdOrSlug",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "deviceId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Update group memberships for an individual device. This is an absolute endpoint, meaning that regardless of previous group memberships, the group names passed to this endpoint will be the ones assigned to the device. If you pass a group name that does not yet exist, it will be created and assigned to the device."
+        },
+        {
+          "info": {
+            "name": "Batch assign groups to devices",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.particle.io/v1/products/:productIdOrSlug/devices",
+            "params": [
+              {
+                "name": "productIdOrSlug",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Assign groups to devices in a product as a batch action. Groups can either be added or removed from all devices passed to the endpoint."
+        },
+        {
+          "info": {
+            "name": "Get device group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/products/:productIdOrSlug/groups/:groupName",
+            "params": [
+              {
+                "name": "productIdOrSlug",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "groupName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve full info on a specific product group, including its device count."
+        },
+        {
+          "info": {
+            "name": "Edit device group",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.particle.io/v1/products/:productIdOrSlug/groups/:groupName",
+            "params": [
+              {
+                "name": "productIdOrSlug",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "groupName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Edit attributes of a specific device group. You must pass one of name, color, or description."
+        },
+        {
+          "info": {
+            "name": "Delete device group",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.particle.io/v1/products/:productIdOrSlug/groups/:groupName",
+            "params": [
+              {
+                "name": "productIdOrSlug",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "groupName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete device group. All devices that belong to this group will be removed from the deleted group."
+        },
+        {
+          "info": {
+            "name": "List device groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/products/:productIdOrSlug/groups",
+            "params": [
+              {
+                "name": "productIdOrSlug",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List the group objects that exist in the product. Optionally, filter by group name (partial match)."
+        },
+        {
+          "info": {
+            "name": "Create device group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.particle.io/v1/products/:productIdOrSlug/groups",
+            "params": [
+              {
+                "name": "productIdOrSlug",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Create a new device group withinin a product"
+        },
+        {
+          "info": {
+            "name": "Impact of taking action",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/products/:productIdOrSlug/impact",
+            "params": [
+              {
+                "name": "productIdOrSlug",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Understand the number of devices that would receive an over-the-air update as a result of taking an action related to device groups. Currently, this endpoint supports understanding the impact of releasing/unreleasing firmware to one or more device groups. Pass edit_groups_for_firmware as the action parameter when calling the endpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

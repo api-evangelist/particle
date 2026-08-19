@@ -1,0 +1,65 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Particle Cloud Authentication Quarantine API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Quarantine",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Deny a quarantined device",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.particle.io/v1/products/:productIdOrSlug/devices/:deviceId",
+            "params": [
+              {
+                "name": "productIdOrSlug",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "deviceId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deny a quarantined device"
+        },
+        {
+          "info": {
+            "name": "Approve a quarantined device",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.particle.io/v1/products/:productIdOrSlug/devices",
+            "params": [
+              {
+                "name": "productIdOrSlug",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Approve a quarantined device. This will immediately release the device from quarantine and allow it to publish events, receive firmware updates, etc."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

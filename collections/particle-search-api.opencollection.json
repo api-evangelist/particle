@@ -1,0 +1,53 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Particle Cloud Authentication Search API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search your organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/orgs/:orgIdOrSlug/search",
+            "params": [
+              {
+                "name": "orgIdOrSlug",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Search your organization for devices, products, and SIMs. Returns at most 10 results per type."
+        },
+        {
+          "info": {
+            "name": "Search your Sandbox",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/user/search"
+          },
+          "docs": "Search your Sandbox for devices, products, and SIMs. Returns at most 10 results per type."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

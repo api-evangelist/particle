@@ -1,0 +1,143 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Particle Cloud Authentication Sims API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Sims",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get SIM information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/sims/:iccid",
+            "params": [
+              {
+                "name": "iccid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve a SIM card owned by an individual or a product."
+        },
+        {
+          "info": {
+            "name": "Reactivate SIM",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.particle.io/v1/sims/:iccid",
+            "params": [
+              {
+                "name": "iccid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Re-enables a SIM card to connect to a cell tower. Do this if you'd like to reactivate a SIM that you have deactivated."
+        },
+        {
+          "info": {
+            "name": "Release SIM from account",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.particle.io/v1/sims/:iccid",
+            "params": [
+              {
+                "name": "iccid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Remove a SIM card from an account, disassociating the SIM card from a user or a product. The SIM will also be deactivated. Once the SIM card has been released, it can be claimed by a different user, or imported into a different product."
+        },
+        {
+          "info": {
+            "name": "List SIM cards",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/sims"
+          },
+          "docs": "Get a list of the SIM cards owned by an individual or a product. The product endpoint is paginated, by default returns 25 SIM card records per page."
+        },
+        {
+          "info": {
+            "name": "Get data usage",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/sims/:iccid/data_usage",
+            "params": [
+              {
+                "name": "iccid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get SIM card data usage for the current billing period, broken out by day. Note that date usage reports can be delayed by up to 1 hour."
+        },
+        {
+          "info": {
+            "name": "Get data usage for product fleet",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/products/:productIdOrSlug/sims/data_usage",
+            "params": [
+              {
+                "name": "productIdOrSlug",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get fleet-wide SIM card data usage for a product in the current billing period, broken out by day. Daily usage totals represent an aggregate of all SIM cards that make up the product. Data usage reports can be delayed until the next day, and occasionally by several days."
+        },
+        {
+          "info": {
+            "name": "Import and activate product SIMs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.particle.io/v1/products/:productIdOrSlug/sims",
+            "params": [
+              {
+                "name": "productIdOrSlug",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Import a group of SIM cards into a product. SIM cards will be activated upon import. Either pass an array of ICCIDs or include a file containing a list of SIM cards. Import and activation will be queued for processing. You will receive an email with the import results when all SIM cards have been processed. Importing a SIM card associated with a device will also import the device into the product."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

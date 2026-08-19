@@ -1,0 +1,115 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Particle Cloud Authentication Env API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Env",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List environment variables",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/env"
+          },
+          "docs": "List environment variables for an organization, Sandbox, product, or device."
+        },
+        {
+          "info": {
+            "name": "Bulk update environment variables",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.particle.io/v1/env"
+          },
+          "docs": "Apply multiple changes to environment variables for an organization, Sandbox, product, or device in a single request."
+        },
+        {
+          "info": {
+            "name": "Set environment variable",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.particle.io/v1/env/:key",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Create or update a single environment variable for an organization, Sandbox, product, or device."
+        },
+        {
+          "info": {
+            "name": "Delete environment variable",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.particle.io/v1/env/:key",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a single environment variable for an organization, Sandbox, product, or device."
+        },
+        {
+          "info": {
+            "name": "Render environment variables",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/env/render"
+          },
+          "docs": "Render environment variables for an organization, Sandbox, product, or device. The response is a flat key/value map of the effective variables after inheritance and overrides are applied."
+        },
+        {
+          "info": {
+            "name": "Review environment variables rollout",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/env/rollout"
+          },
+          "docs": "Review changes that can be rolled out"
+        },
+        {
+          "info": {
+            "name": "Start environment variables rollout",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.particle.io/v1/env/rollout"
+          },
+          "docs": "Apply updated environment variable values and make them available to devices. When rolling out immediately, devices that are currently available to receive OTA updates will receive updated environment variables. Devices that are busy or offline will apply the update when they become ready. When rolling out on next connection, as devices handshake (begin new secure sessions) with the Device Cloud, they will receive updated environment variables."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

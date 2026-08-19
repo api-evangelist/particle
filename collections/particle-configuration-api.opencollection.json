@@ -1,0 +1,147 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Particle Cloud Authentication Configuration API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Configuration",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get product schema",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/products/:productIdOrSlug/config",
+            "params": [
+              {
+                "name": "productIdOrSlug",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the possible values that can be configured for this product, in JSON Schema format"
+        },
+        {
+          "info": {
+            "name": "Set product configuration schema",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.particle.io/v1/products/:productIdOrSlug/config",
+            "params": [
+              {
+                "name": "productIdOrSlug",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Set configuration schema that will become the default for the product. This must be the entire schema, including the standard Particle parts; there is no merging of changes."
+        },
+        {
+          "info": {
+            "name": "Delete product configuration schema",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.particle.io/v1/products/:productIdOrSlug/config",
+            "params": [
+              {
+                "name": "productIdOrSlug",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete configuration schema, use Tracker Edge defaults."
+        },
+        {
+          "info": {
+            "name": "Get device schema",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/products/:productIdOrSlug/config/:deviceId",
+            "params": [
+              {
+                "name": "productIdOrSlug",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "deviceId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the possible values that can be configured for one device in this product, in JSON Schema format"
+        },
+        {
+          "info": {
+            "name": "Set device configuration schema",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.particle.io/v1/products/:productIdOrSlug/config/:deviceId",
+            "params": [
+              {
+                "name": "productIdOrSlug",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "deviceId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Set configuration schema for the device. This must be the entire schema, including the standard Particle parts; there is no merging of changes."
+        },
+        {
+          "info": {
+            "name": "Delete device configuration schema",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.particle.io/v1/products/:productIdOrSlug/config/:deviceId",
+            "params": [
+              {
+                "name": "productIdOrSlug",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "deviceId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete device's configuration schema, use product's."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

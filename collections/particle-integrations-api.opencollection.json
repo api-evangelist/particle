@@ -1,0 +1,118 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Particle Cloud Authentication Integrations API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Integrations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List integrations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/integrations"
+          },
+          "docs": "List all integrations. Pay special attention to the integration_type attribute of each integration, which will let you know whether the integration is a Webhook, an Azure IoT Hub integration, or a Google Cloud Platform integration. If you would like to only list webhooks (integrations with type: 'Webhook'), you can use a slightly different endpoint: GET /v1/webhooks"
+        },
+        {
+          "info": {
+            "name": "Enable Google Maps integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.particle.io/v1/integrations"
+          },
+          "docs": "Enable an integration with Google Maps. For more details, check out the tutorial."
+        },
+        {
+          "info": {
+            "name": "Test an integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.particle.io/v1/integrations/:integrationId/test",
+            "params": [
+              {
+                "name": "integrationId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Send a test event that triggers the integration. Helps build confidence that an integration is configured properly."
+        },
+        {
+          "info": {
+            "name": "Get integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/integrations/:integrationId",
+            "params": [
+              {
+                "name": "integrationId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a single integration. Pay special attention to the integration_type attribute of each integration, which will let you know whether the integration is a Webhook, an Azure IoT Hub integration, a Google Cloud Platform integration, or a Google Maps integration."
+        },
+        {
+          "info": {
+            "name": "Edit Google Maps Integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.particle.io/v1/integrations/:integrationId",
+            "params": [
+              {
+                "name": "integrationId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Edit a Google Maps integration. Subsequent triggering of this integration will be sent with the new attributes. The configuration replaces the entire previous webhook configuration. It does not merge in changes."
+        },
+        {
+          "info": {
+            "name": "Delete an integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.particle.io/v1/integrations/:integrationId",
+            "params": [
+              {
+                "name": "integrationId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete an integration and immediate stop it from triggering. The integration can belong to a user or to a product."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

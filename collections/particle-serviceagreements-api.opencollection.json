@@ -1,0 +1,153 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Particle Cloud Authentication ServiceAgreements API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "ServiceAgreements",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get user service agreements",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/user/service_agreements"
+          },
+          "docs": "Get the service agreements related to a user"
+        },
+        {
+          "info": {
+            "name": "Get organization service agreements",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/orgs/:orgIdOrSlug/service_agreements",
+            "params": [
+              {
+                "name": "orgIdOrSlug",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the service agreements related to an organization"
+        },
+        {
+          "info": {
+            "name": "Get a user usage report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/user/usage_reports/:usageReportId",
+            "params": [
+              {
+                "name": "usageReportId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a single usage report related to the user. Expect \"download_url\" to be present only when the usage report has an \"available\" state."
+        },
+        {
+          "info": {
+            "name": "Get an org usage report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/orgs/:orgSlugOrId/usage_reports/:usageReportId",
+            "params": [
+              {
+                "name": "orgSlugOrId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "usageReportId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a single usage report related to an organization. Expect \"download_url\" to be present only when the usage report has an \"available\" state. The user must be an active member of the organization."
+        },
+        {
+          "info": {
+            "name": "Create a user usage report",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.particle.io/v1/user/service_agreements/:serviceAgreementId/usage_reports",
+            "params": [
+              {
+                "name": "serviceAgreementId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Request a new usage report related to the user service agreement. The usage report will be processed asynchronously. The download_url is populated once the report's state becomes available. Required body parameters vary by report_type. Metered device reports can only query dates within the last 6 months."
+        },
+        {
+          "info": {
+            "name": "Create an org usage report",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.particle.io/v1/orgs/:orgSlugOrId/service_agreements/:serviceAgreementId/usage_reports",
+            "params": [
+              {
+                "name": "orgSlugOrId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "serviceAgreementId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Request a new usage report related to the organization service agreement. The usage report will be processed asynchronously. The download_url is populated once the report's state becomes available. The user must be an active member of the organization. Required body parameters vary by report_type. Metered device reports can only query dates within the last 6 months."
+        },
+        {
+          "info": {
+            "name": "Get notifications for current usage period",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/user/service_agreements/:serviceAgreementId/notifications",
+            "params": [
+              {
+                "name": "serviceAgreementId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get user notifications related to a specific service agreement Usage reached a certain threshold (70%, 90%, 100%) Service was paused Service was unpaused"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

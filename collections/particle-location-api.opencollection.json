@@ -1,0 +1,83 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Particle Cloud Authentication Location API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Location",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Query fleet-wide locations for devices within a product",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/products/:productIdOrSlug/fleet_locations",
+            "params": [
+              {
+                "name": "productIdOrSlug",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the latest location data for all the devices in a product to get a fleet-wide summary of device location."
+        },
+        {
+          "info": {
+            "name": "Query location for devices within a product",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/products/:productIdOrSlug/locations",
+            "params": [
+              {
+                "name": "productIdOrSlug",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get latest or historical location data for devices. Date range and bounding box can be specified to narrow the query."
+        },
+        {
+          "info": {
+            "name": "Query location for one device within a product",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/products/:productIdOrSlug/locations/:deviceId",
+            "params": [
+              {
+                "name": "productIdOrSlug",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "deviceId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get last known or historical location data for one device. Date range and bounding box can be specified to narrow down the query. Properties and custom data will be returned by default."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

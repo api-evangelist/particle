@@ -1,0 +1,57 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Particle Cloud Authentication User API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "User",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/user"
+          },
+          "docs": "Return the user resource for the currently authenticated user."
+        },
+        {
+          "info": {
+            "name": "Delete user",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.particle.io/v1/user"
+          },
+          "docs": "Delete the logged-in user. Allows removing user account and artifacts from Particle system"
+        },
+        {
+          "info": {
+            "name": "Forgot password",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.particle.io/v1/user/password-reset"
+          },
+          "docs": "Create a new password reset token and send the user an email with the token. This endpoint is rate-limited to prevent abuse. Note: This endpoint does not require an access token."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

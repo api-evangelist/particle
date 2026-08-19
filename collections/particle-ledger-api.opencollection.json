@@ -1,0 +1,238 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Particle Cloud Authentication Ledger API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Ledger",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List ledger instance versions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/ledgers/:ledgerName/instances/:scopeValue/versions",
+            "params": [
+              {
+                "name": "ledgerName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "scopeValue",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Lists all ledger instance versions."
+        },
+        {
+          "info": {
+            "name": "List ledger definitions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/ledgers"
+          },
+          "docs": "Lists all ledger definitions belonging to the Sandbox or organization."
+        },
+        {
+          "info": {
+            "name": "Create a new ledger definition",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.particle.io/v1/ledgers"
+          },
+          "docs": "Creates a ledger definition."
+        },
+        {
+          "info": {
+            "name": "Get ledger definition",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/ledgers/:ledgerName",
+            "params": [
+              {
+                "name": "ledgerName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the specified ledger definition."
+        },
+        {
+          "info": {
+            "name": "Update ledger definition",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.particle.io/v1/ledgers/:ledgerName",
+            "params": [
+              {
+                "name": "ledgerName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Updates the ledger definition."
+        },
+        {
+          "info": {
+            "name": "Archive a ledger definition",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.particle.io/v1/ledgers/:ledgerName",
+            "params": [
+              {
+                "name": "ledgerName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Archives a ledger definition."
+        },
+        {
+          "info": {
+            "name": "List ledger instances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/ledgers/:ledgerName/instances",
+            "params": [
+              {
+                "name": "ledgerName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Lists all ledger instances."
+        },
+        {
+          "info": {
+            "name": "Get ledger instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/ledgers/:ledgerName/instances/:scopeValue",
+            "params": [
+              {
+                "name": "ledgerName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "scopeValue",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the specified ledger instance."
+        },
+        {
+          "info": {
+            "name": "Set the ledger instance data",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.particle.io/v1/ledgers/:ledgerName/instances/:scopeValue",
+            "params": [
+              {
+                "name": "ledgerName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "scopeValue",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Sets the data of the specified ledger instance."
+        },
+        {
+          "info": {
+            "name": "Delete ledger instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.particle.io/v1/ledgers/:ledgerName/instances/:scopeValue",
+            "params": [
+              {
+                "name": "ledgerName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "scopeValue",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes the specified ledger instance."
+        },
+        {
+          "info": {
+            "name": "Get ledger instance version",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/ledgers/:ledgerName/instances/:scopeValue/versions/:version",
+            "params": [
+              {
+                "name": "ledgerName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "scopeValue",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the specified version of a ledger instance."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,126 @@
+{
+  "item": [
+    {
+      "id": "bc0ee427-3972-4e0a-9adf-13054716abb0",
+      "name": "Serial Numbers",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0d8b4f5a-2389-43fc-9d68-f4b309e80459",
+          "name": "Look up a device by serial number",
+          "request": {
+            "name": "Look up a device by serial number",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "serial_numbers",
+                ":serialNumber"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serialNumber",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "86d5ab2c-e27b-4e69-b814-e544db844d29",
+              "name": "Device lookup result.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "serial_numbers",
+                    ":serialNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serialNumber",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.particle.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "29c1810f-77be-4eb3-93fa-58ebfd7afc1c",
+    "name": "Particle Cloud Access Tokens Serial Numbers API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Particle Cloud API exposes IoT device management, product fleet\nmanagement, OAuth client and token administration, diagnostics, SIM\nmanagement and user account endpoints.\n\n\nContact Support:\n Name: Particle",
+      "type": "text/plain"
+    }
+  }
+}

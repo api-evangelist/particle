@@ -1,0 +1,135 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Particle Cloud Authentication Events API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a stream of events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/events/:eventPrefix",
+            "params": [
+              {
+                "name": "eventPrefix",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Open a stream of Server Sent Events for all events. for your devices matching the filter. Note that as of April 2018, the event prefix filter is required. It was optional before."
+        },
+        {
+          "info": {
+            "name": "Get a stream of your events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/devices/events/:eventPrefix",
+            "params": [
+              {
+                "name": "eventPrefix",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Open a stream of Server Sent Events for all events for your devices."
+        },
+        {
+          "info": {
+            "name": "Get a stream of events for a device",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/devices/:deviceId/events/:eventPrefix",
+            "params": [
+              {
+                "name": "deviceId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "eventPrefix",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Open a stream of Server Sent Events for all events for the specified device."
+        },
+        {
+          "info": {
+            "name": "Product event stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/products/:productIdOrSlug/events/:eventPrefix",
+            "params": [
+              {
+                "name": "productIdOrSlug",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "eventPrefix",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Open a stream of Server Sent Events for all events for a product."
+        },
+        {
+          "info": {
+            "name": "Publish an event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.particle.io/v1/devices/events"
+          },
+          "docs": "Publish an event"
+        },
+        {
+          "info": {
+            "name": "Publish a product event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.particle.io/v1/products/:productIdOrSlug/events",
+            "params": [
+              {
+                "name": "productIdOrSlug",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Publish an event that is sent to the product's event stream"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

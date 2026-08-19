@@ -1,0 +1,193 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Particle Cloud Authentication Logic API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Logic",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get logic function stats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/logic/functions/:logicFunctionId/stats",
+            "params": [
+              {
+                "name": "logicFunctionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the specified logic function stats."
+        },
+        {
+          "info": {
+            "name": "Execute logic function",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.particle.io/v1/logic/execute"
+          },
+          "docs": "Executes the provided logic function."
+        },
+        {
+          "info": {
+            "name": "List logic functions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/logic/functions"
+          },
+          "docs": "Lists all logic functions belonging to the specified Sandbox or organization."
+        },
+        {
+          "info": {
+            "name": "Create a new logic function",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.particle.io/v1/logic/functions"
+          },
+          "docs": "Creates a logic function."
+        },
+        {
+          "info": {
+            "name": "Get logic function",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/logic/functions/:logicFunctionId",
+            "params": [
+              {
+                "name": "logicFunctionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the specified logic function."
+        },
+        {
+          "info": {
+            "name": "Update logic function",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.particle.io/v1/logic/functions/:logicFunctionId",
+            "params": [
+              {
+                "name": "logicFunctionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Updates the logic function."
+        },
+        {
+          "info": {
+            "name": "Delete logic function",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.particle.io/v1/logic/functions/:logicFunctionId",
+            "params": [
+              {
+                "name": "logicFunctionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes the specified logic function."
+        },
+        {
+          "info": {
+            "name": "List logic functions runs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/logic/functions/:logicFunctionId/runs",
+            "params": [
+              {
+                "name": "logicFunctionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Lists all runs for the specified logic function."
+        },
+        {
+          "info": {
+            "name": "Get logic function run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/logic/functions/:logicFunctionId/runs/:logicRunId",
+            "params": [
+              {
+                "name": "logicFunctionId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "logicRunId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the specified logic function run."
+        },
+        {
+          "info": {
+            "name": "Get logic function run logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/logic/functions/:logicFunctionId/runs/:logicRunId/logs",
+            "params": [
+              {
+                "name": "logicFunctionId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "logicRunId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the specified logic function run logs."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

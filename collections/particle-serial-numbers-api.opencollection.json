@@ -1,0 +1,42 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Particle Cloud Access Tokens Serial Numbers API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Serial Numbers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Look up a device by serial number",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/serial_numbers/:serialNumber",
+            "params": [
+              {
+                "name": "serialNumber",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Look up a device by serial number"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

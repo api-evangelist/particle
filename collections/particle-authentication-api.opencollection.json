@@ -1,0 +1,75 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Particle Cloud Authentication API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authentication",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Delete an access token",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.particle.io/v1/access_tokens/:token",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete your unused or lost tokens."
+        },
+        {
+          "info": {
+            "name": "Delete all active access tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.particle.io/v1/access_tokens"
+          },
+          "docs": "Delete all your active access tokens."
+        },
+        {
+          "info": {
+            "name": "Get the current access token information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/access_tokens/current"
+          },
+          "docs": "Get your currently used token."
+        },
+        {
+          "info": {
+            "name": "Delete current access token",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.particle.io/v1/access_tokens/current"
+          },
+          "docs": "Delete your currently used token."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

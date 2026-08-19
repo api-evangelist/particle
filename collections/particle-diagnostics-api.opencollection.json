@@ -1,0 +1,96 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Particle Cloud Authentication Diagnostics API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Diagnostics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Refresh device vitals",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.particle.io/v1/diagnostics/:deviceId/update",
+            "params": [
+              {
+                "name": "deviceId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Refresh diagnostic vitals for a single device. This will instruct the device to publish a new event to the Device Cloud containing a device vitals payload. This is an asynchronous request: the HTTP request returns immediately after the request to the device is sent. In order for the device to respond with a vitals payload, it must be online and connected to the Device Cloud. The device will respond by publishing an event named spark/device/diagnostics/update. See the description of the device vi"
+        },
+        {
+          "info": {
+            "name": "Get last known device vitals",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/diagnostics/:deviceId/last",
+            "params": [
+              {
+                "name": "deviceId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the last device vitals payload sent by the device to the Device Cloud."
+        },
+        {
+          "info": {
+            "name": "Get all historical device vitals",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/diagnostics/:deviceId",
+            "params": [
+              {
+                "name": "deviceId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns all stored device vital records sent by the device to the Device Cloud. Device vitals records will expire after 1 month."
+        },
+        {
+          "info": {
+            "name": "Get cellular network status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/sims/:iccid/status",
+            "params": [
+              {
+                "name": "iccid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get cellular network status for a given device. Kicks off a long running task that checks if the device/SIM has an active data session with a cell tower. Values for keys in the sim_status object will be null until the task has finished. Poll the endpoint until meta.state is complete. At this point, the sim_status object will be populated. Note that responses are cached by the cellular network providers. This means that on occasion, the real-time status of the device/SIM may not align with the re"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

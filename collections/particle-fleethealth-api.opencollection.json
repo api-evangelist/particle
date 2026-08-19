@@ -1,0 +1,114 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Particle Cloud Authentication FleetHealth API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "FleetHealth",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get online devices metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/products/:productIdOrSlug/metrics/online",
+            "params": [
+              {
+                "name": "productIdOrSlug",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Reports the number of devices online in this product. Each time bucket contains: count: the number of devices with an active cloud connection. Devices that recently went offline (due to being powered off or losing network connectivity) will be counted as online until the device misses sending a keep-alive message to the cloud. This is typically 25 seconds for Wi-Fi networks and 23 minutes for cellular networks. Can be filtered to include only devices with a certain firmware version, Device OS ve"
+        },
+        {
+          "info": {
+            "name": "Get event traffic health metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/products/:productIdOrSlug/metrics/events",
+            "params": [
+              {
+                "name": "productIdOrSlug",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Reports each time a device publishes an event in this product. Each time bucket contains counts of: received: the cloud received an event from a device. Can be filtered to include only events from devices with a certain firmware version, Device OS version or in a certain group."
+        },
+        {
+          "info": {
+            "name": "Get integration traffic health metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/products/:productIdOrSlug/metrics/integration",
+            "params": [
+              {
+                "name": "productIdOrSlug",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Reports outbound integration requests that are sent on behalf of this product fleet and the outcome. Each time bucket contains counts of (keys with a value of 0 will be omitted): success: the integration request was accepted by the destination service (2xx response code). failure: the integration request was rejected by the destination service (network error, 4xx or 5xx response code) after 3 attempts. sleep (skipped): the integration request was not attempted because there have been too many pr"
+        },
+        {
+          "info": {
+            "name": "Get cloud function call health metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/products/:productIdOrSlug/metrics/functions",
+            "params": [
+              {
+                "name": "productIdOrSlug",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Reports each time a Particle.function() in firmware is called on a device in this product and the outcome. Each time bucket contains counts of (keys with a value of 0 will be omitted): success: the target device successfully received and responded to the function call. failure: the target device was unable to process the function call, or was unreachable by the cloud. offline: the function call attempt was skipped because the device was not connected to the cloud at the time the call was made. C"
+        },
+        {
+          "info": {
+            "name": "Get cloud variable request health metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/products/:productIdOrSlug/metrics/variables",
+            "params": [
+              {
+                "name": "productIdOrSlug",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Reports each time a Particle.variable() in firmware is read on a device in this product and the outcome. Each time bucket contains counts of (keys with a value of 0 will be omitted): success: the target device successfully received and responded to the variable request. failure: the target device was unable to process the variable request, or was unreachable by the cloud. offline: the variable request was skipped because the device was not connected to the cloud at the time the call was made. Ca"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

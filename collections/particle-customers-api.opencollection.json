@@ -1,0 +1,117 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Particle Cloud Authentication Customers API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Customers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Generate a customer scoped access token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.particle.io/oauth/token"
+          },
+          "docs": "Creates a token scoped to a customer for your organization. You must give a valid product OAuth client ID and secret in HTTP Basic Auth or in the client_id and client_secret parameters."
+        },
+        {
+          "info": {
+            "name": "Update customer password",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.particle.io/v1/products/:productIdOrSlug/customers/:customerEmail",
+            "params": [
+              {
+                "name": "productIdOrSlug",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "customerEmail",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Update the account password for a customer. Only relevant for non-shadow customers that have a password saved in Particle's system. Must be called with an access token that has access to the product, not a customer access token."
+        },
+        {
+          "info": {
+            "name": "Delete a customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.particle.io/v1/products/:productIdOrSlug/customers/:customerEmail",
+            "params": [
+              {
+                "name": "productIdOrSlug",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "customerEmail",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a customer in a product. Will also revoke all of this customer's access tokens, pending device claim codes and activation codes."
+        },
+        {
+          "info": {
+            "name": "List customers for a product",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.particle.io/v1/products/:productIdOrSlug/customers",
+            "params": [
+              {
+                "name": "productIdOrSlug",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List Customers for a product."
+        },
+        {
+          "info": {
+            "name": "Create a customer - Implicit",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.particle.io/v1/products/:productIdOrSlug/customers",
+            "params": [
+              {
+                "name": "productIdOrSlug",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Create a customer for a product using OAuth implicit grant type. This is the way you should hit the POST customers endpoint if you are creating customers from a web browser. After a successful POST, the customer access token will be appended as a hash to the redirect URI associated with the client credentials provided. For this grant type, you must also pass response_type: token. You must give a valid product OAuth client ID in HTTP Basic Auth or in the client_id parameter. Do not pass the OAuth"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
