@@ -38,7 +38,7 @@ tags:
 url: https://raw.githubusercontent.com/api-evangelist/particle/refs/heads/main/apis.yml
 created: '2026-06-12'
 modified: '2026-08-08'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
 - aid: particle:particle-authentication-api
   name: Particle Authentication API
