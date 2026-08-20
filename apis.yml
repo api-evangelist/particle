@@ -142,6 +142,8 @@ apis:
   humanURL: https://docs.particle.io/reference/cloud-apis/api/
   baseURL: https://api.particle.io
   tags:
+  - Event
+  tags_raw:
   - Events
   properties:
   - type: OpenAPI
@@ -190,6 +192,8 @@ apis:
   humanURL: https://docs.particle.io/reference/cloud-apis/api/
   baseURL: https://api.particle.io
   tags:
+  - Group
+  tags_raw:
   - Groups
   properties:
   - type: OpenAPI
@@ -206,6 +210,8 @@ apis:
   humanURL: https://docs.particle.io/reference/cloud-apis/api/
   baseURL: https://api.particle.io
   tags:
+  - Integration
+  tags_raw:
   - Integrations
   properties:
   - type: OpenAPI
@@ -270,6 +276,8 @@ apis:
   humanURL: https://docs.particle.io/reference/cloud-apis/api/
   baseURL: https://api.particle.io
   tags:
+  - Authentication
+  tags_raw:
   - OAuth
   properties:
   - type: OpenAPI
@@ -286,6 +294,8 @@ apis:
   humanURL: https://docs.particle.io/reference/cloud-apis/api/
   baseURL: https://api.particle.io
   tags:
+  - Organization
+  tags_raw:
   - Organizations
   properties:
   - type: OpenAPI
@@ -318,6 +328,8 @@ apis:
   humanURL: https://docs.particle.io/reference/cloud-apis/api/
   baseURL: https://api.particle.io
   tags:
+  - Product
+  tags_raw:
   - Products
   properties:
   - type: OpenAPI
@@ -382,6 +394,8 @@ apis:
   humanURL: https://docs.particle.io/reference/cloud-apis/api/
   baseURL: https://api.particle.io
   tags:
+  - Service Agreements
+  tags_raw:
   - ServiceAgreements
   properties:
   - type: OpenAPI
@@ -398,6 +412,8 @@ apis:
   humanURL: https://docs.particle.io/reference/cloud-apis/api/
   baseURL: https://api.particle.io
   tags:
+  - SIM
+  tags_raw:
   - Sims
   properties:
   - type: OpenAPI
