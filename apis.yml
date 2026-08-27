@@ -456,6 +456,36 @@ apis:
     url: https://docs.particle.io/getting-started/cloud/cloud-api/
   - type: GraphQL
     url: graphql/particle-graphql.md
+- aid: particle:particle-access-tokens-api
+  name: Particle Access Tokens API
+  description: The Access Tokens API from Particle — 3 operation(s) for access tokens.
+  humanURL: https://docs.particle.io/reference/cloud-apis/api/
+  baseURL: https://api.particle.io
+  tags:
+  - Access Tokens
+  properties:
+  - type: OpenAPI
+    url: openapi/particle-access-tokens-api-openapi.yml
+- aid: particle:particle-clients-api
+  name: Particle Clients API
+  description: The Clients API from Particle — 2 operation(s) for clients.
+  humanURL: https://docs.particle.io/reference/cloud-apis/api/
+  baseURL: https://api.particle.io
+  tags:
+  - Clients
+  properties:
+  - type: OpenAPI
+    url: openapi/particle-clients-api-openapi.yml
+- aid: particle:particle-serial-numbers-api
+  name: Particle Serial Numbers API
+  description: The Serial Numbers API from Particle — 1 operation(s) for serial numbers.
+  humanURL: https://docs.particle.io/reference/cloud-apis/api/
+  baseURL: https://api.particle.io
+  tags:
+  - Serial Numbers
+  properties:
+  - type: OpenAPI
+    url: openapi/particle-serial-numbers-api-openapi.yml
 common:
 - type: AgenticAccess
   url: agentic-access/particle-agentic-access.yml
