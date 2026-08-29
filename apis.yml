@@ -499,6 +499,9 @@ apis:
   - type: OpenAPI
     url: openapi/particle-serial-numbers-api-openapi.yml
 common:
+- type: CapabilityMap
+  url: capabilities/particle-capability-edges.yml
+  name: Particle Business Capability Map
 - type: AgenticAccess
   url: agentic-access/particle-agentic-access.yml
 - type: VulnerabilityDisclosure

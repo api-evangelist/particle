@@ -1,0 +1,37 @@
+slug: particle
+provider: Particle
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Automotive & Mobility
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 2
+edges:
+- tag: ProductFirmware
+  spec_file: particle-productfirmware-api-openapi.yml
+  capability_id: BC-4210.30
+  capability_id_l1: BC-4210
+  capability_name: Release Engineering Management
+  confidence: 0.7
+  evidence: POST /v1/products/{productIdOrSlug}/firmware uploadProductFirmware "Upload product firmware";
+    PUT /v1/products/{productIdOrSlug}/firmware/release releaseProductFirmware "Release product firmware";
+    "Delete unreleased firmware binary"
+  reason: Versioned firmware artefacts are uploaded, edited, downloaded and explicitly released to a product
+    fleet — versioning and release promotion of software builds, i.e. Release Engineering Management.
+- tag: Secrets
+  spec_file: particle-secrets-api-openapi.yml
+  capability_id: BC-4210.60
+  capability_id_l1: BC-4210
+  capability_name: Configuration & Secrets Management
+  confidence: 0.7
+  evidence: POST /v1/secrets  createSecret  Create a cloud secret; PUT /v1/secrets/{secretName}  Create
+    or Update the value of a cloud secret
+  reason: CRUD over named cloud secrets consumed at runtime by the platform's integrations matches 'Management
+    of runtime configuration values and secrets consumed by product services'. Some ambiguity as it could
+    be read as security tooling, hence moderate confidence.
