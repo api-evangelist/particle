@@ -1,19 +1,11 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Particle Cloud Authentication OAuth API
-  description: The Particle Cloud REST API enables developers to interact with Particle-connected devices — calling device functions, reading variables, publishing and subscribing to events, managing SIM cards, performing OTA firmware updates, and administering product fleets. All requests use OAuth 2.0 bearer tokens and target https://api.particle.io.
+  title: Particle O Auth API
   version: 1.0.0
-  contact:
-    name: Particle Developer Support
-    url: https://docs.particle.io/reference/cloud-apis/api/
-  license:
-    name: Apache 2.0
-    url: https://www.apache.org/licenses/LICENSE-2.0
+  description: 'Operations tagged OAuth across 2 of this provider''s published API definitions: particle-cloud-api-openapi.yml, particle-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.particle.io
   description: Particle Cloud API
-security:
-- bearerAuth: []
 tags:
 - name: OAuth
 paths:
@@ -31,6 +23,8 @@ paths:
         '401':
           description: Unauthorized
       description: Get a list of all existing OAuth clients, either owned by the authenticated user or clients associated with a product.
+      security:
+      - bearerAuth: []
     post:
       summary: Create a client
       operationId: CreateOAuthClient
@@ -44,6 +38,11 @@ paths:
         '401':
           description: Unauthorized
       description: Create an OAuth client that represents an app. Use type=installed for most web and mobile apps. If you want to have Particle users login to their account on Particle in order to give your app access to their devices, then you can go through the full OAuth authorization code grant flow using type=web. This is the same way you authorize it is similar to the way you give any app access to your Facebook or Twitter account. Your client secret will never be displayed again! Save it in a safe place. If you use type=web then you will also need to pass a redirect_uri parameter in the POST body. This is
+      security:
+      - bearerAuth: []
+    servers:
+    - url: https://api.particle.io
+      description: Particle Cloud API
   /v1/clients/{clientId}:
     put:
       summary: Update a client
@@ -64,6 +63,8 @@ paths:
         required: true
         schema:
           type: string
+      security:
+      - bearerAuth: []
     delete:
       summary: Delete a client
       operationId: DeleteV1ClientsClientid
@@ -83,12 +84,60 @@ paths:
         required: true
         schema:
           type: string
+      security:
+      - bearerAuth: []
+    servers:
+    - url: https://api.particle.io
+      description: Particle Cloud API
+  /oauth/token:
+    post:
+      summary: Generate an access token
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                grant_type:
+                  type: string
+                  example: password
+                username:
+                  type: string
+                password:
+                  type: string
+                client_id:
+                  type: string
+                client_secret:
+                  type: string
+      responses:
+        '200':
+          description: Access token issued.
+      tags:
+      - OAuth
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://api.particle.io
+      description: Particle Cloud production
 components:
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
       description: OAuth 2.0 bearer token. Obtain via POST /oauth/token.
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: OAuth2 access token
+      description: 'Pass `Authorization: Bearer {access_token}`. Tokens are issued via
+
+        `POST /oauth/token`.
+
+        '
 externalDocs:
   description: Particle Cloud API Reference
   url: https://docs.particle.io/reference/cloud-apis/api/
+x-refined-from:
+- particle-cloud-api-openapi.yml
+- particle-openapi.yml

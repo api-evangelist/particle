@@ -1,19 +1,11 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Particle Cloud Authentication Devices API
-  description: The Particle Cloud REST API enables developers to interact with Particle-connected devices — calling device functions, reading variables, publishing and subscribing to events, managing SIM cards, performing OTA firmware updates, and administering product fleets. All requests use OAuth 2.0 bearer tokens and target https://api.particle.io.
+  title: Particle Devices API
   version: 1.0.0
-  contact:
-    name: Particle Developer Support
-    url: https://docs.particle.io/reference/cloud-apis/api/
-  license:
-    name: Apache 2.0
-    url: https://www.apache.org/licenses/LICENSE-2.0
+  description: 'Operations tagged Devices across 2 of this provider''s published API definitions: particle-cloud-api-openapi.yml, particle-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.particle.io
   description: Particle Cloud API
-security:
-- bearerAuth: []
 tags:
 - name: Devices
 paths:
@@ -31,6 +23,8 @@ paths:
         '401':
           description: Unauthorized
       description: Claim a new or unclaimed device to your account.
+      security:
+      - bearerAuth: []
     get:
       summary: List devices
       operationId: ListDevices
@@ -44,6 +38,11 @@ paths:
         '401':
           description: Unauthorized
       description: List devices the currently authenticated user has access to. By default, devices will be sorted by last_handshake_at in descending order.
+      security:
+      - bearerAuth: []
+    servers:
+    - url: https://api.particle.io
+      description: Particle Cloud API
   /v1/products/{productIdOrSlug}/devices/{deviceId}:
     get:
       summary: Get product device information
@@ -69,6 +68,11 @@ paths:
         required: true
         schema:
           type: string
+      security:
+      - bearerAuth: []
+    servers:
+    - url: https://api.particle.io
+      description: Particle Cloud API
   /v1/devices/{deviceId}:
     delete:
       summary: Unclaim device
@@ -89,6 +93,8 @@ paths:
         required: true
         schema:
           type: string
+      security:
+      - bearerAuth: []
     get:
       summary: Get device information
       operationId: GetDevice
@@ -108,6 +114,38 @@ paths:
         required: true
         schema:
           type: string
+      security:
+      - bearerAuth: []
+    put:
+      summary: Update device (rename, notes, signal, OTA settings)
+      parameters:
+      - in: path
+        name: deviceId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                notes:
+                  type: string
+                signal:
+                  type: integer
+      responses:
+        '200':
+          description: Device updated.
+      tags:
+      - Devices
+      security:
+      - bearerAuth: []
+    servers:
+    - url: https://api.particle.io
+      description: Particle Cloud API
   /v1/serial_numbers/{serial_number}:
     get:
       summary: Look up device identification from a serial number
@@ -128,6 +166,11 @@ paths:
         required: true
         schema:
           type: string
+      security:
+      - bearerAuth: []
+    servers:
+    - url: https://api.particle.io
+      description: Particle Cloud API
   /v1/products/{productIdOrSlug}/devices:
     get:
       summary: List devices in a product
@@ -148,6 +191,11 @@ paths:
         required: true
         schema:
           type: string
+      security:
+      - bearerAuth: []
+    servers:
+    - url: https://api.particle.io
+      description: Particle Cloud API
   /v1/products/{productIdOrSlug}/device_orders:
     get:
       summary: List device orders for a product
@@ -168,6 +216,11 @@ paths:
         required: true
         schema:
           type: string
+      security:
+      - bearerAuth: []
+    servers:
+    - url: https://api.particle.io
+      description: Particle Cloud API
   /v1/devices/{deviceId}/{varName}:
     get:
       summary: Get a variable value
@@ -193,6 +246,11 @@ paths:
         required: true
         schema:
           type: string
+      security:
+      - bearerAuth: []
+    servers:
+    - url: https://api.particle.io
+      description: Particle Cloud API
   /v1/devices/{deviceId}/{functionName}:
     post:
       summary: Call a function
@@ -218,6 +276,11 @@ paths:
         required: true
         schema:
           type: string
+      security:
+      - bearerAuth: []
+    servers:
+    - url: https://api.particle.io
+      description: Particle Cloud API
   /v1/devices/{deviceId}/ping:
     put:
       summary: Ping a device
@@ -238,12 +301,29 @@ paths:
         required: true
         schema:
           type: string
+      security:
+      - bearerAuth: []
+    servers:
+    - url: https://api.particle.io
+      description: Particle Cloud API
 components:
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
       description: OAuth 2.0 bearer token. Obtain via POST /oauth/token.
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: OAuth2 access token
+      description: 'Pass `Authorization: Bearer {access_token}`. Tokens are issued via
+
+        `POST /oauth/token`.
+
+        '
 externalDocs:
   description: Particle Cloud API Reference
   url: https://docs.particle.io/reference/cloud-apis/api/
+x-refined-from:
+- particle-cloud-api-openapi.yml
+- particle-openapi.yml

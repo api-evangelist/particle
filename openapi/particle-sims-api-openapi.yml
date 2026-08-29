@@ -1,19 +1,11 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Particle Cloud Authentication Sims API
-  description: The Particle Cloud REST API enables developers to interact with Particle-connected devices — calling device functions, reading variables, publishing and subscribing to events, managing SIM cards, performing OTA firmware updates, and administering product fleets. All requests use OAuth 2.0 bearer tokens and target https://api.particle.io.
+  title: Particle Sims API
   version: 1.0.0
-  contact:
-    name: Particle Developer Support
-    url: https://docs.particle.io/reference/cloud-apis/api/
-  license:
-    name: Apache 2.0
-    url: https://www.apache.org/licenses/LICENSE-2.0
+  description: 'Operations tagged Sims across 2 of this provider''s published API definitions: particle-cloud-api-openapi.yml, particle-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.particle.io
   description: Particle Cloud API
-security:
-- bearerAuth: []
 tags:
 - name: Sims
 paths:
@@ -37,6 +29,8 @@ paths:
         required: true
         schema:
           type: string
+      security:
+      - bearerAuth: []
     get:
       summary: Get SIM information
       operationId: listSim
@@ -56,6 +50,8 @@ paths:
         required: true
         schema:
           type: string
+      security:
+      - bearerAuth: []
     put:
       summary: Reactivate SIM
       operationId: PutV1SimsIccid
@@ -75,6 +71,11 @@ paths:
         required: true
         schema:
           type: string
+      security:
+      - bearerAuth: []
+    servers:
+    - url: https://api.particle.io
+      description: Particle Cloud API
   /v1/sims:
     get:
       summary: List SIM cards
@@ -89,6 +90,11 @@ paths:
         '401':
           description: Unauthorized
       description: Get a list of the SIM cards owned by an individual or a product. The product endpoint is paginated, by default returns 25 SIM card records per page.
+      security:
+      - bearerAuth: []
+    servers:
+    - url: https://api.particle.io
+      description: Particle Cloud API
   /v1/sims/{iccid}/data_usage:
     get:
       summary: Get data usage
@@ -109,6 +115,11 @@ paths:
         required: true
         schema:
           type: string
+      security:
+      - bearerAuth: []
+    servers:
+    - url: https://api.particle.io
+      description: Particle Cloud API
   /v1/products/{productIdOrSlug}/sims/data_usage:
     get:
       summary: Get data usage for product fleet
@@ -129,6 +140,11 @@ paths:
         required: true
         schema:
           type: string
+      security:
+      - bearerAuth: []
+    servers:
+    - url: https://api.particle.io
+      description: Particle Cloud API
   /v1/products/{productIdOrSlug}/sims:
     post:
       summary: Import and activate product SIMs
@@ -149,12 +165,48 @@ paths:
         required: true
         schema:
           type: string
+      security:
+      - bearerAuth: []
+    servers:
+    - url: https://api.particle.io
+      description: Particle Cloud API
+  /v1/sims/{iccid}/status:
+    get:
+      summary: Get SIM cellular network status
+      parameters:
+      - in: path
+        name: iccid
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: SIM status.
+      tags:
+      - Sims
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://api.particle.io
+      description: Particle Cloud production
 components:
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
       description: OAuth 2.0 bearer token. Obtain via POST /oauth/token.
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: OAuth2 access token
+      description: 'Pass `Authorization: Bearer {access_token}`. Tokens are issued via
+
+        `POST /oauth/token`.
+
+        '
 externalDocs:
   description: Particle Cloud API Reference
   url: https://docs.particle.io/reference/cloud-apis/api/
+x-refined-from:
+- particle-cloud-api-openapi.yml
+- particle-openapi.yml
