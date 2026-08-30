@@ -3,7 +3,7 @@ provider: Particle
 generated_by: planning/capability-mapping/scripts/classify_capabilities.py
 model: claude-opus-5
 frame:
-- Automotive & Mobility
+- Electrical Components & Equipment
 min_confidence: 0.7
 capability_model:
   source: https://github.com/vincentmakes/turbo-ea-capabilities
@@ -11,27 +11,110 @@ capability_model:
   attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
     CC BY 4.0
   notice: NOTICE
-edge_count: 2
+edge_count: 10
 edges:
 - tag: ProductFirmware
   spec_file: particle-productfirmware-api-openapi.yml
-  capability_id: BC-4210.30
-  capability_id_l1: BC-4210
-  capability_name: Release Engineering Management
-  confidence: 0.7
-  evidence: POST /v1/products/{productIdOrSlug}/firmware uploadProductFirmware "Upload product firmware";
-    PUT /v1/products/{productIdOrSlug}/firmware/release releaseProductFirmware "Release product firmware";
-    "Delete unreleased firmware binary"
-  reason: Versioned firmware artefacts are uploaded, edited, downloaded and explicitly released to a product
-    fleet — versioning and release promotion of software builds, i.e. Release Engineering Management.
+  capability_id: BC-1950.20
+  capability_id_l1: BC-1950
+  capability_name: Firmware Build & Release Management
+  confidence: 0.9
+  evidence: POST /v1/products/{productIdOrSlug}/firmware uploadProductFirmware 'Upload product firmware';
+    PUT .../firmware/release releaseProductFirmware 'Release product firmware'
+  reason: Upload, version inventory, edit, binary download and release of production firmware for a product
+    line — directly Firmware Build & Release Management for connected products.
+- tag: Firmware
+  spec_file: particle-firmware-api-openapi.yml
+  capability_id: BC-1950
+  capability_id_l1: BC-1950
+  capability_name: Connected Product & Firmware Management
+  confidence: 0.88
+  evidence: PUT /v1/devices/{deviceId} UpdateDeviceFirmware Flash a device with a bundle; POST /v1/binaries
+    compileSource Compile source code; GET /v1/build_targets listBuildTargets List firmware build targets
+  reason: Firmware compilation, build-target inventory and flashing of devices clearly sits in connected-product
+    firmware management; evidence straddles build/release and over-the-air update, so only the L1 is asserted.
+- tag: Devices
+  spec_file: particle-devices-api-openapi.yml
+  capability_id: BC-1950
+  capability_id_l1: BC-1950
+  capability_name: Connected Product & Firmware Management
+  confidence: 0.85
+  evidence: POST /v1/devices ClaimDevice Claim a device; GET /v1/products/{productIdOrSlug}/devices listDevicesForProduct
+    List devices in a product; GET /v1/serial_numbers/{serial_number} Look up device identification from
+    a serial number
+  reason: Fleet-level device registry and interaction (claim/unclaim, identify by serial, call functions,
+    ping) — operational lifecycle of connected products. Spans provisioning and connectivity sub-capabilities,
+    so only the L1 is asserted.
+- tag: Sims
+  spec_file: particle-sims-api-openapi.yml
+  capability_id: BC-1950.40
+  capability_id_l1: BC-1950
+  capability_name: Device Telemetry & Connectivity Management
+  confidence: 0.85
+  evidence: GET /v1/sims/{iccid}/data_usage Get data usage; GET /v1/sims/{iccid}/status Get SIM cellular
+    network status; POST /v1/products/{productIdOrSlug}/sims Import and activate product SIMs
+  reason: Cellular SIM activation, release, status and data-usage across a product fleet is exactly connectivity/carrier-SIM
+    management for connected products.
+- tag: Diagnostics
+  spec_file: particle-diagnostics-api-openapi.yml
+  capability_id: BC-1950.40
+  capability_id_l1: BC-1950
+  capability_name: Device Telemetry & Connectivity Management
+  confidence: 0.78
+  evidence: GET /v1/diagnostics/{deviceId}/last getLastDeviceDiagnostics Get last known device vitals;
+    GET /v1/sims/{iccid}/status getCellularNetworkStatus Get cellular network status
+  reason: Retrieval of historical and current device vitals plus cellular connectivity status is device
+    telemetry and connectivity-state management for connected products.
 - tag: Secrets
   spec_file: particle-secrets-api-openapi.yml
   capability_id: BC-4210.60
   capability_id_l1: BC-4210
   capability_name: Configuration & Secrets Management
+  confidence: 0.75
+  evidence: POST /v1/secrets createSecret Create a cloud secret; PUT /v1/secrets/{secretName} Create or
+    Update the value of a cloud secret
+  reason: CRUD over cloud secrets consumed by the platform's integrations — this is configuration & secrets
+    management, a technical platform capability. Mapped to the closest software-platform capability rather
+    than any electrical/industry capability.
+- tag: Events
+  spec_file: particle-events-api-openapi.yml
+  capability_id: BC-1950.40
+  capability_id_l1: BC-1950
+  capability_name: Device Telemetry & Connectivity Management
+  confidence: 0.72
+  evidence: GET /v1/devices/{deviceId}/events/{eventPrefix} GetDeviceEvents Get a stream of events for
+    a device; POST /v1/devices/events CreateEvent Publish an event
+  reason: Publish/subscribe event streaming to and from fielded devices and product fleets is telemetry
+    ingestion and routing for connected products, not generic messaging middleware.
+- tag: FleetHealth
+  spec_file: particle-fleethealth-api-openapi.yml
+  capability_id: BC-1950
+  capability_id_l1: BC-1950
+  capability_name: Connected Product & Firmware Management
+  confidence: 0.72
+  evidence: GET /v1/products/{productIdOrSlug}/metrics/online getOnlineMetrics 'Get online devices metrics';
+    'Get event traffic health metrics'
+  reason: Operations return health/traffic metrics for a product's connected-device fleet (online devices,
+    event, integration, function, variable traffic). This is operational monitoring of connected products
+    on the IoT platform, so BC-1950 Connected Product & Firmware Management. Evidence spans both connectivity/telemetry
+    health and platform-side traffic health, so no single L2 is clearly named.
+- tag: Quarantine
+  spec_file: particle-quarantine-api-openapi.yml
+  capability_id: BC-1950.10
+  capability_id_l1: BC-1950
+  capability_name: Device Identity & Provisioning Management
+  confidence: 0.72
+  evidence: POST /v1/products/{productIdOrSlug}/devices approveQuarantinedDevice 'Approve a quarantined
+    device'; denyQuarantinedDevice 'Deny a quarantined device'
+  reason: Approval or denial of unrecognised devices attempting to join a product fleet is admission control
+    over device identity — Device Identity & Provisioning Management for connected products.
+- tag: Team
+  spec_file: particle-team-api-openapi.yml
+  capability_id: BC-4230.50
+  capability_id_l1: BC-4230
+  capability_name: Tenant Identity Federation
   confidence: 0.7
-  evidence: POST /v1/secrets  createSecret  Create a cloud secret; PUT /v1/secrets/{secretName}  Create
-    or Update the value of a cloud secret
-  reason: CRUD over named cloud secrets consumed at runtime by the platform's integrations matches 'Management
-    of runtime configuration values and secrets consumed by product services'. Some ambiguity as it could
-    be read as security tooling, hence moderate confidence.
+  evidence: GET /v1/orgs/{orgIdOrSlug}/team/provision/Users/{user_id} Read SCIM user; PATCH ... Modify
+    SCIM user
+  reason: SCIM user provisioning within an organisation account — tenant identity federation / user lifecycle
+    via SCIM. Could alternatively be read as generic IAM; kept at 0.7.
