@@ -406,7 +406,7 @@ apis:
   humanURL: https://docs.particle.io/reference/cloud-apis/api/
   baseURL: https://api.particle.io
   tags:
-  - ServiceAgreements
+  - Service Agreements
   tags_raw:
   - ServiceAgreements
   properties:
@@ -424,7 +424,7 @@ apis:
   humanURL: https://docs.particle.io/reference/cloud-apis/api/
   baseURL: https://api.particle.io
   tags:
-  - Sims
+  - SIM
   tags_raw:
   - Sims
   properties:
