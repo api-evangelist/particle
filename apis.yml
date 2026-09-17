@@ -283,24 +283,6 @@ apis:
     url: https://docs.particle.io/getting-started/cloud/cloud-api/
   - type: GraphQL
     url: graphql/particle-graphql.md
-- aid: particle:particle-oauth-api
-  name: Particle OAuth API
-  description: The OAuth API from Particle — 2 operation(s) for oauth.
-  humanURL: https://docs.particle.io/reference/cloud-apis/api/
-  baseURL: https://api.particle.io
-  tags:
-  - Authentication
-  tags_raw:
-  - OAuth
-  properties:
-  - type: OpenAPI
-    url: openapi/particle-oauth-api-openapi.yml
-  - type: Documentation
-    url: https://docs.particle.io/reference/cloud-apis/api/
-  - type: GettingStarted
-    url: https://docs.particle.io/getting-started/cloud/cloud-api/
-  - type: GraphQL
-    url: graphql/particle-graphql.md
 - aid: particle:particle-organizations-api
   name: Particle Organizations API
   description: The Organizations API from Particle — 3 operation(s) for organizations.
@@ -419,24 +401,6 @@ apis:
     url: https://docs.particle.io/getting-started/cloud/cloud-api/
   - type: GraphQL
     url: graphql/particle-graphql.md
-- aid: particle:particle-sims-api
-  name: Particle Sims API
-  description: The Sims API from Particle — 5 operation(s) for sims.
-  humanURL: https://docs.particle.io/reference/cloud-apis/api/
-  baseURL: https://api.particle.io
-  tags:
-  - SIM
-  tags_raw:
-  - Sims
-  properties:
-  - type: OpenAPI
-    url: openapi/particle-sims-api-openapi.yml
-  - type: Documentation
-    url: https://docs.particle.io/reference/cloud-apis/api/
-  - type: GettingStarted
-    url: https://docs.particle.io/getting-started/cloud/cloud-api/
-  - type: GraphQL
-    url: graphql/particle-graphql.md
 - aid: particle:particle-team-api
   name: Particle Team API
   description: The Team API from Particle — 1 operation(s) for team.
@@ -499,6 +463,38 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/particle-serial-numbers-api-openapi.yml
+- aid: particle:particle-oauth-api
+  name: Particle O Auth API
+  description: The OAuth API from Particle — 3 operation(s) for oauth.
+  humanURL: https://docs.particle.io/reference/cloud-apis/api/
+  baseURL: https://api.particle.io
+  tags:
+  - OAuth
+  properties:
+  - type: OpenAPI
+    url: openapi/particle-oauth-api-openapi.yml
+  - type: Documentation
+    url: https://docs.particle.io/reference/cloud-apis/api/
+  - type: GettingStarted
+    url: https://docs.particle.io/getting-started/cloud/cloud-api/
+  - type: GraphQL
+    url: graphql/particle-graphql.md
+- aid: particle:particle-sims-api
+  name: Particle Sims API
+  description: The Sims API from Particle — 6 operation(s) for sims.
+  humanURL: https://docs.particle.io/reference/cloud-apis/api/
+  baseURL: https://api.particle.io
+  tags:
+  - Sims
+  properties:
+  - type: OpenAPI
+    url: openapi/particle-sims-api-openapi.yml
+  - type: Documentation
+    url: https://docs.particle.io/reference/cloud-apis/api/
+  - type: GettingStarted
+    url: https://docs.particle.io/getting-started/cloud/cloud-api/
+  - type: GraphQL
+    url: graphql/particle-graphql.md
 common:
 - type: CapabilityMap
   url: capabilities/particle-capability-edges.yml
