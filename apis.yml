@@ -38,6 +38,17 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/particle.png
 tags:
 - IoT
+- Cellular
+- Wi-Fi
+- Bluetooth
+- Device Management
+- Firmware
+- OTA Updates
+- Fleet Management
+- Hardware
+- Embedded
+tags_raw:
+- IoT
 - Internet of Things
 - Cellular
 - Wi-Fi
@@ -469,6 +480,8 @@ apis:
   humanURL: https://docs.particle.io/reference/cloud-apis/api/
   baseURL: https://api.particle.io
   tags:
+  - Authentication
+  tags_raw:
   - OAuth
   properties:
   - type: OpenAPI
@@ -485,6 +498,8 @@ apis:
   humanURL: https://docs.particle.io/reference/cloud-apis/api/
   baseURL: https://api.particle.io
   tags:
+  - SIM
+  tags_raw:
   - Sims
   properties:
   - type: OpenAPI
