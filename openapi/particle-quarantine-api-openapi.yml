@@ -30,7 +30,6 @@ paths:
           description: Bad request
         '401':
           description: Unauthorized
-      description: Deny a quarantined device
       parameters:
       - name: productIdOrSlug
         in: path

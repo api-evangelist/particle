@@ -5,9 +5,7 @@ info:
 
     management, OAuth client and token administration, diagnostics, SIM
 
-    management and user account endpoints.
-
-    '
+    management and user account endpoints.'
   version: 1.0.0
   contact:
     name: Particle
@@ -28,6 +26,8 @@ paths:
           description: All tokens deleted.
       tags:
       - Access Tokens
+      operationId: deleteV1AccessTokens
+      x-operation-id-source: derived
   /v1/access_tokens/current:
     get:
       summary: Get information about the current access token
@@ -36,6 +36,8 @@ paths:
           description: Current token info.
       tags:
       - Access Tokens
+      operationId: getV1AccessTokensCurrent
+      x-operation-id-source: derived
     delete:
       summary: Delete the current access token
       responses:
@@ -43,6 +45,8 @@ paths:
           description: Current token deleted.
       tags:
       - Access Tokens
+      operationId: deleteV1AccessTokensCurrent
+      x-operation-id-source: derived
   /v1/access_tokens/{token}:
     delete:
       summary: Delete a specific token
@@ -57,6 +61,8 @@ paths:
           description: Token deleted.
       tags:
       - Access Tokens
+      operationId: deleteV1AccessTokensByToken
+      x-operation-id-source: derived
 components:
   securitySchemes:
     BearerAuth:

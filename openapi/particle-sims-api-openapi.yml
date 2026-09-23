@@ -7,14 +7,14 @@ servers:
 - url: https://api.particle.io
   description: Particle Cloud API
 tags:
-- name: Sims
+- name: SIMs
 paths:
   /v1/sims/{iccid}:
     delete:
       summary: Release SIM from account
       operationId: releaseSimFromAccount
       tags:
-      - Sims
+      - SIMs
       responses:
         '200':
           description: Successful response
@@ -35,7 +35,7 @@ paths:
       summary: Get SIM information
       operationId: listSim
       tags:
-      - Sims
+      - SIMs
       responses:
         '200':
           description: Successful response
@@ -56,7 +56,7 @@ paths:
       summary: Reactivate SIM
       operationId: PutV1SimsIccid
       tags:
-      - Sims
+      - SIMs
       responses:
         '200':
           description: Successful response
@@ -81,7 +81,7 @@ paths:
       summary: List SIM cards
       operationId: listSims
       tags:
-      - Sims
+      - SIMs
       responses:
         '200':
           description: Successful response
@@ -100,7 +100,7 @@ paths:
       summary: Get data usage
       operationId: simDataUsage
       tags:
-      - Sims
+      - SIMs
       responses:
         '200':
           description: Successful response
@@ -125,7 +125,7 @@ paths:
       summary: Get data usage for product fleet
       operationId: simFleetDataUsage
       tags:
-      - Sims
+      - SIMs
       responses:
         '200':
           description: Successful response
@@ -150,7 +150,7 @@ paths:
       summary: Import and activate product SIMs
       operationId: listProductSims
       tags:
-      - Sims
+      - SIMs
       responses:
         '200':
           description: Successful response
@@ -183,9 +183,11 @@ paths:
         '200':
           description: SIM status.
       tags:
-      - Sims
+      - SIMs
       security:
       - BearerAuth: []
+      operationId: getV1SimsByIccidStatus
+      x-operation-id-source: derived
     servers:
     - url: https://api.particle.io
       description: Particle Cloud production

@@ -110,7 +110,7 @@ paths:
           description: Bad request
         '401':
           description: Unauthorized
-      description: 'Reports each time a Particle.variable() in firmware is read on a device in this product and the outcome. Each time bucket contains counts of (keys with a value of 0 will be omitted): success: the target device successfully received and responded to the variable request. failure: the target device was unable to process the variable request, or was unreachable by the cloud. offline: the variable request was skipped because the device was not connected to the cloud at the time the call was made. Can be filtered to include only variable requests for devices with a certain firmware version, Device '
+      description: 'Reports each time a Particle.variable() in firmware is read on a device in this product and the outcome. Each time bucket contains counts of (keys with a value of 0 will be omitted): success: the target device successfully received and responded to the variable request. failure: the target device was unable to process the variable request, or was unreachable by the cloud. offline: the variable request was skipped because the device was not connected to the cloud at the time the call was made. Can be filtered to include only variable requests for devices with a certain firmware version, Device'
       parameters:
       - name: productIdOrSlug
         in: path

@@ -5,9 +5,7 @@ info:
 
     management, OAuth client and token administration, diagnostics, SIM
 
-    management and user account endpoints.
-
-    '
+    management and user account endpoints.'
   version: 1.0.0
   contact:
     name: Particle
@@ -28,6 +26,8 @@ paths:
           description: A list of OAuth clients.
       tags:
       - Clients
+      operationId: getV1Clients
+      x-operation-id-source: derived
     post:
       summary: Create an OAuth client
       requestBody:
@@ -41,6 +41,8 @@ paths:
           description: OAuth client created.
       tags:
       - Clients
+      operationId: postV1Clients
+      x-operation-id-source: derived
   /v1/clients/{clientId}:
     put:
       summary: Update an OAuth client
@@ -60,6 +62,8 @@ paths:
           description: OAuth client updated.
       tags:
       - Clients
+      operationId: putV1ClientsByClientId
+      x-operation-id-source: derived
     delete:
       summary: Delete an OAuth client
       parameters:
@@ -73,6 +77,8 @@ paths:
           description: OAuth client deleted.
       tags:
       - Clients
+      operationId: deleteV1ClientsByClientId
+      x-operation-id-source: derived
 components:
   securitySchemes:
     BearerAuth:

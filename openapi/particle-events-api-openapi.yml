@@ -120,7 +120,6 @@ paths:
           description: Bad request
         '401':
           description: Unauthorized
-      description: Publish an event
   /v1/products/{productIdOrSlug}/events:
     post:
       summary: Publish a product event

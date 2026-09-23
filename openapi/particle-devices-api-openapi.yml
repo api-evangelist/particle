@@ -143,6 +143,8 @@ paths:
       - Devices
       security:
       - bearerAuth: []
+      operationId: putV1DevicesByDeviceId
+      x-operation-id-source: derived
     servers:
     - url: https://api.particle.io
       description: Particle Cloud API

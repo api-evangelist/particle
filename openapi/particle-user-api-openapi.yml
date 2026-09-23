@@ -49,6 +49,8 @@ paths:
       - User
       security:
       - bearerAuth: []
+      operationId: deleteV1User
+      x-operation-id-source: derived
     servers:
     - url: https://api.particle.io
       description: Particle Cloud API

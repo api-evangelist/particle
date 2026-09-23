@@ -201,6 +201,8 @@ paths:
       - Products
       security:
       - BearerAuth: []
+      operationId: getV1ProductsByProductIdOrSlugDevices
+      x-operation-id-source: derived
     post:
       summary: Import devices into a product
       parameters:
@@ -221,6 +223,8 @@ paths:
       - Products
       security:
       - BearerAuth: []
+      operationId: postV1ProductsByProductIdOrSlugDevices
+      x-operation-id-source: derived
     servers:
     - url: https://api.particle.io
       description: Particle Cloud production
@@ -245,6 +249,8 @@ paths:
       - Products
       security:
       - BearerAuth: []
+      operationId: getV1ProductsByProductIdOrSlugDevicesByDeviceId
+      x-operation-id-source: derived
     delete:
       summary: Remove a device from a product
       parameters:
@@ -265,6 +271,8 @@ paths:
       - Products
       security:
       - BearerAuth: []
+      operationId: deleteV1ProductsByProductIdOrSlugDevicesByDeviceId
+      x-operation-id-source: derived
     servers:
     - url: https://api.particle.io
       description: Particle Cloud production

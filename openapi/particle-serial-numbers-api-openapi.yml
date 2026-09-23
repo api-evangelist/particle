@@ -5,9 +5,7 @@ info:
 
     management, OAuth client and token administration, diagnostics, SIM
 
-    management and user account endpoints.
-
-    '
+    management and user account endpoints.'
   version: 1.0.0
   contact:
     name: Particle
@@ -34,6 +32,8 @@ paths:
           description: Device lookup result.
       tags:
       - Serial Numbers
+      operationId: getV1SerialNumbersBySerialNumber
+      x-operation-id-source: derived
 components:
   securitySchemes:
     BearerAuth:
