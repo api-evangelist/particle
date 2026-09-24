@@ -78,8 +78,6 @@ apis:
     url: https://docs.particle.io/reference/cloud-apis/api/
   - type: GettingStarted
     url: https://docs.particle.io/getting-started/cloud/cloud-api/
-  - type: GraphQL
-    url: graphql/particle-graphql.md
 - aid: particle:particle-configuration-api
   name: Particle Configuration API
   description: The Configuration API from Particle — 2 operation(s) for configuration.
@@ -94,8 +92,6 @@ apis:
     url: https://docs.particle.io/reference/cloud-apis/api/
   - type: GettingStarted
     url: https://docs.particle.io/getting-started/cloud/cloud-api/
-  - type: GraphQL
-    url: graphql/particle-graphql.md
 - aid: particle:particle-customers-api
   name: Particle Customers API
   description: The Customers API from Particle — 3 operation(s) for customers.
@@ -110,8 +106,6 @@ apis:
     url: https://docs.particle.io/reference/cloud-apis/api/
   - type: GettingStarted
     url: https://docs.particle.io/getting-started/cloud/cloud-api/
-  - type: GraphQL
-    url: graphql/particle-graphql.md
 - aid: particle:particle-devices-api
   name: Particle Devices API
   description: The Devices API from Particle — 9 operation(s) for devices.
@@ -126,8 +120,6 @@ apis:
     url: https://docs.particle.io/reference/cloud-apis/api/
   - type: GettingStarted
     url: https://docs.particle.io/getting-started/cloud/cloud-api/
-  - type: GraphQL
-    url: graphql/particle-graphql.md
 - aid: particle:particle-diagnostics-api
   name: Particle Diagnostics API
   description: The Diagnostics API from Particle — 4 operation(s) for diagnostics.
@@ -142,8 +134,6 @@ apis:
     url: https://docs.particle.io/reference/cloud-apis/api/
   - type: GettingStarted
     url: https://docs.particle.io/getting-started/cloud/cloud-api/
-  - type: GraphQL
-    url: graphql/particle-graphql.md
 - aid: particle:particle-env-api
   name: Particle Env API
   description: The Env API from Particle — 4 operation(s) for env.
@@ -158,8 +148,6 @@ apis:
     url: https://docs.particle.io/reference/cloud-apis/api/
   - type: GettingStarted
     url: https://docs.particle.io/getting-started/cloud/cloud-api/
-  - type: GraphQL
-    url: graphql/particle-graphql.md
 - aid: particle:particle-events-api
   name: Particle Events API
   description: The Events API from Particle — 6 operation(s) for events.
@@ -176,8 +164,6 @@ apis:
     url: https://docs.particle.io/reference/cloud-apis/api/
   - type: GettingStarted
     url: https://docs.particle.io/getting-started/cloud/cloud-api/
-  - type: GraphQL
-    url: graphql/particle-graphql.md
 - aid: particle:particle-firmware-api
   name: Particle Firmware API
   description: The Firmware API from Particle — 3 operation(s) for firmware.
@@ -192,8 +178,6 @@ apis:
     url: https://docs.particle.io/reference/cloud-apis/api/
   - type: GettingStarted
     url: https://docs.particle.io/getting-started/cloud/cloud-api/
-  - type: GraphQL
-    url: graphql/particle-graphql.md
 - aid: particle:particle-fleethealth-api
   name: Particle FleetHealth API
   description: The FleetHealth API from Particle — 5 operation(s) for fleethealth.
@@ -208,8 +192,6 @@ apis:
     url: https://docs.particle.io/reference/cloud-apis/api/
   - type: GettingStarted
     url: https://docs.particle.io/getting-started/cloud/cloud-api/
-  - type: GraphQL
-    url: graphql/particle-graphql.md
 - aid: particle:particle-groups-api
   name: Particle Groups API
   description: The Groups API from Particle — 5 operation(s) for groups.
@@ -226,8 +208,6 @@ apis:
     url: https://docs.particle.io/reference/cloud-apis/api/
   - type: GettingStarted
     url: https://docs.particle.io/getting-started/cloud/cloud-api/
-  - type: GraphQL
-    url: graphql/particle-graphql.md
 - aid: particle:particle-integrations-api
   name: Particle Integrations API
   description: The Integrations API from Particle — 3 operation(s) for integrations.
@@ -244,8 +224,6 @@ apis:
     url: https://docs.particle.io/reference/cloud-apis/api/
   - type: GettingStarted
     url: https://docs.particle.io/getting-started/cloud/cloud-api/
-  - type: GraphQL
-    url: graphql/particle-graphql.md
 - aid: particle:particle-ledger-api
   name: Particle Ledger API
   description: The Ledger API from Particle — 6 operation(s) for ledger.
@@ -260,8 +238,6 @@ apis:
     url: https://docs.particle.io/reference/cloud-apis/api/
   - type: GettingStarted
     url: https://docs.particle.io/getting-started/cloud/cloud-api/
-  - type: GraphQL
-    url: graphql/particle-graphql.md
 - aid: particle:particle-location-api
   name: Particle Location API
   description: The Location API from Particle — 3 operation(s) for location.
@@ -276,8 +252,6 @@ apis:
     url: https://docs.particle.io/reference/cloud-apis/api/
   - type: GettingStarted
     url: https://docs.particle.io/getting-started/cloud/cloud-api/
-  - type: GraphQL
-    url: graphql/particle-graphql.md
 - aid: particle:particle-logic-api
   name: Particle Logic API
   description: The Logic API from Particle — 7 operation(s) for logic.
@@ -292,8 +266,6 @@ apis:
     url: https://docs.particle.io/reference/cloud-apis/api/
   - type: GettingStarted
     url: https://docs.particle.io/getting-started/cloud/cloud-api/
-  - type: GraphQL
-    url: graphql/particle-graphql.md
 - aid: particle:particle-organizations-api
   name: Particle Organizations API
   description: The Organizations API from Particle — 3 operation(s) for organizations.
@@ -310,8 +282,6 @@ apis:
     url: https://docs.particle.io/reference/cloud-apis/api/
   - type: GettingStarted
     url: https://docs.particle.io/getting-started/cloud/cloud-api/
-  - type: GraphQL
-    url: graphql/particle-graphql.md
 - aid: particle:particle-productfirmware-api
   name: Particle ProductFirmware API
   description: The ProductFirmware API from Particle — 4 operation(s) for productfirmware.
@@ -326,8 +296,6 @@ apis:
     url: https://docs.particle.io/reference/cloud-apis/api/
   - type: GettingStarted
     url: https://docs.particle.io/getting-started/cloud/cloud-api/
-  - type: GraphQL
-    url: graphql/particle-graphql.md
 - aid: particle:particle-products-api
   name: Particle Products API
   description: The Products API from Particle — 5 operation(s) for products.
@@ -344,8 +312,6 @@ apis:
     url: https://docs.particle.io/reference/cloud-apis/api/
   - type: GettingStarted
     url: https://docs.particle.io/getting-started/cloud/cloud-api/
-  - type: GraphQL
-    url: graphql/particle-graphql.md
 - aid: particle:particle-quarantine-api
   name: Particle Quarantine API
   description: The Quarantine API from Particle — 2 operation(s) for quarantine.
@@ -360,8 +326,6 @@ apis:
     url: https://docs.particle.io/reference/cloud-apis/api/
   - type: GettingStarted
     url: https://docs.particle.io/getting-started/cloud/cloud-api/
-  - type: GraphQL
-    url: graphql/particle-graphql.md
 - aid: particle:particle-search-api
   name: Particle Search API
   description: The Search API from Particle — 2 operation(s) for search.
@@ -376,8 +340,6 @@ apis:
     url: https://docs.particle.io/reference/cloud-apis/api/
   - type: GettingStarted
     url: https://docs.particle.io/getting-started/cloud/cloud-api/
-  - type: GraphQL
-    url: graphql/particle-graphql.md
 - aid: particle:particle-secrets-api
   name: Particle Secrets API
   description: The Secrets API from Particle — 2 operation(s) for secrets.
@@ -392,8 +354,6 @@ apis:
     url: https://docs.particle.io/reference/cloud-apis/api/
   - type: GettingStarted
     url: https://docs.particle.io/getting-started/cloud/cloud-api/
-  - type: GraphQL
-    url: graphql/particle-graphql.md
 - aid: particle:particle-serviceagreements-api
   name: Particle ServiceAgreements API
   description: The ServiceAgreements API from Particle — 7 operation(s) for serviceagreements.
@@ -410,8 +370,6 @@ apis:
     url: https://docs.particle.io/reference/cloud-apis/api/
   - type: GettingStarted
     url: https://docs.particle.io/getting-started/cloud/cloud-api/
-  - type: GraphQL
-    url: graphql/particle-graphql.md
 - aid: particle:particle-team-api
   name: Particle Team API
   description: The Team API from Particle — 1 operation(s) for team.
@@ -426,8 +384,6 @@ apis:
     url: https://docs.particle.io/reference/cloud-apis/api/
   - type: GettingStarted
     url: https://docs.particle.io/getting-started/cloud/cloud-api/
-  - type: GraphQL
-    url: graphql/particle-graphql.md
 - aid: particle:particle-user-api
   name: Particle User API
   description: The User API from Particle — 2 operation(s) for user.
@@ -442,8 +398,6 @@ apis:
     url: https://docs.particle.io/reference/cloud-apis/api/
   - type: GettingStarted
     url: https://docs.particle.io/getting-started/cloud/cloud-api/
-  - type: GraphQL
-    url: graphql/particle-graphql.md
 - aid: particle:particle-access-tokens-api
   name: Particle Access Tokens API
   description: The Access Tokens API from Particle — 3 operation(s) for access tokens.
@@ -490,8 +444,6 @@ apis:
     url: https://docs.particle.io/reference/cloud-apis/api/
   - type: GettingStarted
     url: https://docs.particle.io/getting-started/cloud/cloud-api/
-  - type: GraphQL
-    url: graphql/particle-graphql.md
 - aid: particle:particle-sims-api
   name: Particle Sims API
   description: The Sims API from Particle — 6 operation(s) for sims.
@@ -508,8 +460,6 @@ apis:
     url: https://docs.particle.io/reference/cloud-apis/api/
   - type: GettingStarted
     url: https://docs.particle.io/getting-started/cloud/cloud-api/
-  - type: GraphQL
-    url: graphql/particle-graphql.md
 common:
 - type: CapabilityMap
   url: capabilities/particle-capability-edges.yml
