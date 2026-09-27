@@ -60,7 +60,7 @@ paths:
   /v1/devices/{deviceId}/events/{eventPrefix}:
     get:
       summary: Get a stream of events for a device
-      operationId: GetDeviceEvents
+      operationId: getV1DevicesByDeviceIdEventsByEventPrefix
       tags:
       - Events
       responses:
@@ -82,6 +82,8 @@ paths:
         required: true
         schema:
           type: string
+      x-operation-id-source: normalized
+      x-operation-id-original: GetDeviceEvents
   /v1/products/{productIdOrSlug}/events/{eventPrefix}:
     get:
       summary: Product event stream

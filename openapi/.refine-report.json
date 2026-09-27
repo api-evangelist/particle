@@ -34,9 +34,7 @@
     "particle-clients-api-openapi.yml",
     "particle-serial-numbers-api-openapi.yml"
   ],
-  "archived": [
-    "deleted 2 superseded output(s) from the previous generation"
-  ],
+  "archived": [],
   "errors": [],
   "warnings": [],
   "notes": [
@@ -90,8 +88,7 @@
     "tag 'Products' spans 2 source specs (particle-cloud-api-openapi.yml, particle-openapi.yml): per-path servers applied",
     "tag 'Sims' spans 2 source specs (particle-cloud-api-openapi.yml, particle-openapi.yml): per-path servers applied",
     "tag 'User' spans 2 source specs (particle-cloud-api-openapi.yml, particle-openapi.yml): per-path servers applied",
-    "superseded outputs removed: particle-o-auth-api-openapi.yml, particle-si-ms-api-openapi.yml",
-    "apis.yml register: written (+2 apis, 28 total)"
+    "apis.yml register: already-registered"
   ],
   "skipped": [
     "particle-access-tokens-api-openapi.yml: previously refined output, superseded by openapi/_original/",
@@ -110,7 +107,7 @@
     "particle-ledger-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "particle-location-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "particle-logic-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "particle-o-auth-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "particle-oauth-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "particle-organizations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "particle-productfirmware-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "particle-products-api-openapi.yml: previously refined output, superseded by openapi/_original/",
@@ -119,7 +116,7 @@
     "particle-secrets-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "particle-serial-numbers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "particle-serviceagreements-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "particle-si-ms-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "particle-sims-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "particle-team-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "particle-user-api-openapi.yml: previously refined output, superseded by openapi/_original/"
   ]

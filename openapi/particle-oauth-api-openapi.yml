@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Particle O Auth API
+  title: Particle OAuth API
   version: 1.0.0
   description: 'Operations tagged OAuth across 2 of this provider''s published API definitions: particle-cloud-api-openapi.yml, particle-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
