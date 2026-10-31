@@ -1,4 +1,4 @@
-# Particle (particle)
+# Particle
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,59 +64,196 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Particle is an integrated IoT Platform-as-a-Service that provides cellular, Wi-Fi, and Bluetooth hardware modules alongside a comprehensive cloud platform for building and managing connected devices at scale. The Particle Device Cloud exposes a REST API enabling developers to call device functions, read variables, publish and subscribe to events, manage firmware OTA updates, and administer product fleets. Authentication uses OAuth 2.0 bearer tokens, and the platform supports JavaScript, iOS, Android, and Windows SDKs as well as a command-line interface. Particle's pricing model is based on Data Operations consumed per month, with plans ranging from a free prototyping tier through paid block-based plans to enterprise contracts.
+Particle is an integrated IoT Platform-as-a-Service that provides cellular, Wi-Fi, and Bluetooth hardware modules alongside a comprehensive cloud platform for building and managing connected devices at scale. The Particle Device Cloud exposes a REST API that enables developers to call device functions, read variables, publish and subscribe to events, manage firmware OTA updates, and administer product fleets. Authentication uses OAuth 2.0 bearer tokens, and the platform supports JavaScript, iOS, Android, and Windows SDKs as well as a command-line interface. Particle's pricing model is based on Data Operations consumed per month, with plans ranging from a free prototyping tier through paid block-based plans to enterprise contracts.
 
-APIs.json: [https://raw.githubusercontent.com/api-evangelist/particle/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/particle/refs/heads/main/apis.yml)
+**Areas:** IoT · Cellular · Wi-Fi · Bluetooth · Device Management · Firmware · OTA Updates · Fleet Management · Hardware · Embedded
 
-Naftiko: [https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=particle-api-evangelist&utm_content=repo](https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=particle-api-evangelist&utm_content=repo)
+## Particle on APIs.io
 
-## Tags
+Everything profiled for Particle is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/particle/](https://apis.io/providers/particle/)** — or go straight to one of the APIs or properties below.
 
-IoT, Internet of Things, Cellular, Wi-Fi, Bluetooth, Device Management, Firmware, OTA Updates, Fleet Management, Hardware, Embedded
+### APIs (28)
 
-## APIs
+- [Particle Authentication API](https://apis.io/apis/particle/particle-authentication-api/) — The Authentication API from Particle — 3 operation(s) for authentication.
+- [Particle Configuration API](https://apis.io/apis/particle/particle-configuration-api/) — The Configuration API from Particle — 2 operation(s) for configuration.
+- [Particle Customers API](https://apis.io/apis/particle/particle-customers-api/) — The Customers API from Particle — 3 operation(s) for customers.
+- [Particle Devices API](https://apis.io/apis/particle/particle-devices-api/) — The Devices API from Particle — 9 operation(s) for devices.
+- [Particle Diagnostics API](https://apis.io/apis/particle/particle-diagnostics-api/) — The Diagnostics API from Particle — 4 operation(s) for diagnostics.
+- [Particle Env API](https://apis.io/apis/particle/particle-env-api/) — The Env API from Particle — 4 operation(s) for env.
+- [Particle Events API](https://apis.io/apis/particle/particle-events-api/) — The Events API from Particle — 6 operation(s) for events.
+- [Particle Firmware API](https://apis.io/apis/particle/particle-firmware-api/) — The Firmware API from Particle — 3 operation(s) for firmware.
+- [Particle FleetHealth API](https://apis.io/apis/particle/particle-fleethealth-api/) — The FleetHealth API from Particle — 5 operation(s) for fleethealth.
+- [Particle Groups API](https://apis.io/apis/particle/particle-groups-api/) — The Groups API from Particle — 5 operation(s) for groups.
+- [Particle Integrations API](https://apis.io/apis/particle/particle-integrations-api/) — The Integrations API from Particle — 3 operation(s) for integrations.
+- [Particle Ledger API](https://apis.io/apis/particle/particle-ledger-api/) — The Ledger API from Particle — 6 operation(s) for ledger.
+- [Particle Location API](https://apis.io/apis/particle/particle-location-api/) — The Location API from Particle — 3 operation(s) for location.
+- [Particle Logic API](https://apis.io/apis/particle/particle-logic-api/) — The Logic API from Particle — 7 operation(s) for logic.
+- [Particle Organizations API](https://apis.io/apis/particle/particle-organizations-api/) — The Organizations API from Particle — 3 operation(s) for organizations.
+- [Particle ProductFirmware API](https://apis.io/apis/particle/particle-productfirmware-api/) — The ProductFirmware API from Particle — 4 operation(s) for productfirmware.
+- [Particle Products API](https://apis.io/apis/particle/particle-products-api/) — The Products API from Particle — 5 operation(s) for products.
+- [Particle Quarantine API](https://apis.io/apis/particle/particle-quarantine-api/) — The Quarantine API from Particle — 2 operation(s) for quarantine.
+- [Particle Search API](https://apis.io/apis/particle/particle-search-api/) — The Search API from Particle — 2 operation(s) for search.
+- [Particle Secrets API](https://apis.io/apis/particle/particle-secrets-api/) — The Secrets API from Particle — 2 operation(s) for secrets.
+- [Particle ServiceAgreements API](https://apis.io/apis/particle/particle-serviceagreements-api/) — The ServiceAgreements API from Particle — 7 operation(s) for serviceagreements.
+- [Particle Team API](https://apis.io/apis/particle/particle-team-api/) — The Team API from Particle — 1 operation(s) for team.
+- [Particle User API](https://apis.io/apis/particle/particle-user-api/) — The User API from Particle — 2 operation(s) for user.
+- [Particle Access Tokens API](https://apis.io/apis/particle/particle-access-tokens-api/) — The Access Tokens API from Particle — 3 operation(s) for access tokens.
+- [Particle Clients API](https://apis.io/apis/particle/particle-clients-api/) — The Clients API from Particle — 2 operation(s) for clients.
+- [Particle Serial Numbers API](https://apis.io/apis/particle/particle-serial-numbers-api/) — The Serial Numbers API from Particle — 1 operation(s) for serial numbers.
+- [Particle O Auth API](https://apis.io/apis/particle/particle-oauth-api/) — The OAuth API from Particle — 3 operation(s) for oauth.
+- [Particle Sims API](https://apis.io/apis/particle/particle-sims-api/) — The Sims API from Particle — 6 operation(s) for sims.
 
-### Particle Cloud API
+### Published properties
 
-The Particle Cloud REST API enables developers to interact with Particle-connected devices — calling device functions, reading variables, publishing and subscribing to events, managing SIM cards, performing OTA firmware updates, and administering product fleets. All requests use OAuth 2.0 bearer tokens and target https://api.particle.io.
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-- **Documentation:** https://docs.particle.io/reference/cloud-apis/api/
-- **Getting Started:** https://docs.particle.io/getting-started/cloud/cloud-api/
-- **Base URL:** https://api.particle.io
+#### GraphQL (1)
 
-## Plans / Rate Limits / FinOps
+GraphQL schemas.
 
-| Resource | Path |
+- [Moved to /providers/particle/](https://apis.io/graphqls/particle/particle-graphql/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Particle Agentic Access](https://apis.io/agentic-access/particle/particle-agentic-access/)
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Particle Context](https://apis.io/jsonld/particle/particle-context/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [Particle Cloud API Vocabulary](https://apis.io/vocabularies/particle/particle-vocabulary/)
+
+#### Collections (29)
+
+Postman and Open Collection request collections.
+
+- [Particle Cloud Access Tokens API](https://apis.io/collections/particle/open-particle-access-tokens-api/)
+- [Particle Cloud Authentication API](https://apis.io/collections/particle/open-particle-authentication-api/)
+- [Particle Cloud Access Tokens Clients API](https://apis.io/collections/particle/open-particle-clients-api/)
+- [Particle Cloud Authentication Configuration API](https://apis.io/collections/particle/open-particle-configuration-api/)
+- [Particle Cloud Authentication Customers API](https://apis.io/collections/particle/open-particle-customers-api/)
+- [Particle Cloud Authentication Devices API](https://apis.io/collections/particle/open-particle-devices-api/)
+- [Particle Cloud Authentication Diagnostics API](https://apis.io/collections/particle/open-particle-diagnostics-api/)
+- [Particle Cloud Authentication Env API](https://apis.io/collections/particle/open-particle-env-api/)
+- [Particle Cloud Authentication Events API](https://apis.io/collections/particle/open-particle-events-api/)
+- [Particle Cloud Authentication Firmware API](https://apis.io/collections/particle/open-particle-firmware-api/)
+- [Particle Cloud Authentication FleetHealth API](https://apis.io/collections/particle/open-particle-fleethealth-api/)
+- [Particle Cloud Authentication Groups API](https://apis.io/collections/particle/open-particle-groups-api/)
+- [Particle Cloud Authentication Integrations API](https://apis.io/collections/particle/open-particle-integrations-api/)
+- [Particle Cloud API](https://apis.io/collections/particle/open-particle-io/)
+- [Particle Cloud Authentication Ledger API](https://apis.io/collections/particle/open-particle-ledger-api/)
+- [Particle Cloud Authentication Location API](https://apis.io/collections/particle/open-particle-location-api/)
+- [Particle Cloud Authentication Logic API](https://apis.io/collections/particle/open-particle-logic-api/)
+- [Particle Cloud Authentication OAuth API](https://apis.io/collections/particle/open-particle-oauth-api/)
+- [Particle Cloud Authentication Organizations API](https://apis.io/collections/particle/open-particle-organizations-api/)
+- [Particle Cloud Authentication ProductFirmware API](https://apis.io/collections/particle/open-particle-productfirmware-api/)
+- [Particle Cloud Authentication Products API](https://apis.io/collections/particle/open-particle-products-api/)
+- [Particle Cloud Authentication Quarantine API](https://apis.io/collections/particle/open-particle-quarantine-api/)
+- [Particle Cloud Authentication Search API](https://apis.io/collections/particle/open-particle-search-api/)
+- [Particle Cloud Authentication Secrets API](https://apis.io/collections/particle/open-particle-secrets-api/)
+- [Particle Cloud Access Tokens Serial Numbers API](https://apis.io/collections/particle/open-particle-serial-numbers-api/)
+- …and 4 more published on APIs.io
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Particle Authentication](https://apis.io/security/particle/particle-authentication/)
+- [Particle Domain Security](https://apis.io/security/particle/particle-domain-security/)
+- [Particle Vulnerability Disclosure](https://apis.io/security/particle/particle-vulnerability-disclosure/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Particle Plans Pricing](https://apis.io/plans/particle/particle-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Particle Rate Limits](https://apis.io/rate-limits/particle/particle-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Particle Finops](https://apis.io/finops/particle/particle-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.particle.io/)
+- [Documentation](https://docs.particle.io/)
+- [Pricing](https://www.particle.io/pricing/)
+- [Support](https://support.particle.io/)
+- [Changelog](https://changelog.particle.io/)
+- [Blog](https://www.particle.io/blog/)
+- [Terms of service](https://www.particle.io/legal/)
+- [Privacy policy](https://www.particle.io/legal/)
+- [GitHub](https://github.com/particle-iot)
+- [Status](https://status.particle.io/)
+
+## API Evangelist rating
+
+**Kin Score 55.3** — strong · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
 |---|---|
-| Plans & Pricing | [plans/particle-plans-pricing.yml](plans/particle-plans-pricing.yml) |
-| Rate Limits | [rate-limits/particle-rate-limits.yml](rate-limits/particle-rate-limits.yml) |
-| FinOps | [finops/particle-finops.yml](finops/particle-finops.yml) |
+| Discoverability | 66.1 |
+| Contract quality | 62.5 |
+| Contract governance | 13.6 |
+| Operational transparency | 52.6 |
+| Developer ergonomics | 64.3 |
+| Access clarity | 39.5 |
 
-**Pricing summary:** Free tier (100 devices, 100K Data Operations/month). Basic $299/block/month (100 devices, 720K Data Ops). Plus $599/block/month (100 devices, 5M Data Ops). Professional and Enterprise available at custom pricing.
+**Agent readiness 23.9** — agent-aware
 
-**Rate limits:** General API: 10,000 req/5 min per IP. Token creation: 100 req/5 min per IP (30-min lockout after 10 failures). Events retrieval: 100 req/5 min per IP. Device serial lookup: 50 req/hr per user. Concurrent SSE streams: 100 per IP. HTTP 429 on throttle.
-
-## Timestamps
-
-- **Created:** 2026-06-12
-- **Modified:** 2026-06-12
-
-## Common Properties
-
-| Type | URL |
+| Agent-readiness dimension | Result |
 |---|---|
-| Website | https://www.particle.io/ |
-| Documentation | https://docs.particle.io/ |
-| Developer Portal | https://www.particle.io/developer-tools/ |
-| GitHub Organization | https://github.com/particle-iot |
-| Blog | https://www.particle.io/blog/ |
-| Changelog | https://changelog.particle.io/ |
-| Status Page | https://status.particle.io/ |
-| Pricing | https://www.particle.io/pricing/ |
-| LinkedIn | https://www.linkedin.com/company/wwwparticleio |
-| X (Twitter) | https://x.com/particle |
-| Community | https://community.particle.io/ |
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
 
-## Maintainers
+**Regulatory alignment 30.4** — Horizontal (data, software, accessibility, platform)
 
-- **Kin Lane** — kin@apievangelist.com
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/particle/](https://apis.io/providers/particle/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Particle: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/particle/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
